@@ -1,0 +1,27 @@
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor temp files
+*.tmp
+*.swp
+*~
+
+# Node (if any local tooling is installed)
+node_modules/
+
+# Tool runtime planes: operational substrate, never git canon
+tools/*/runtime/
+outputs/_runtime/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Secrets: never commit these
+.env
+.env.local
+*.secret
+credentials.json
+service-account-key.json

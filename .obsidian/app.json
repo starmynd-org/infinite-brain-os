@@ -1,0 +1,27 @@
+{
+  "legacyEditor": false,
+  "livePreview": true,
+  "defaultViewMode": "preview",
+  "vimMode": false,
+  "newFileLocation": "current",
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "attachmentFolderPath": "outputs",
+  "showLineNumber": true,
+  "foldHeading": true,
+  "foldIndent": true,
+  "spellcheck": true,
+  "spellcheckLanguages": ["en"],
+  "alwaysUpdateLinks": true,
+  "promptDelete": true,
+  "trashOption": "system",
+  "tabSize": 2,
+  "readableLineLength": true,
+  "strictLineBreaks": false,
+  "showUnsupportedFiles": false,
+  "enabledPlugins": [
+    "obsidian-git",
+    "dataview",
+    "obsidian-kanban"
+  ]
+}
