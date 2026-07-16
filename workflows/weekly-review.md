@@ -224,3 +224,7 @@ created: "{date}"
   than end-of-week assessment.
 - The output file is `scratch` because it is a time-bound artifact. It is not a node
   in the long-term knowledge graph; it is a record of a point in time.
+- The weekly cadence is also where the wager ledger is reviewed at the department grain: due wager
+  verdicts are scored against exogenous metrics and calibration (stated confidence versus actual hit
+  rate) is reviewed, per `_system/wager-ledger-rules.md` and [[department-operating-guide]]. This is a
+  pointer to that review surface, not a new step in this example workflow.

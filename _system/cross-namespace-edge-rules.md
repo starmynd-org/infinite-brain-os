@@ -4,7 +4,7 @@ Operative rules for links that cross namespace boundaries: when to make them, wh
 relations are allowed, and how to avoid accidental coupling. This file owns the "what" and
 "how to check." The "why" (one ontology spanning eight profiles, retrieval over isolated
 silos) lives in the ai-architecture doctrine: [[profile-aware-knowledge-graph-design]],
-[[namespace-architecture-v2]], and [[retrieval-over-raw-memory]]. This file does not
+`namespace-architecture-v2`, and [[retrieval-over-raw-memory]]. This file does not
 restate that reasoning.
 
 ## Principle: storage by namespace is not isolation

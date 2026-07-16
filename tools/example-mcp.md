@@ -12,6 +12,8 @@ edges:
   - target: "[[agent-research-assistant]]"
     relation: "used_by"
     confidence: 0.7
+contract_status: "pointer-only"
+contract_reason: "Optional scaffold only; it documents an example adapter and does not warrant a separate tool-contract namespace."
 created: "2026-05-20"
 ---
 
@@ -21,7 +23,8 @@ created: "2026-05-20"
 > adapter. v3.1 does not require any retrieval adapter; agents read git directly via
 > Claude Code's Read, Grep, and Glob primitives. Install gbrain only if a deployment
 > outgrows direct read at very high node counts (typically several thousand nodes).
-> See `INFINITE-BRAIN-V3-SPEC.md` Section 12 for the retrieval contract.
+> See `docs/retrieval.md` for the retrieval contract; PROVENANCE.yml at the repo root
+> records the source lineage of this export.
 
 When installed, gbrain provides semantic retrieval over the Infinite Brain knowledge graph
 via the Model Context Protocol. It is an edge component, never a system of record.

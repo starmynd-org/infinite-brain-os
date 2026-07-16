@@ -48,6 +48,13 @@ job, ownership, and posture sections, and link the entry to the namespaces and t
 depend on it. Keep every entry on the same section schema so agents can scan the registry
 uniformly.
 
+## Repo kind and brain tier
+
+Every entry classifies what the repo is, independent of who owns it: `repo_kind` is
+`brain`, `app`, or `mixed`, and `brain_tier` (for brains) is `individual`, `department`,
+or `company`. The field definitions are in `_system/repo-registry-rules.md`; the reasoning
+is the topology pillar `knowledge/ai-architecture/pillars/reflexive-brain-topology.md`.
+
 ## Fictional examples
 
 Two entries a typical adopter might add:

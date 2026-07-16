@@ -3,7 +3,7 @@
 Operative rules for retiring a node without breaking the graph: the `supersedes` field,
 tombstone stubs, and the `archive` lifecycle state. This file owns the "what" and "how to
 check." The "why" (durable links and a corrosion-resistant graph) lives in the
-ai-architecture doctrine: [[namespace-architecture-v2]] and [[namespace-linting]]. This
+ai-architecture doctrine: `namespace-architecture-v2` and [[namespace-linting]]. This
 file does not restate that reasoning.
 
 ## Principle: a node is retired, never silently deleted

@@ -82,7 +82,7 @@ recommend a swarm; it may not silently launch one.
 If the session is already operating inside a sprint, update both places on purpose:
 
 - `sessions/` for the full conversation archive and closeout extraction
-- an internal build record (not shipped) for the sprint-facing artifacts, receipts, and execution updates
+- `swarms/Sprints/...` for the sprint-facing artifacts, receipts, and execution updates
 
 Cross-link the two surfaces explicitly: the session record should name the sprint path, and
 the sprint README or sprint-facing note should point back to the session record or closeout

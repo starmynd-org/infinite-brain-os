@@ -66,8 +66,11 @@ Top files after canon:
 - **Department architecture** (how to turn a business function into an AI-first department,
   where departments live, what a department must contain, and how intake-operations hands
   structural opportunities to infinite-brain-ops): load [[department-model]],
-  [[department-assembly-model]], [[ai-shadow-departments]], and
-  [[translate-business-function-into-ai-shadow-department]].
+  [[department-assembly-model]], [[ai-shadow-departments]],
+  [[translate-business-function-into-ai-shadow-department]], [[department-onboarding-guide]] (read
+  first when standing up a new department: the sequence and the alignment checklist), and
+  [[department-operating-guide]] (how a department runs day to day with the wager ledger and its slice
+  of the board).
 - **Department charter design** (how a department defines its north star, owned outcomes,
   goals, and KPIs): load [[department-model]], [[system-overview]], and
   `_system/department-charter-rules.md`.
@@ -96,6 +99,10 @@ Top files after canon:
   stays safe, and why it is not a new entity): load [[autonomous-improvement-loops]],
   [[deterministic-workflow-boundary]], [[standing-runtime-failure-posture]],
   [[planning-to-execution-ladder]].
+- **Feedback, prediction, and the wager ledger** (how the brain books its work as a scientific
+  process, the three-table ledger, the git-versus-Postgres boundary, the bookkeeping-layer-for-AI-
+  harnesses thesis, and the scientist agent): load [[wager-ledger-and-scientific-loop]],
+  [[feedback-plane-act-to-orient-loop]], and the operative contract `_system/wager-ledger-rules.md`.
 - **Operating control additions** (what the recent management-system analysis contributed
   and what to build around autonomy first): load [[core-doctrine]],
   `autonomy-readiness-requirements`, `autonomy-architecture-gap-register`,
@@ -128,6 +135,11 @@ Top files after canon:
 - **Repo-registry design** (what belongs in the client workspace, how repos map to departments,
   and how cross-repo digestion or migration should stay explicit): load [[system-overview]],
   [[department-model]], `_system/repo-registry-rules.md`, and `repo-registry/README.md`.
+- **Repo topology and brain hierarchy** (when does a department or the individual layer
+  deserve its own repo, how do the individual, department, and company brain tiers compose,
+  and how does a brain repo differ from a non-brain app repo): load
+  [[reflexive-brain-topology]], [[department-graduates-to-repo-on-trust-boundary]],
+  [[graduate-a-department-to-its-own-brain-repo]], and `_system/repo-registry-rules.md`.
 - **System versus doctrine layering** (where the operative contract lives versus where the
   reasoning lives, when to read `_system/` versus this namespace): load
   [[system-vs-doctrine-boundary]], then `_system/README.md`.
@@ -167,6 +179,10 @@ Contested or unvalidated questions are tracked in `synthesis/`, never in canon:
 - Whether a future MCP or RAG retriever is planned and how the retrieval policy should
   name it (contract assumption A-01): tracked in `x-research-lessons` alongside the
   retrieval-over-raw-memory lessons.
+- Whether the public-starter export, the client-department release, and an internal
+  department or individual graduation should collapse into one manifest-driven exporter
+  with per-consumer profiles, rather than staying three separately maintained scripts:
+  named as the target state in [[reflexive-brain-topology]], not yet built.
 - The exact implementation sequence for fleet-level autonomy governance, kill switch,
   identity, accountability, and lifecycle hardening: tracked in
   `autonomy-architecture-gap-register`, with the requirement-level statement and status in
@@ -196,6 +212,7 @@ This canon should improve:
 - the root `tools/` registry and department tool mapping
 - the root `secrets/` registry and runtime credential-binding posture
 - the root `repo-registry/` and department repo mapping
+- the `repo_kind` and `brain_tier` classification and the department-to-repo graduation trigger
 - the V2 upgrade plans and audit packets for every other namespace
 - the public `llms.txt` export generator, downstream of canon
 
@@ -270,6 +287,7 @@ knowledge/ai-architecture/
     retrieval-over-raw-memory.md
     profile-aware-knowledge-graph-design.md
     apps-decompose-into-primitives.md
+    reflexive-brain-topology.md
   concepts/
     choosing-the-right-primitive.md
     planning-to-execution-ladder.md
@@ -296,8 +314,13 @@ knowledge/ai-architecture/
     namespace-profile-set-v1.md
     required-namespace-surfaces.md
     public-llm-index-export-posture.md
+    wager-ledger-and-scientific-loop.md
   playbooks/
     translate-business-function-into-ai-shadow-department.md
+    build-out-a-department.md
+    department-operations-readiness.md
+    department-operating-guide.md
+    department-onboarding-guide.md
     swarm-launch-governance.md
     swarm-sprint-pattern-selection.md
     pm-agent-routing-heuristics.md
@@ -306,7 +329,10 @@ knowledge/ai-architecture/
     upgrade-a-namespace-to-v2.md
     review-namespace-health.md
     process-namespace-intake.md
-  synthesis/                     # ships empty; derived thinking accumulates here
+  synthesis/                     # ships with the OODA orientation set; grow yours here
+    boyd-to-agent-architecture-ooda-map.md
+    ooda-architecture-index.md
+    feedback-plane-act-to-orient-loop.md
   support/                       # ships empty; provenance only
 ```
 

@@ -12,9 +12,6 @@ edges:
   - target: "[[rule-result-and-escalation-contract]]"
     relation: "produces_for"
     confidence: 0.88
-  - target: "[[workflow-render-review-page]]"
-    relation: "feeds"
-    confidence: 0.8
 created: "2026-06-03"
 ---
 
@@ -35,7 +32,7 @@ operator.
 3. Decide done-vs-escalate by the conservative escalation policy: external, canon-touching, low-
    confidence, or high-stakes results escalate through the membrane.
 4. If the result escalates and warrants a review page, hand the packet to
-   `[[workflow-render-review-page]]`.
+   ``workflow-render-review-page``.
 5. Write the receipt (`departments/<slug>/receipts/`) for the action.
 
 ## Output

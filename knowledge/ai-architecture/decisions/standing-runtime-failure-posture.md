@@ -49,8 +49,7 @@ Key failure classes to design against:
 
 Primary sources:
 
-- an internal build record (not shipped)
-- an internal build record (not shipped)
+- internal build records (not shipped)
 
 ## Edges
 

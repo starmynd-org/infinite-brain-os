@@ -13,6 +13,9 @@ edges:
   - target: "[[skill-build-namespace]]"
     relation: "paired_with"
     confidence: 0.92
+  - target: "[[skill-harden-tool-contract]]"
+    relation: "supports"
+    confidence: 0.9
   - target: "[[skill-build-knowledge-node]]"
     relation: "paired_with"
     confidence: 0.9
@@ -80,8 +83,11 @@ And two things complete:
    back from the namespace
 7. A full source map in `references/README.md`
 8. A compact full call inventory in `operations/INDEX.md`
-9. A verification note in `support/` recording which calls were live-tested, dry-run
-   tested, or doc-derived only
+9. A coverage ledger in `support/coverage-ledger.md` per
+   `_system/tool-contract-hardening-rules.md`: one row per surface operation with status
+   `documented`, `out-of-scope`, or `blocked`, plus the source set and sweep date
+10. A `verification` frontmatter field on every operation node, one of `doc-derived`,
+   `dry-run-tested`, `live-tested`, or `known-broken`; new nodes default to `doc-derived`
 
 ## Build steps
 
@@ -98,12 +104,22 @@ And two things complete:
 6. Add the high-value operation nodes and matching examples first; supporting operations may be
    mapped in the inventory before they get full nodes.
 7. Add references for volatile upstream details and a source map of the full docs surface.
-8. Test every listed high-value operation when feasible. Record the result as:
-   `live-tested`, `dry-run-tested`, `doc-derived`, or `known-broken`.
+8. Leave testing to the hardening phase: every operation node ships at
+   `verification: doc-derived`, and [[skill-harden-tool-contract]] upgrades posture with
+   evidence per `_system/tool-contract-hardening-rules.md`. Only mark a higher posture
+   here when the operation was genuinely exercised during the build, with the evidence
+   recorded in `support/`.
 9. Add playbooks for recurring multi-step
    procedures.
 10. Add or update the root tool registry entry in `tools/` so discoverability and deep
    contract stay linked.
+
+## Sprint shape
+
+For a large surface, a from-zero namespace, or a multi-tool batch, run this skill as a
+swarm sprint using the sprint-package shape in `_system/swarm-sprint-rules.md`;
+the procedure doctrine is
+`knowledge/ai-architecture/playbooks/document-a-tool-contract.md`.
 
 ## Quality checks
 

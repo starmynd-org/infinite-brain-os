@@ -205,7 +205,11 @@ The types are not a flat list. They form layers that hand off to each other:
   workflows, and future namespace consumers do not invent parallel secret maps or inline
   provider-specific details everywhere.
 - The root `repo-registry/` makes cross-repo dependencies explicit so departments and planners
-  do not have to guess which repo owns what function or where a digestion target lives.
+  do not have to guess which repo owns what function, whether it is a brain or an app repo, or
+  where a digestion target lives. A repo's `repo_kind` (brain, app, or mixed) and, for brains,
+  its `brain_tier` (individual, department, or company) are independent of who owns it and of
+  its operating status; see [[reflexive-brain-topology]] for how the tiers compose across the
+  repo root.
 
 The default data posture for a starter repo is therefore not "build a full warehouse before
 the repo is useful." It is "define the numbers once, declare whether they are live, manual,

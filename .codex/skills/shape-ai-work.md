@@ -24,6 +24,11 @@ Use this skill before creating new entities when the problem is still messy.
 
 Find the smallest valid entity set that can represent the work correctly.
 
+Before the ladder, apply the lane gate: an item with a known deterministic handler (spam, newsletter,
+receipt, duplicate, known-sender-known-action) takes the data-handling lane and is logged and routed by
+rule, never scored; only the judgment-lane residue is shaped into entities and enters the wager-ledger
+lifecycle. See `_system/wager-ledger-rules.md` (WAGER-12) and [[department-operating-guide]].
+
 ## Decision ladder
 
 1. Is this an inbound item or durable understanding? (the intake-versus-canon gate)

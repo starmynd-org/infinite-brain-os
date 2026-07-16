@@ -4,7 +4,7 @@ Operative rules for changing the graph without breaking it: link preservation, a
 rename, edge preservation, additive path change, entity-upgrade sequencing, and validator
 evolution. This file is the operative home for contract Part 12 (guardrail G8). It owns the
 "what" and "how to check." The "why" (a graph that agents already read must stay readable
-through an upgrade) lives in the ai-architecture doctrine: [[namespace-architecture-v2]] and
+through an upgrade) lives in the ai-architecture doctrine: `namespace-architecture-v2` and
 [[namespace-linting]]. The migration procedure for a single namespace is the playbook
 [[upgrade-a-namespace-to-v2]]. This file does not restate that reasoning.
 

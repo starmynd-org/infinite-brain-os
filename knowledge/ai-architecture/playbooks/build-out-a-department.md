@@ -223,6 +223,11 @@ runtime is live in Paperclip, and the department owns its forward projects.
 
 ## Notes
 
+Once a department is built, certify its operating layer with the operating-readiness gate
+`[[department-operations-readiness]]`: a complete cadence register including the universal startup and
+closeout lifecycle rows, the department-web folders, and a declared intake inbox spec. That gate is one
+layer in from this playbook's acceptance gate, which proves the department was built correctly.
+
 Pair Phase 1 with a mining workflow that fans out across the relevant repos. The mining is the only
 phase that needs orchestration; the rest is design and assembly. The intake-to-process-type and
 priority-and-surfacing detail live in `knowledge/ai-architecture/synthesis/operator-priority-and-surfacing-model.md`

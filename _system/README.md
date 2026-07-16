@@ -56,11 +56,22 @@ vendor, partner, and influencer records live. `parties/` owns relationship ident
 many parts of the OS need to refer to the same external actor without creating a namespace solely
 for classification.
 
+### The asset layer: `assets/`
+
+A root registry for large and binary file references: images, brand style assets, design
+files, and video. `assets/` owns the reference and its backend pointer, never the bytes. It
+applies the same reference-not-value discipline as `secrets/`: git stores a small `asset_ref`
+pointer per file, one file per asset, and an external object store chosen per scope holds the
+real object. Use `assets/` when a surface or department needs to store or point at a large
+file without committing it to git. See `_system/asset-registry-rules.md` and
+`knowledge/ai-architecture/decisions/asset-reference-model.md`.
+
 ### The schema and rule files
 
 Operative contracts, one concern per file. The schema files define the shape of a thing
 (`canon-layer-schema.md`, `namespace-index-schema.md`, `namespace-profiles.md`,
-`metric-primitive-schema.md`, `stable-id-and-alias-rules.md`, `secret-reference-schema.md`).
+`metric-primitive-schema.md`, `stable-id-and-alias-rules.md`, `secret-reference-schema.md`,
+`asset-reference-schema.md`).
 The rule files define a
 procedure or policy a maintainer must follow (`namespace-intake-rules.md`,
 `promotion-path-rules.md`, `freshness-review-rules.md`, `contradiction-review-rules.md`,
@@ -70,7 +81,8 @@ procedure or policy a maintainer must follow (`namespace-intake-rules.md`,
 `retrieval-load-order-policy.md`, `retrieval-eval-rules.md`, `public-llm-index-policy.md`,
 `canon-changelog-rules.md`, `department-assembly-rules.md`,
 `department-runtime-contract.md`, `session-ledger-rules.md`, `tool-registry-rules.md`,
-`repo-registry-rules.md`, `secret-registry-rules.md`). Each names the
+`repo-registry-rules.md`, `secret-registry-rules.md`, `asset-registry-rules.md`,
+`wager-ledger-rules.md`). Each names the
 `ai-architecture` doctrine node that explains why it exists.
 
 ### The validator: `_system/validate.sh`
@@ -117,6 +129,9 @@ doctrine, so the validator and the rules never drift.
 - Building or revising the shared secret posture: read `secret-registry-rules.md`, keep durable
   references in the root `secrets/` registry, and keep raw values in the external secret backend
   and runtime layer.
+- Building or revising the shared asset posture: read `asset-registry-rules.md`, keep durable
+  references in the root `assets/` registry, and keep the actual image, video, or design-file
+  bytes in the routed external backend, never in git.
 - Upgrading a queued namespace to V2: read its audit packet, follow
   `migration-compatibility-rules.md` (additive moves, preserve edges and aliases), author
   canon per `canon-layer-schema.md`, flip `v2_status` to `upgraded`, run the validator.
@@ -126,6 +141,10 @@ doctrine, so the validator and the rules never drift.
 - Processing intake: `namespace-intake-rules.md` plus the schemas under `intake/schemas/`.
 - Checking structural health: run the validator, then the `namespace-lint-review` workflow to
   triage its output.
+- Operating a department with the wager ledger: read `wager-ledger-rules.md` (the two intake lanes, the
+  observation-to-disposition-to-wager-to-verdict lifecycle, department ownership via
+  `owning_department_id`) and the doctrine guide
+  `knowledge/ai-architecture/playbooks/department-operating-guide.md`.
 
 ## What this folder is not
 
@@ -133,7 +152,9 @@ doctrine, so the validator and the rules never drift.
   doctrine here; link to it.
 - Not live runtime state. No live queues, no in-flight approvals, no secrets. Those stay in
   the operational substrate per [[surface-boundary]]. Secret references and policy metadata may
-  live in the root `secrets/` registry, but raw values never enter `_system/` or git canon. The
+  live in the root `secrets/` registry, but raw values never enter `_system/` or git canon. Asset
+  references and policy metadata may live in the root `assets/` registry, but image, video, and
+  design-file bytes never enter git. The
   durable `sessions/` ledger is
   allowed in git because it is a settled audit trail, not a mutable queue.
 - Not a knowledge namespace. `_system/` files are exempt from node-frontmatter checks (they

@@ -15,7 +15,8 @@ native primitives: Read, Grep, and Glob. The local clone of this repo plus any
 sibling canon or department repos the user has cloned is the entire retrieval
 surface.
 
-See INFINITE-BRAIN-V3-SPEC.md Section 12 for the full design rationale.
+The full design rationale derives from the upstream deployment's v3 architecture spec;
+PROVENANCE.yml at the repo root records the exact source commit this export derives from.
 
 ---
 

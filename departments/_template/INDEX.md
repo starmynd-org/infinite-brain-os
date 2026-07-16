@@ -54,6 +54,30 @@ List the namespaces the department reasons from.
 List the key skills, workflows, deterministic automations, tools, and projects the department
 uses.
 
+## SOP Library
+
+List the templated, repeatable procedures the department can execute on demand, distinct from
+one-off workflows. Each lives at `departments/<slug>/sops/`, one file per procedure. State the
+gap if the library is empty.
+
+## Maintained Builds
+
+List and link the assets this department keeps current to run its function: the deterministic
+automations, skills, agents, agent workflows, and loops. The assets live in their canonical
+entity homes; this section is the registry that makes the maintained surface legible. See
+`knowledge/ai-architecture/canon/department-web.md` for the capture-to-build model.
+
+## Capture Inbox
+
+Point to `departments/<slug>/capture/`, where captured candidates land before conversion.
+Ambient capture across sessions follows `entities/rules/department-web-capture.md`.
+
+Declare what the inbox accepts in `departments/<slug>/capture/INBOX.md` (the intake inbox spec): the
+accepted classes, the fields each needs, the conversion destination, the operations-register trigger it
+fires, and the review posture. The spec is the department-side half of intake and must agree with this
+department's row in `intake/routing/department-routing-map.md`. See
+`knowledge/ai-architecture/playbooks/department-operations-readiness.md`.
+
 ## Human Layer
 
 State what remains human-only, what requires review, and what is fully AI-routed.

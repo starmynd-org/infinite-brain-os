@@ -419,6 +419,15 @@ severity-ranked gap register beneath them. When a requirement is built, verified
 operator-approved, the operating discipline it produces enters canon through the normal
 promotion path.
 
+Read as Boyd's OODA web, the analytical plane is the Act-to-Orient feedback arrow that turns the
+loop from a pipeline into a web; its absence is tracked in [[feedback-plane-act-to-orient-loop]]. The
+decided implementation of that arrow is the wager ledger, an operator-ratified decision
+([[wager-ledger-and-scientific-loop]], operative contract `_system/wager-ledger-rules.md`): every
+consequential action carries a pre-registered, business-grounded, falsifiable prediction scored later
+against an exogenous metric, with department-owned attribution and calibration. It is decided, not yet
+built, so it lives as a decision and a project ([[department-operating-guide]] is the operating
+guide), consistent with this section.
+
 ## 15. What the recent analysis does not add
 
 Most of the recent management-system corpus should not be imported into `ai-architecture`
@@ -448,8 +457,12 @@ These do not justify architecture-level adoption:
   `autonomy-readiness-requirements`
 - generic agile ceremony as the governing model of the brain; agile remains a delivery
   method, not the architecture's control model
-- Boyd as the main organizing architecture frame; Boyd remains a complement on
-  orientation and adaptation, not the control model of record
+- Boyd as the main organizing architecture frame is still rejected; Boyd remains a complement on
+  orientation and adaptation, not the control model of record. The one complement worth holding
+  explicitly: read as OODA, the architecture's strength is that Orient is externalized (the
+  knowledge graph, canon, retrieval, fat skills) and its weakest arrow is Act-to-Orient feedback.
+  The mapping and that gap are owned by `knowledge/ai-architecture/synthesis/boyd-to-agent-architecture-ooda-map.md` and
+  [[feedback-plane-act-to-orient-loop]], not by canon
 
 The rule is simple: import the missing governor, not the source framework's whole
 language.
@@ -513,3 +526,7 @@ node to open next.
   is re-verified when this node changes and this node wins on conflict. Operator-approved
   (the-operator) in the 2026-06-10 working session that commissioned the harness-hardening
   program.
+- 2026-06-19: added the OODA orientation lens to section 15.2, and to section 14 the Act-to-Orient
+  feedback-arrow framing plus the wager-ledger decision pointer (the decided, not-yet-built design for
+  that arrow). Operator-approved (the-operator) in the 2026-06-19 canonization session. The wager
+  ledger stays a decision and a project, not running canon, consistent with section 14.

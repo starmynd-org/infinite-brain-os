@@ -39,6 +39,10 @@ GENERATED_MD_WALK_PRUNES=(
   "*/outputs/crm-corpus/generated/*"
   "*/outputs/crm-corpus/assets"
   "*/outputs/crm-corpus/assets/*"
+  "*/outputs/_runtime"
+  "*/outputs/_runtime/*"
+  "*/tools/starter-export/overlay"
+  "*/tools/starter-export/overlay/*"
   "*/node_modules"
   "*/node_modules/*"
 )
@@ -873,6 +877,10 @@ def is_plumbing(rel):
         return True
     if rel.startswith("outputs/crm-corpus/assets/"):
         return True
+    if rel.startswith("outputs/_runtime/"):
+        return True
+    if rel.startswith("tools/starter-export/overlay/"):
+        return True
     return any(pattern in rel for pattern in plumbing_patterns)
 
 def walk_repo_markdown():
@@ -970,7 +978,7 @@ for path, rel in walk_repo_markdown():
                 "rel": rel,
                 "base": base_name,
                 "id": node_id,
-                "has_outbound": fm_has_key(fm_lines, "edges:") and "target: [[" in fm_text,
+                "has_outbound": fm_has_key(fm_lines, "edges:") and ("target: [[" in fm_text or 'target: "[[' in fm_text),
             }
         )
 
@@ -1085,7 +1093,7 @@ else
         node_id="$(trim_wrapping_quotes "$node_id")"
         KNOWLEDGE_NODE_FILES+=("$file")
         KNOWLEDGE_NODE_IDS["$file"]="$node_id"
-        if frontmatter_has_key "$frontmatter" "edges:" && [[ "$frontmatter" == *"target: [["* ]]; then
+        if frontmatter_has_key "$frontmatter" "edges:" && { [[ "$frontmatter" == *"target: [["* ]] || [[ "$frontmatter" == *'target: "[['* ]]; }; then
           KNOWLEDGE_HAS_OUTBOUND["$file"]=1
         else
           KNOWLEDGE_HAS_OUTBOUND["$file"]=0
@@ -1350,7 +1358,7 @@ fi
 # recorded in _system/enforcement-tiers.md.
 # ---------------------------------------------------------------------------
 echo "Running warn-only shared checks (_system/checks/)..."
-for warn_check in adapter-sync-check.sh session-ledger-status.sh; do
+for warn_check in adapter-sync-check.sh session-ledger-status.sh operations-register-reconcile-check.sh; do
   if [[ -f "$REPO_ROOT/_system/checks/$warn_check" ]]; then
     while IFS= read -r warn_line; do
       [[ -n "$warn_line" ]] || continue
@@ -1358,6 +1366,33 @@ for warn_check in adapter-sync-check.sh session-ledger-status.sh; do
     done < <(bash "$REPO_ROOT/_system/checks/$warn_check" 2>&1 || true)
   fi
 done
+
+# ---------------------------------------------------------------------------
+# Enforced shared check: the tool three-layer standard (tool knowledge-graph
+# completion program close, 2026-06-17). Promoted from warn-only to blocking once
+# the backfill closed every gap. A non-zero exit (any root pointer lacking both a
+# linked *-tool-contract namespace and a pointer-only classification, or any
+# namespace lacking a pointer) is a validation error. See
+# entities/rules/tool-three-layer-standard.md and
+# _system/enforcement-tiers.md.
+# ---------------------------------------------------------------------------
+echo "Running enforced tool three-layer standard check (_system/checks/)..."
+TOOL_THREE_LAYER_CHECK="$REPO_ROOT/_system/checks/tool-three-layer-standard-check.sh"
+if [[ -f "$TOOL_THREE_LAYER_CHECK" ]]; then
+  if tool_three_layer_output="$(bash "$TOOL_THREE_LAYER_CHECK" 2>&1)"; then
+    tool_three_layer_status=0
+  else
+    tool_three_layer_status=$?
+  fi
+  while IFS= read -r enforced_line; do
+    [[ -n "$enforced_line" ]] || continue
+    echo "  ENFORCED [tool-three-layer-standard-check.sh]: $enforced_line"
+  done <<< "$tool_three_layer_output"
+  if [[ $tool_three_layer_status -ne 0 ]]; then
+    ERRORS+=("TOOL THREE-LAYER STANDARD: the enforced tool-three-layer standard check failed (see ENFORCED output above). Every root pointer must link an existing *-tool-contract namespace or declare contract_status: pointer-only with a reason, and every *-tool-contract namespace must have a root pointer.")
+    FAIL=1
+  fi
+fi
 
 echo
 echo "Checked $CHECKED node files."

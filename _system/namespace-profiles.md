@@ -136,7 +136,11 @@ the profile-additive folders, the canon file of record, the lint emphasis, and m
 - Lint emphasis: asset examples are present; each component usage maps to a token node.
 - Maturity: Provisional. Validate on first real design-system namespace. Ships as a
   reference scaffold in `knowledge/_examples/`. The deferred Image / Multimodal candidate
-  is handled inside this profile for now.
+  is still handled inside this profile rather than as its own profile. The image storage and
+  reference half of that gap is now resolved: see `_system/asset-reference-schema.md`,
+  `_system/asset-registry-rules.md`, and
+  `knowledge/ai-architecture/decisions/asset-reference-model.md`. Only a dedicated
+  content-embedding or image-retrieval profile remains open future work.
 
 ### component-library
 

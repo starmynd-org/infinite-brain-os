@@ -10,6 +10,7 @@ retrieval_class: "identity"
 export_class: "public"
 tool_type: "api"
 tool_status: "active"
+contract_status: "pointer-only"
 secret_refs: ["secret://shop-platform-api-key"]
 edges:
   - target: "[[data-orders-ledger]]"
@@ -52,6 +53,8 @@ This tool is read-only. Nothing in the brain writes orders back to the shop plat
 ## Boundary
 
 The tool answers "what sold, when, in what quantity." It does not own pricing
-decisions, inventory truth, or customer data beyond the order line. If a deeper call
-contract ever becomes necessary, it gets its own namespace under `knowledge/`; this
+decisions, inventory truth, or customer data beyond the order line. It is classified
+`contract_status: pointer-only` because one read-only endpoint with five query
+parameters needs no deeper trust surface. If a deeper call contract ever becomes
+necessary, it gets its own `knowledge/order-ledger-tool-contract/` namespace; this
 root entry stays shallow.

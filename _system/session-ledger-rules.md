@@ -149,7 +149,7 @@ Rule SESSION-8A: when a tracked chat is actively operating inside a swarm sprint
 updates two surfaces on purpose:
 
 1. `sessions/` for the conversation archive, transcript trail, and closeout extraction
-2. an internal build record (not shipped) for the sprint-facing execution artifacts, receipts, and bounded
+2. `swarms/Sprints/...` for the sprint-facing execution artifacts, receipts, and bounded
    state the sprint itself needs
 
 This is an intentional dual-write boundary, not an integration defect. `sessions/` is the

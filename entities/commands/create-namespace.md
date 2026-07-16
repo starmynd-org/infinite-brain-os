@@ -13,7 +13,7 @@ applicable_when: "Use when an operator wants to introduce a new namespace for an
 confidence: 0.9
 verified_at: 2026-05-20
 verified_by: ai-architect
-staleness_signal: "Review if Section 7.6 of INFINITE-BRAIN-V3-SPEC.md changes (namespace file schema or directory structure)."
+staleness_signal: "Review if the namespace file schema or directory structure in _system/namespace-index-schema.md or _system/namespaces/ changes."
 lifecycle_state: canon
 owner_type: company
 visibility: workspace
@@ -129,7 +129,8 @@ Created by /create-namespace on {today}.
 
 ## Evidence
 
-Derived from Section 7.6 of `INFINITE-BRAIN-V3-SPEC.md` (revision 5, PKM-10). The personal-repo scratch lifecycle for ad-hoc namespaces is the entry point for namespace creation; canon promotion is a separate pull request flow.
+Derived from the upstream v3 spec's namespace-schema section (PROVENANCE.yml records the
+source lineage). The personal-repo scratch lifecycle for ad-hoc namespaces is the entry point for namespace creation; canon promotion is a separate pull request flow.
 
 ## Edges
 

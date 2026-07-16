@@ -19,7 +19,7 @@ applicable_when: "Run on demand, or on a personal weekly review cadence."
 confidence: 0.85
 verified_at: 2026-05-20
 verified_by: ai-architect
-staleness_signal: "Review if Section 7.6 of INFINITE-BRAIN-V3-SPEC.md changes, or if PKM-07 extends this agent with personal-orphan and wikilink-check responsibilities."
+staleness_signal: "Review if the namespace schema in _system/ changes, or if a later build extends this agent with personal-orphan and wikilink-check responsibilities."
 lifecycle_state: canon
 owner_type: user
 visibility: private
@@ -159,7 +159,8 @@ A single report at `outputs/curator-report-{date}.md` in this personal repo, wit
 
 ## Evidence
 
-Namespace responsibilities from Section 7.6 of `INFINITE-BRAIN-V3-SPEC.md` (revision 5, PKM-10).
+Namespace responsibilities from the upstream v3 spec's namespace-schema section
+(PROVENANCE.yml records the source lineage).
 
 ## Edges
 

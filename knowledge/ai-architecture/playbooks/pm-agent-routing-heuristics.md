@@ -65,9 +65,7 @@ Routing output should always include:
 
 Primary sources:
 
-- an internal build record (not shipped)
-- an internal build record (not shipped)
-- an internal build record (not shipped)
+- internal build records (not shipped)
 
 ## Edges
 
@@ -79,3 +77,8 @@ Primary sources:
 
 This playbook captures the reusable signal set, not the full implementation details of
 one trial runner.
+
+A consequential routing choice is a bet on how best to execute the work, and in the wager-ledger
+lifecycle that commitment carries a pre-registered wager scored later against an exogenous metric. The
+PM-agent stays advisory and human-gated; the wager records the prediction it implies. See
+`_system/wager-ledger-rules.md` and [[department-operating-guide]].

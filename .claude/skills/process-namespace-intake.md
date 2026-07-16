@@ -45,6 +45,10 @@ three-layer boundary sits lives in the playbook
 intake may write into git lives in [[namespace-intake-rules]]. Run the technique, obey
 the rules, reason from the playbook.
 
+This skill is the judgment lane. Inbound items first pass a deterministic classifier; only the residue
+is scored and processed here, and a consequential disposition carries a wager. See
+`_system/wager-ledger-rules.md` (the two lanes, WAGER-12) and [[feedback-plane-act-to-orient-loop]].
+
 ## Use when
 
 - an item sits in `intake/sources/<family>/` with a routing decision still open
@@ -62,7 +66,7 @@ the rules, reason from the playbook.
   first, then process the item into it)
 - you are doing bulk freshness or contradiction sweeps rather than processing one item
 - the change is large derived synthesis across namespaces (use
-  [[skill-cross-synthesize-corpus]])
+  `skill-cross-synthesize-corpus`)
 
 ## Goal
 

@@ -18,9 +18,6 @@ edges:
   - target: "[[skill-detect-contradictions]]"
     relation: "uses"
     confidence: 0.85
-  - target: "[[skill-cross-synthesize-corpus]]"
-    relation: "uses"
-    confidence: 0.85
   - target: "[[contradiction-review-rules]]"
     relation: "governed_by"
     confidence: 0.9
@@ -86,7 +83,7 @@ resolution if one exists.
 
 ### Step 3: Detect coverage gaps
 
-Apply [[skill-cross-synthesize-corpus]] to compare what the namespace's `INDEX.md` Query
+Apply `skill-cross-synthesize-corpus` to compare what the namespace's `INDEX.md` Query
 classes claim it answers against what nodes actually exist. A gap is a query class the
 namespace promises to answer but has no node for, or a topic that downstream outputs
 repeatedly need and the corpus does not cover. Record each gap with the missing topic and the

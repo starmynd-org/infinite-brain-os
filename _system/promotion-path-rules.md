@@ -58,7 +58,7 @@ Requires:
 - `lifecycle_state: research` or higher (a synthesis node is not `scratch` once it asserts).
 
 Synthesis artifact types: contradiction map, best-current-reading, what-changed review,
-canon-candidate. See [[namespace-architecture-v2]] for the type definitions.
+canon-candidate. See `namespace-architecture-v2` for the type definitions.
 
 ## Transition 3: synthesis to canon-candidate
 

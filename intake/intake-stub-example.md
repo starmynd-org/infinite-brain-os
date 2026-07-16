@@ -1,24 +1,32 @@
 ---
 id: "intake-slack-2026-05-20-attribution-article"
 aliases: ["intake-slack-2026-05-20-attribution-article", "intake-stub-example"]
-type: "intake-stub"
+type: "intake-record"
 namespace: "personal-operator"
 source: "slack"
-channel: "#analytics-team"
+creator: "a colleague in #analytics-team"
+original_ref: "slack:C0ANALYTICS/p1747739700000100 (example message id)"
 received_at: "2026-05-20T11:15:00Z"
-classifier_confidence: 0.44
-routed_to: null
+raw_capture: "inline (short captures may quote the raw content in the body instead of pointing to a file)"
+summary: "Paper claiming last-click attribution overestimates search and underestimates display by 2-3x in most DTC contexts."
+why_it_matters: "If the claim holds it contradicts the current attribution assumptions before the next Acme model review; cheap to read, possibly load-bearing."
 lifecycle_state: "scratch"
-summary: "Example intake stub for low-confidence routing that requires manual review."
-confidence: 0.44
+confidence: 0.9
 retrieval_class: "ephemeral"
 export_class: "internal"
+created: "2026-05-20"
 ---
 
 # Intake: Article on Multi-Touch Attribution Accuracy
 
-**From:** colleague shared in `#analytics-team`
-**Received:** 2026-05-20 at 11:15 UTC
+A worked manual (Tier 1) capture: one Slack message, recorded to the intake-record schema
+at `schemas/intake-record.md`. Use it as the copy-from shape for hand-captured items.
+
+## Source
+
+- **From:** a colleague, shared in `#analytics-team`
+- **Received:** 2026-05-20 at 11:15 UTC
+- **Original:** the Slack message id in `original_ref` above
 
 ## Raw content
 
@@ -28,34 +36,24 @@ export_class: "internal"
 >
 > Link: https://example.com/attribution-study-2026 (placeholder for this example)
 
-## Triage agent notes
+## Extracted summary
 
-Classifier confidence: 0.44 (below the 0.6 routing threshold)
+The linked paper argues last-click attribution systematically misallocates credit between
+search and display in DTC contexts. Relevant to any attribution methodology this
+deployment maintains.
 
-The classifier identified this as either:
-- A knowledge candidate for `knowledge/personal-operator/concepts/` (attribution methodology)
-- A task to read and potentially act on before the next Acme model review
+## What happens next (the worked triage)
 
-Could not determine which without knowing whether this paper directly contradicts
-any existing methodology or just provides background context. Routing to human review.
+This record is the capture receipt only. Routing and processing are separate records, and
+the record itself never carries live queue status:
 
----
-
-**To triage this stub:**
-
-1. Read the linked article.
-2. Decide: is this background reading (knowledge candidate, create a concept node)
-   or an action item (task, add to the attribution model project)?
-3. Update `routed_to` in the frontmatter above.
-4. Ask Claude Code to draft the appropriate node or task entry.
-5. Delete this stub once routed.
-
-*Example route if it is a knowledge candidate:*
-```yaml
-routed_to: "knowledge/personal-operator/concepts/multi-touch-attribution-accuracy.md"
-```
-
-*Example route if it is a task:*
-```yaml
-routed_to: "projects/example-project/TASKS.md"
-```
+1. Read the linked article far enough to classify it.
+2. Write a routing decision to the shape in `schemas/routing-decision.md`. This item is a
+   genuinely ambiguous capture, the kind that lands below a routing threshold and goes to
+   human review: it is either a knowledge candidate (an attribution-methodology concept
+   node under `knowledge/personal-operator/concepts/`) or a task (read before the next
+   model review, tracked the way `projects/_example/PLAN.md` tracks tasks).
+3. Do the work, then write a processed receipt to the shape in
+   `schemas/processed-receipt.md`, linking back to this record.
+4. This record stays in git after routing so the capture trail is auditable; replace this
+   example only once you have real captures of your own.

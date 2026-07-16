@@ -16,9 +16,6 @@ tools:
   - "Glob"
   - "Write"
 edges:
-  - target: "[[cross-synthesize-corpus]]"
-    relation: "uses"
-    confidence: 0.92
   - target: "[[detect-contradictions]]"
     relation: "uses"
     confidence: 0.92
@@ -96,7 +93,7 @@ positions until the operator decides.
 
 ### Step 4: Write the synthesis
 
-Apply `[[cross-synthesize-corpus]]` to produce the derived reading. Pick the artifact type
+Apply ``cross-synthesize-corpus`` to produce the derived reading. Pick the artifact type
 that fits: best-current-reading for the operator's current synthesized answer on a contested
 topic, what-changed for a dated review of movement since the last synthesis, contradiction
 map for the disagreements from Step 3. Each substantive synthesis node carries full node

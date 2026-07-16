@@ -23,6 +23,9 @@ edges:
   - target: "[[workflows]]"
     relation: "related_to"
     confidence: 0.82
+  - target: "[[decision-ai-architecture-task-sprint-execution-model]]"
+    relation: "refined_by"
+    confidence: 0.85
 created: "2026-05-31"
 ---
 
@@ -69,7 +72,10 @@ durable understanding into a namespace `synthesis/` folder plus deliverables as
 [[output-nodes]]. Human execution is represented through owner, approval posture,
 `blocked_by`, `waiting_on`, and `execution_mode`, not a separate human-task primitive.
 Tasks should be addressable as `<project-slug>#<task-id>` so a swarm sprint can point back to
-exactly one canonical parent task.
+exactly one canonical parent task. A `mode: swarm` task also carries `execution_sprint` pointing forward
+at its executor (a run file or a sprint directory), making the link bidirectional and singular: one task,
+one active executor. When projected to the runtime, the task is a Paperclip issue and its executor's waves
+or steps are sub-issues, per [[decision-ai-architecture-task-sprint-execution-model]].
 
 External-party linkage lets the same project roll up cleanly across department, namespace, and
 commercial scope. Use plural `party_slugs` for broad relationship attachment and the singular

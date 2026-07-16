@@ -144,7 +144,7 @@ A substantive knowledge node with no outbound `edges` and no inbound reference f
 other node is an orphan. The candidate set excludes `archive/`, `support/`, and
 `INDEX.md` (those are provenance and routing, not graph nodes). A node counts as
 referenced if any wikilink anywhere resolves to its filename or its `id`. Doctrine:
-[[curation-against-rot]] (see [[namespace-linting]]).
+`curation-against-rot` (see [[namespace-linting]]).
 
 ## Exemption list changes (node frontmatter)
 

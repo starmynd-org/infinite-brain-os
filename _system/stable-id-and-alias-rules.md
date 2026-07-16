@@ -3,7 +3,7 @@
 Operative rules for node and entity identifiers in the Infinite Brain. This file owns the
 "what" and "how to check." The "why" (identifiers as durable graph anchors that survive
 moves) lives in the ai-architecture doctrine, primarily [[profile-aware-knowledge-graph-design]]
-and the migration doctrine in [[namespace-architecture-v2]]. This file does not restate
+and the migration doctrine in `namespace-architecture-v2`. This file does not restate
 that reasoning.
 
 ## Rule 1: every node and entity has an id

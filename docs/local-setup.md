@@ -22,7 +22,6 @@ This repo is ready to use on its own as a personal Infinite Brain sandbox.
 - Example commands, agents, skills, workflows, and project structure
 - Local validator at `bash _system/validate.sh`
 - Intake flow under `intake/`
-- Bundled n8n proof pack under `n8n-live-proof/`
 
 ## What is not present yet
 
@@ -37,7 +36,7 @@ That is expected. This repo is still useful without them.
 
 1. Open `START-HERE.md`.
 2. Open the folder as an Obsidian vault if you want the graph and dashboard flow.
-3. Read `projects/example-project/PLAN.md` to see the task pattern.
+3. Read `projects/_example/PLAN.md` to see the task pattern.
 4. Replace example content over time instead of trying to redesign the repo first.
 5. Run `bash _system/validate.sh` after adding or changing real nodes.
 

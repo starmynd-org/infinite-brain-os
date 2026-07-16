@@ -42,6 +42,11 @@ closed out with a processed receipt. This workflow is the operating loop that ke
 intake fabric from accumulating residue. It implements the per-item half of the intake
 contract; [[new-source-ingest]] captures the item, this workflow processes it.
 
+In wager-ledger terms, Step 2's classify and Step 3's route are the lane fork: an item with a known
+deterministic handler takes the data-handling lane and is logged as a thin `intake_event`, while the
+judgment-lane residue becomes a scored `observation` that enters the lifecycle. See
+`_system/wager-ledger-rules.md` (WAGER-12) and [[department-operating-guide]].
+
 ## When to run
 
 - On change: any time new items land in `intake/sources/<family>/` and have no matching

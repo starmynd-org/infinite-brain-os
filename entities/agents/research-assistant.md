@@ -17,9 +17,6 @@ tools:
   - "WebSearch"
   - "Write"
 edges:
-  - target: "[[cmd-daily-brief]]"
-    relation: "invoked_by"
-    confidence: 0.9
   - target: "[[skill-summarize-source]]"
     relation: "uses"
     confidence: 0.9
@@ -29,9 +26,6 @@ edges:
   - target: "[[intake-fabric-namespace]]"
     relation: "references"
     confidence: 0.85
-  - target: "[[cross-synthesize-corpus]]"
-    relation: "uses"
-    confidence: 0.8
 created: "2026-05-20"
 ---
 
@@ -46,7 +40,7 @@ produce a summary that can become a new `knowledge/` or `memory/` node.
 - You want to understand what the team already knows about a topic before starting work.
 - You are writing a new knowledge node and want to link it to existing ones.
 - You want a quick digest on a topic you have not studied recently.
-- A command like `[[cmd-daily-brief]]` needs a knowledge digest.
+- A command like ``cmd-daily-brief`` needs a knowledge digest.
 
 ## Behavior
 
@@ -110,7 +104,7 @@ namespace's `canon/` directly. Route by what the finding is:
 - **Derived reading** goes to `synthesis/`. When the research reconciles multiple sources,
   resolves a contested question, or produces a current best reading, write it as a synthesis
   artifact: within one namespace use `knowledge/<namespace>/synthesis/`; when it bridges two
-  or more namespaces use the repo-root `synthesis/` and apply `[[cross-synthesize-corpus]]`.
+  or more namespaces use the repo-root `synthesis/` and apply ``cross-synthesize-corpus``.
   Synthesis is interpretive and current; it is the step before a canon-candidate.
 - **Never canon.** Do not propose writing research straight into `canon/`. Canon is the
   compressed, operator-approved first-principles layer. The path is intake or archive to

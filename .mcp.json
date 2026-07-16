@@ -1,7 +1,7 @@
 {
   "mcpServers": {},
   "_optional_examples": {
-    "$note": "These are example MCP server configs. v3.1 does not require any retrieval adapter; agents read git directly via Read, Grep, and Glob. To enable an optional retrieval adapter, move the corresponding block from _optional_examples into mcpServers. See INFINITE-BRAIN-V3-SPEC.md Section 12.",
+    "$note": "These are example MCP server configs. v3.1 does not require any retrieval adapter; agents read git directly via Read, Grep, and Glob. To enable an optional retrieval adapter, move the corresponding block from _optional_examples into mcpServers. See docs/retrieval.md for the retrieval contract.",
     "gbrain": {
       "command": "npx",
       "args": ["@gbrain/mcp-server"],

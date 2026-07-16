@@ -117,7 +117,41 @@ As the OS expands, many departments will depend on repos outside
 from the department index. That keeps repo ownership, digestion posture, and migration inputs
 visible instead of buried in chat history.
 
+A department stays a folder inside the company brain by default and graduates to its own
+repo only when a real access or trust boundary requires it, not on a schedule or for
+symmetry with other departments. See [[department-graduates-to-repo-on-trust-boundary]] for
+the trigger and [[reflexive-brain-topology]] for how the individual, department, and company
+brain tiers compose across the repo root.
+
+## 10. The department is a living web, not a static assembly
+
+This doc describes what a department is made of. A department also has motion: it captures raw
+knowledge, converts it to either structured knowledge or built capability (SOPs, deterministic
+automations, agent architecture), operates that capability, and feeds what it learns back into
+capture. The assembly is the snapshot; the web is the loop that builds and maintains it. Because
+the web shape is named, any agent in any session watches conversation for capture candidates and
+documents them. See `[[department-web]]` for the full model and
+`[[rule-department-web-capture]]` for the ambient-capture contract.
+
+## 11. The department owns its slice of the operating ledger
+
+A department is the owner and accountability unit for its slice of the brain's operating loop. Read as
+OODA, the department is an Orient context: its charter and knowledge are the frame it reasons from, and
+it runs orient-decide-act on the observations routed to it. In the data model, `observation` carries an
+`owning_department_id` that `disposition` and `wager` inherit, so a department filters the whole board
+(`item_lifecycle`, `component_health`, `calibration`) by its id to see what is theirs, and learns which
+of its own playbooks and skills drive profit. One inbound item that matters to several departments is
+split into one observation per department (the fan-out is the split, not a shared row). The department
+daily and weekly rollup is exactly this slice aggregated. The full operating guide is
+[[department-operating-guide]]; the operative contract is `_system/wager-ledger-rules.md`.
+
 ## Changelog
 
 - 2026-05-31: initial canon for the AI shadow department model and the computer-in-the-corner thesis.
+- 2026-06-19: added section 11 (the department owns its slice of the operating ledger), pointing to the
+  department operating guide and the wager-ledger contract (canonization session).
 - 2026-05-31: added explicit repo-registry posture for cross-repo department ownership.
+- 2026-06-15: added section 10 linking the department-web model (capture-to-build loop and ambient capture).
+- 2026-07-13: extended section 9 with the department repo-graduation trigger (trust boundary,
+  not schedule or symmetry), pointing to `[[department-graduates-to-repo-on-trust-boundary]]`
+  and `[[reflexive-brain-topology]]`.

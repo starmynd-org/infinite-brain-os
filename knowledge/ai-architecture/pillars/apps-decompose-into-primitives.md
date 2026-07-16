@@ -4,7 +4,7 @@ aliases: ["apps-decompose-into-primitives", "app-primitive-north-star", "self-ho
 type: "Knowledge"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "North-star pillar: a real application is not a monolith to host but a composition of the OS core primitives (namespaces, agents, skills, workflows, tools) with a thin surface UX on top, self-hosted by the Claude Code or Codex agent runtime in a shareable repo. The CRM old app is the first proof. The test: can the core primitives absorb real app development without leaving the primitives."
+summary: "North-star pillar: a real application is not a monolith to host but a composition of the OS core primitives (namespaces, agents, skills, workflows, tools) with a thin surface UX on top, self-hosted by the Claude Code or Codex agent runtime in a shareable repo. The CRM app is the first proof, now realized: it decomposed into the OS core primitives and shipped as the self-contained repos/external/acme/crm-app app, passing the test that the core primitives can absorb real app development without leaving the primitives."
 confidence: 0.88
 retrieval_class: "identity"
 export_class: "internal"
@@ -91,14 +91,16 @@ runtime. This is why the durable layer is plain Markdown and YAML in git, why su
 and why the runtime is a replaceable adapter. Anti-lock-in (core-doctrine section 10) is what makes
 the repo portable enough to share.
 
-## The first proof: the CRM old app
+## The first proof: the CRM app (proven and shipped)
 
-The CRM old app (`ai-crm-tool`, a Next.js application in the handover drop) is the first real test
-case. Its data is already migrated into `email-campaign-production` and `drift-brand`; its pipeline
-roles are declared as agents; its workflow is declared. What remains to prove the north star is the
-hard part: turn its scripts into in-repo custom tools, package the irreducible runtime as a custom
-tool, build a thin surface UX that triggers all of these through an embedded S4 runtime, run it
-inside this repo with no external app server, and confirm the surface-classes taxonomy holds.
+The CRM old app (`ai-crm-tool`, a Next.js application in the handover drop) was the first real test
+case, and the proof succeeded. Its data migrated into the `email-campaign-production` and
+`acme-brand` namespaces; its pipeline roles became agents; its scripts became in-repo custom tools
+(`crm-email-linter`, `crm-runtime-bridge`, asset tools); its irreducible runtime became a custom
+tool; and a thin Email Studio surface triggers all of these through an embedded S4 runtime with no
+external app server. The whole composition was then extracted into a self-contained, shareable repo,
+`repos/external/acme/crm-app`. The brain-side namespaces and tooling were archived out of
+the brain on 2026-06-17 once the app stood on its own.
 
 This proof also closes an open architecture gate: [[surface-classes]] is explicitly provisional and
 must be validated by a first built surface before it can be promoted to canon. Building the CRM as
@@ -119,5 +121,6 @@ primitives is that validation.
 ## Status
 
 This is the operative north star for application work in this OS. It is research-state doctrine,
-operator-pending. It anchors the CRM-as-primitives proof program. Any agent or commander doing
+operator-pending. The CRM-as-primitives proof program validated it end to end and shipped the result
+as the self-contained `repos/external/acme/crm-app` app. Any agent or commander doing
 application work loads this node first so the goal stops getting lost.

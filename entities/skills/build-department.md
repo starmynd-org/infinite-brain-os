@@ -36,6 +36,12 @@ The output is not a new ontology primitive. It is a durable operating assembly s
 existing entities: intake, namespaces, agents, workflows, tools, metrics, projects, and
 human review gates, plus a charter that states what the department is optimizing for.
 
+Onboard a new department using [[department-onboarding-guide]] (the sequence and the alignment
+checklist that ties it into the OODA and wager-ledger system); how it then runs day to day is the
+operating guide [[department-operating-guide]] (its slice of the board via `owning_department_id`, the
+two intake lanes, the disposition-to-wager-to-verdict lifecycle). Build the department so it passes the
+onboarding checklist and its head conforms to both.
+
 ## Use when
 
 - a business or operating function should become a first-class AI shadow department
@@ -73,7 +79,11 @@ human review gates, plus a charter that states what the department is optimizing
    owning its own GitHub, CI/CD, or observability stack.
 10. Write `CHARTER.md` with mission, north star, owned outcomes, goals, KPIs, constraints,
    related entities, escalation rules, and reporting cadence.
-11. Define the daily update and rollup posture.
+11. Define the daily update and rollup posture, author `departments/<slug>/daily-briefing.md` from the
+   `departments/personal-health/daily-briefing.md` template (morning push, summary band plus detail), and
+   register the department's cadence and daily briefing in `departments/operations-register.md` with
+   `approval: operator-pending`. The operator approves per-department to activate it. See
+   `knowledge/ai-architecture/playbooks/unified-operations-register.md`.
 12. State the current open gaps honestly.
 13. If the department lacks a head agent or workflow pattern, create them.
 14. Copy `departments/_template/INDEX.md` and `CHARTER.md`; include the explicit Runtime Mapping block
@@ -103,6 +113,9 @@ human review gates, plus a charter that states what the department is optimizing
 - the intake boundary is explicit
 - the KPI layer either links to a Data System or names the instrumentation gap explicitly
 - shared platform dependencies are not reinvented unnecessarily
+- the department's cadence and daily briefing are registered in `departments/operations-register.md`
+  (`departments/<slug>/daily-briefing.md` exists; the register block carries an `approval` stamp), and the
+  reconcile check `_system/checks/operations-register-reconcile-check.sh` is clean
 - the per-department acceptance gate is run (architecture conformance, end-to-end function, runs on
   Paperclip at L1, written built-but-not-working gap list) or explicitly deferred into the activation
   project, per [[build-out-a-department]]. Built does not equal working.

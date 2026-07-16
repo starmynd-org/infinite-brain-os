@@ -63,9 +63,7 @@ Anti-patterns this concept rejects:
 
 Primary sources:
 
-- an internal build record (not shipped)
-- an internal build record (not shipped)
-- an internal build record (not shipped)
+- internal build records (not shipped)
 
 ## Edges
 

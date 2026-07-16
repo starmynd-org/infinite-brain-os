@@ -83,6 +83,12 @@ brain.
 7. Link the closeout review, set final status, and move the session record into
    `sessions/closed/` unless it remains open by design.
 
+At closeout, also book the wager-ledger receipts for any consequential actions taken in the session: a
+disposition-created, wager-registered, or result-produced receipt, plus any wager verdict now due. Per
+`_system/wager-ledger-rules.md` (WAGER-14a) these are booked mechanically by the closeout hook extending
+the session ledger rather than hand-maintained, and the heartbeat reconciles and flags any unbooked
+consequential action. See [[department-operating-guide]].
+
 ## Quality checks
 
 - session registration happened before substantial work

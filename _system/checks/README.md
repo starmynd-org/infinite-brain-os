@@ -34,6 +34,10 @@ nodes; they carry no node frontmatter.
   `sessions/active/` and a listing of any older than 3 days by their `YYYY-MM-DD`
   filename prefix (Rule SESSION-6 wants those closed out). Always exits 0. Run at session
   start by `.claude/hooks/session-start.sh` and warn-only by `validate.sh`.
+- `tool-three-layer-standard-check.sh`: warns when a root tool pointer has neither a linked
+  `*-tool-contract` namespace nor `contract_status: pointer-only`, and when a
+  `knowledge/*-tool-contract/` namespace has no referencing root tool pointer. This is the
+  warn-only backfill check for the 2026-06-17 tool knowledge-graph completion S0 sprint.
 - `adapter-sync-check.sh`: drift report for the runtime adapter pattern. Compares every
   file in `entities/{agents,commands,skills,rules}` against its copy in `.claude/` (and
   `.codex/` for agents, commands, and skills; rules have no Codex adapter by design),

@@ -114,9 +114,7 @@ The surface classes that apply this boundary, and their per-class contracts, are
 
 Primary sources:
 
-- an internal build record (not shipped)
-- an internal build record (not shipped)
-- an internal build record (not shipped)
+- internal build records (not shipped)
 - `docs/runtime-format-contract.md`
 
 ## Edges

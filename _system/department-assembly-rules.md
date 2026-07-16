@@ -8,10 +8,18 @@ intake, namespaces, agents, workflows, tools, metrics, projects, and human revie
 The doctrine that explains why this layer exists is:
 
 - `knowledge/ai-architecture/canon/department-model.md`
+- `knowledge/ai-architecture/canon/department-web.md`
 - `knowledge/ai-architecture/concepts/department-assembly-model.md`
 - `knowledge/ai-architecture/playbooks/translate-business-function-into-ai-shadow-department.md`
 
 This file is the operative contract for how departments are represented in this repo.
+
+`department-model.md` says what a department is made of. `department-web.md` says how it grows
+and maintains itself: a department is a web that captures raw knowledge and converts it into
+either structured knowledge or built capability (SOPs, deterministic automations, agent
+architecture), then operates that capability and feeds what it learns back into capture. The
+two new first-class elements below (the SOP library and the maintained-builds surface) and the
+ambient-capture posture are the operative form of that model.
 
 ## Required shape
 
@@ -34,6 +42,13 @@ The `INDEX.md` is the department's durable start-here and assembly surface. It m
 8. any subdepartments and current gaps
 9. any materially related repos outside `infinite-brain-os`
 10. its owned projects and active swarms, when they exist
+11. the SOP library it maintains: the templated, repeatable procedures (human- or agent-run)
+    the department can execute on demand, distinct from one-off workflows. SOPs live at
+    `departments/<department-slug>/sops/`, one file per procedure.
+12. the builds it maintains: the deterministic automations, skills, agents, agent workflows,
+    and loops the department keeps current to run its function, plus the operating docs it owns.
+    The assets live in their canonical entity homes; the `INDEX.md` is the registry that lists
+    and links them so the maintained surface is legible.
 
 When a department is materially scoped to one or more external parties, the `INDEX.md` should also
 state:
@@ -57,6 +72,35 @@ Data System rather than owning bespoke pipelines, but it must say which posture 
 
 Do not store department doctrine in `departments/`. The durable reasoning belongs in
 `knowledge/ai-architecture/`. `departments/` is the operating assembly and routing layer.
+
+## Department as a web: capture to build
+
+A department is not a static folder of assets. It is a web that runs a repeating loop: capture
+raw signal, convert it to either structured knowledge or a built action, build the capability,
+operate it first-pass, and feed what operation reveals back into capture. The full model is
+`knowledge/ai-architecture/canon/department-web.md`. The operative consequences for this repo:
+
+- **Two conversion destinations.** Captured signal becomes either structured knowledge (a
+  `knowledge/<namespace>/` node or metric definition) or a built action. Built actions take one
+  of four shapes: an SOP (`departments/<slug>/sops/`), a deterministic automation
+  (`automations/n8n/`), or agent architecture (a skill, agent, agent workflow, or loop under
+  `entities/` and `workflows/`). Choose the shape with
+  `knowledge/ai-architecture/concepts/choosing-the-right-primitive.md`.
+- **A capture inbox.** Each real department has `departments/<slug>/capture/` for captured
+  candidates that have not yet been converted. When the owning department is unclear, capture
+  routes to the root `intake/` fabric instead.
+- **The build target is the whole function.** A department is real to the degree its web has
+  built enough capability to take input, act, and escalate without a human as the first
+  bottleneck.
+
+## Ambient capture
+
+Because the department-web shape is named, capture is an ambient posture, not a special mode.
+Any agent in any session watches the conversation for capture candidates and documents them as
+typed stubs in the owning department's capture inbox, without blocking the conversation and
+without silently building them. The behavioral contract is
+`entities/rules/department-web-capture.md`. Promotion from a captured candidate to a built
+asset is a separate, gated step: anything `external` or `canon-touching` still escalates.
 
 ## Required links
 

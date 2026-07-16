@@ -47,6 +47,13 @@ it does not approve canon. It respects the three-layer split: connectors and liv
 state stay in the operational app, the durable intake record lives in git here, and the
 distilled knowledge lands in a `knowledge/` namespace that owns it from then on.
 
+In the wager-ledger lifecycle (`observation -> routing -> disposition -> wager -> verdict`), this
+agent runs the routing stage. Its triage is the lane fork: a known-pattern item with a
+deterministic handler takes the data-handling lane (logged as a thin `intake_event`, never scored),
+while the judgment-lane residue becomes a scored `observation` that enters the lifecycle, and a
+consequential disposition downstream carries a wager. See `_system/wager-ledger-rules.md` (WAGER-12,
+the two lanes) and [[department-operating-guide]].
+
 ## When to use this agent
 
 - captured items have landed under `intake/sources/<family>/` and need triage and routing

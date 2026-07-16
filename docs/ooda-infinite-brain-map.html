@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OODA and the Infinite Brain</title>
+<style>
+  :root{
+    --bg-primary:#090E18; --bg-card:rgba(18,26,42,0.66); --border:rgba(96,140,210,0.22);
+    --ink:#E6ECF6; --ink-soft:#9FB0C8; --ink-faint:#69789A;
+    --blue:#4DA3FF; --green:#46D08B; --red:#FF6B6B; --amber:#FFC24B; --violet:#A98BFF;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg-primary);color:var(--ink);font-family:var(--sans);
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;
+    background:
+      radial-gradient(1200px 700px at 78% -8%, rgba(77,163,255,0.16), transparent 60%),
+      radial-gradient(900px 600px at 8% 12%, rgba(169,139,255,0.12), transparent 55%),
+      var(--bg-primary);}
+  body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:0.5;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 60% 70%, #cfe0ff, transparent),
+      radial-gradient(1px 1px at 80% 20%, #fff, transparent),
+      radial-gradient(1px 1px at 35% 85%, #bcd4ff, transparent),
+      radial-gradient(1px 1px at 90% 55%, #fff, transparent),
+      radial-gradient(1px 1px at 12% 65%, #e6efff, transparent);
+    background-repeat:no-repeat;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header.hero{padding:92px 22px 54px;text-align:center;max-width:920px;margin:0 auto}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--blue);margin-bottom:18px}
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.05;margin:0 0 18px;font-weight:780;
+    background:linear-gradient(120deg,#fff,#9cc4ff 60%,#a98bff);-webkit-background-clip:text;
+    background-clip:text;color:transparent}
+  .sub{font-size:clamp(16px,2.3vw,20px);color:var(--ink-soft);max-width:760px;margin:0 auto}
+  nav.sticky{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);
+    background:rgba(9,14,24,0.72);border-bottom:1px solid var(--border)}
+  nav.sticky ul{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;list-style:none;
+    margin:0;padding:11px 14px;font-family:var(--mono);font-size:12.5px}
+  nav.sticky a{color:var(--ink-soft);text-decoration:none;padding:6px 11px;border-radius:8px}
+  nav.sticky a:hover{color:#fff;background:rgba(77,163,255,0.14)}
+  section{padding:54px 0;border-top:1px solid rgba(96,140,210,0.10)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--violet);margin-bottom:10px}
+  h2{font-size:clamp(25px,3.6vw,36px);margin:0 0 14px;font-weight:720}
+  h3{font-size:19px;margin:26px 0 8px;font-weight:660}
+  p{color:var(--ink-soft);margin:0 0 14px}
+  p .hl{color:var(--ink);font-weight:600}
+  .lead{font-size:18px;color:var(--ink);max-width:820px}
+  .card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;
+    padding:22px 24px;backdrop-filter:blur(7px);box-shadow:0 10px 40px rgba(0,0,0,0.28)}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:820px){.g2,.g3{grid-template-columns:1fr}}
+  .fig{margin:14px 0 6px;padding:18px;border-radius:18px;border:1px solid var(--border);
+    background:linear-gradient(180deg,rgba(15,22,38,0.74),rgba(11,16,28,0.74))}
+  .fig svg{width:100%;height:auto;display:block}
+  .figcap{font-size:13.5px;color:var(--ink-faint);font-family:var(--mono);margin-top:10px;text-align:center}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0 2px}
+  .legend button{font-family:var(--mono);font-size:11.5px;cursor:pointer;color:var(--ink-soft);
+    background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:20px;padding:6px 12px}
+  .legend button:hover{color:#fff}
+  .legend .sw{display:inline-block;width:18px;height:0;border-top-width:3px;border-top-style:solid;
+    vertical-align:middle;margin-right:7px}
+  /* arrow-class dimming when a legend chip is active */
+  svg[data-active] .flow{opacity:0.12} svg[data-active] .flow.on{opacity:1}
+  .tag{font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:20px;
+    border:1px solid var(--border);color:var(--ink-soft);display:inline-block}
+  .tag.pass{color:var(--green);border-color:rgba(70,208,139,0.4)}
+  .tag.weak{color:var(--red);border-color:rgba(255,107,107,0.4)}
+  .tag.partial{color:var(--amber);border-color:rgba(255,194,75,0.4)}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1px solid rgba(96,140,210,0.14);vertical-align:top}
+  th{font-family:var(--mono);font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint)}
+  td.b{color:var(--ink)}
+  .callout{border-left:3px solid var(--amber);background:rgba(255,194,75,0.06);
+    padding:16px 20px;border-radius:0 12px 12px 0;margin:16px 0}
+  .callout.gap{border-left-color:var(--red);background:rgba(255,107,107,0.06)}
+  .callout.key{border-left-color:var(--blue);background:rgba(77,163,255,0.06)}
+  .lifecycle{display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:center;margin:20px 0}
+  .lifecycle .step{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:9px 13px;font-family:var(--mono);font-size:12px;color:var(--ink)}
+  .lifecycle .step.new{border-color:rgba(70,208,139,0.55);color:#bfe8d2}
+  .lifecycle .ar{color:var(--blue);font-family:var(--mono);font-weight:700}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  code{font-family:var(--mono);font-size:0.9em;background:rgba(255,255,255,0.05);
+    padding:1.5px 6px;border-radius:5px;color:#bcd4ff}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  footer{padding:50px 22px 70px;text-align:center;color:var(--ink-faint);font-size:13.5px;
+    border-top:1px solid var(--border);font-family:var(--mono)}
+  footer a{color:var(--blue);text-decoration:none}
+  .score{font-size:30px;font-weight:760;font-family:var(--mono)}
+  .s-pass{color:var(--green)} .s-weak{color:var(--red)} .s-part{color:var(--amber)}
+  /* svg shared text */
+  text{font-family:var(--sans);fill:var(--ink)}
+  .lbl{font-size:13px;font-weight:640} .lblbig{font-size:15px;font-weight:720}
+  .chip{font-size:11px;fill:var(--ink-soft)} .arrlbl{font-size:11px;fill:var(--ink-faint);font-family:var(--mono)}
+  .nodebox{fill:rgba(20,30,50,0.9);stroke:var(--border);stroke-width:1.4}
+  .orientbox{fill:rgba(28,46,86,0.55);stroke:rgba(77,163,255,0.55);stroke-width:2}
+  .chipbox{fill:rgba(14,22,40,0.9);stroke:rgba(96,140,210,0.3);stroke-width:1}
+  .envbox{fill:rgba(16,24,40,0.8);stroke:rgba(96,140,210,0.22);stroke-width:1}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">Infinite Brain &nbsp;&bull;&nbsp; Architecture x Boyd</div>
+  <h1>OODA, the Real Loop, and the Infinite Brain</h1>
+  <p class="sub">John Boyd never drew a four-box cycle. He drew a web where Orient dominates and
+  action usually flows straight from orientation. This page shows the real loop, then maps it onto
+  the Infinite Brain OS, and marks honestly where the architecture is strong and where the web is
+  still broken.</p>
+</header>
+
+<nav class="sticky"><ul>
+  <li><a href="#cartoon">The cartoon vs the web</a></li>
+  <li><a href="#boyd">Boyd's real OODA</a></li>
+  <li><a href="#brain">The brain, mapped</a></li>
+  <li><a href="#test">Diagnostic test</a></li>
+  <li><a href="#circuits">Two circuits</a></li>
+  <li><a href="#gap">The missing half</a></li>
+  <li><a href="#ledger">The wager ledger</a></li>
+</ul></nav>
+
+<main class="wrap">
+
+<section id="cartoon" class="reveal">
+  <div class="eyebrow">The correction</div>
+  <h2>The four-box cartoon is the misread, not the model</h2>
+  <p class="lead">Most people teach OODA as a clockwise pipeline: observe, then orient, then decide,
+  then act, repeat, win by going faster. Boyd's own corpus calls this the single most damaging
+  misread. The fix is not to wire four boxes faster. It is to recognize that <span class="hl">Orient
+  is the generative center</span> and that most action bypasses Decide entirely.</p>
+  <div class="grid g2">
+    <div class="card">
+      <h3 style="color:var(--red)">What people draw</h3>
+      <p>Four equal boxes in a circle. Every action passes through Decide. The win condition is tempo:
+      cycle faster than the other side.</p>
+      <p style="margin:0"><span class="tag weak">Observe</span> &rarr; <span class="tag weak">Orient</span>
+      &rarr; <span class="tag weak">Decide</span> &rarr; <span class="tag weak">Act</span> &rarr; repeat</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--green)">What Boyd drew (1995)</h3>
+      <p>A web with more arrows running backward and sideways than forward. Orient is the largest box,
+      the only one with internal structure, wired to every other box. Decide is optional and usually
+      skipped. The win condition is a better-matched orientation, not raw speed.</p>
+    </div>
+  </div>
+</section>
+
+<section id="boyd" class="reveal">
+  <div class="eyebrow">Diagram 1</div>
+  <h2>Boyd's real OODA, the feedback web</h2>
+  <p class="lead">Read this as concurrent pathways, not a sequence. The solid blue arrows are the
+  feed-forward path everyone knows. The green dashed arrows are <span class="hl">implicit guidance and
+  control</span>, the default operating mode: orientation drives action directly and shapes what you
+  even perceive. The amber arrows are feedback that updates the model itself.</p>
+
+  <div class="legend" data-for="svg-boyd">
+    <button data-k="feed"><span class="sw" style="border-color:var(--blue)"></span>Feed-forward</button>
+    <button data-k="igc"><span class="sw" style="border-color:var(--green);border-top-style:dashed"></span>Implicit guidance</button>
+    <button data-k="fb"><span class="sw" style="border-color:var(--amber);border-top-style:dashed"></span>Feedback / double loop</button>
+    <button data-k="all">Show all</button>
+  </div>
+
+  <div class="fig">
+    <svg id="svg-boyd" viewBox="0 0 1040 480" role="img" aria-label="Boyd's real OODA loop as a web">
+      <defs>
+        <marker id="ahb" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#4DA3FF"/></marker>
+        <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#46D08B"/></marker>
+        <marker id="aha" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#FFC24B"/></marker>
+      </defs>
+
+      <!-- feedback (drawn first, behind) -->
+      <path class="flow fb" d="M945,205 C 945,70 740,52 648,118" fill="none" stroke="#FFC24B" stroke-width="2.4" marker-end="url(#aha)"/>
+      <text class="arrlbl fb" x="770" y="62" text-anchor="middle" fill="#FFC24B">feedback: results update the model (double loop)</text>
+      <path class="flow fb" d="M898,278 C 700,470 360,470 252,290" fill="none" stroke="#FFC24B" stroke-width="2" stroke-dasharray="2 5" marker-end="url(#aha)"/>
+      <text class="arrlbl fb" x="560" y="466" text-anchor="middle" fill="#FFC24B">feedback: Act also updates what you observe</text>
+
+      <!-- implicit guidance -->
+      <path class="flow igc" d="M560,372 C 660,438 840,438 944,280" fill="none" stroke="#46D08B" stroke-width="2.8" stroke-dasharray="8 5" marker-end="url(#ahg)"/>
+      <text class="arrlbl igc" x="752" y="430" text-anchor="middle" fill="#46D08B">implicit guidance: Orient to Act, the primary pathway</text>
+      <path class="flow igc" d="M396,120 C 350,76 286,78 250,196" fill="none" stroke="#46D08B" stroke-width="2.2" stroke-dasharray="8 5" marker-end="url(#ahg)"/>
+      <text class="arrlbl igc" x="300" y="64" text-anchor="middle" fill="#46D08B">orientation shapes perception</text>
+
+      <!-- env inputs -->
+      <g>
+        <rect class="envbox" x="18" y="86" width="132" height="50" rx="9"/><text class="chip" x="84" y="108" text-anchor="middle">unfolding</text><text class="chip" x="84" y="123" text-anchor="middle">circumstances</text>
+        <rect class="envbox" x="18" y="214" width="132" height="50" rx="9"/><text class="chip" x="84" y="236" text-anchor="middle">outside</text><text class="chip" x="84" y="251" text-anchor="middle">information</text>
+        <rect class="envbox" x="18" y="342" width="132" height="50" rx="9"/><text class="chip" x="84" y="364" text-anchor="middle">unfolding</text><text class="chip" x="84" y="379" text-anchor="middle">interaction</text>
+        <path class="flow feed" d="M150,111 C 172,160 176,196 192,214" fill="none" stroke="#4DA3FF" stroke-width="1.8" marker-end="url(#ahb)"/>
+        <path class="flow feed" d="M150,239 L188,239" fill="none" stroke="#4DA3FF" stroke-width="1.8" marker-end="url(#ahb)"/>
+        <path class="flow feed" d="M150,367 C 172,318 176,282 192,266" fill="none" stroke="#4DA3FF" stroke-width="1.8" marker-end="url(#ahb)"/>
+      </g>
+
+      <!-- feed forward spine -->
+      <path class="flow feed" d="M312,240 L356,240" fill="none" stroke="#4DA3FF" stroke-width="2.6" marker-end="url(#ahb)"/>
+      <path class="flow feed" d="M652,240 L706,240" fill="none" stroke="#4DA3FF" stroke-width="2.6" marker-end="url(#ahb)"/>
+      <path class="flow feed" d="M832,240 L876,240" fill="none" stroke="#4DA3FF" stroke-width="2.6" marker-end="url(#ahb)"/>
+
+      <!-- OBSERVE -->
+      <rect class="nodebox" x="192" y="200" width="120" height="80" rx="12"/>
+      <text class="lbl" x="252" y="236" text-anchor="middle">OBSERVE</text>
+      <text class="chip" x="252" y="256" text-anchor="middle">sense reality</text>
+
+      <!-- ORIENT (big) -->
+      <rect class="orientbox" x="356" y="104" width="296" height="272" rx="16"/>
+      <text class="lblbig" x="504" y="130" text-anchor="middle" fill="#bcd4ff">ORIENT</text>
+      <text class="chip" x="504" y="147" text-anchor="middle" fill="#7fa8e6">the generative center</text>
+      <g>
+        <rect class="chipbox" x="372" y="158" width="264" height="34" rx="8"/><text class="chip" x="504" y="180" text-anchor="middle">genetic heritage (the substrate)</text>
+        <rect class="chipbox" x="372" y="198" width="264" height="34" rx="8"/><text class="chip" x="504" y="220" text-anchor="middle">cultural tradition</text>
+        <rect class="chipbox" x="372" y="238" width="264" height="34" rx="8"/><text class="chip" x="504" y="260" text-anchor="middle">previous experience</text>
+        <rect class="chipbox" x="372" y="278" width="264" height="34" rx="8"/><text class="chip" x="504" y="300" text-anchor="middle">new information</text>
+        <rect class="chipbox" x="372" y="318" width="264" height="34" rx="8" style="stroke:rgba(70,208,139,0.45)"/><text class="chip" x="504" y="340" text-anchor="middle" fill="#8fe3b6">analysis and synthesis (novelty engine)</text>
+      </g>
+
+      <!-- DECIDE -->
+      <rect class="nodebox" x="706" y="205" width="126" height="70" rx="12"/>
+      <text class="lbl" x="769" y="236" text-anchor="middle">DECIDE</text>
+      <text class="chip" x="769" y="255" text-anchor="middle">only when novel</text>
+
+      <!-- ACT -->
+      <rect class="nodebox" x="876" y="205" width="132" height="70" rx="12"/>
+      <text class="lbl" x="942" y="236" text-anchor="middle">ACT</text>
+      <text class="chip" x="942" y="255" text-anchor="middle">test the hypothesis</text>
+    </svg>
+    <div class="figcap">Hover or tap a legend chip above to isolate a pathway. The D is the least important letter.</div>
+  </div>
+</section>
+
+<section id="brain" class="reveal">
+  <div class="eyebrow">Diagram 2</div>
+  <h2>The same web, mapped to the Infinite Brain</h2>
+  <p class="lead">Same topology, your components. The blue feed-forward and green implicit pathways are
+  built (the implicit one is deliberately throttled off at L1). The feedback arrows are drawn in
+  <span class="hl">red and dashed because they are the unbuilt half</span>: the analytical plane is now
+  designed and ratified (the wager ledger) but not yet built, so results do not flow back yet.</p>
+
+  <div class="legend" data-for="svg-brain">
+    <button data-k="feed"><span class="sw" style="border-color:var(--blue)"></span>Feed-forward (built)</button>
+    <button data-k="igc"><span class="sw" style="border-color:var(--green);border-top-style:dashed"></span>Implicit (built, off at L1)</button>
+    <button data-k="fb"><span class="sw" style="border-color:var(--red);border-top-style:dashed"></span>Feedback (ratified, not built)</button>
+    <button data-k="all">Show all</button>
+  </div>
+
+  <div class="fig">
+    <svg id="svg-brain" viewBox="0 0 1040 480" role="img" aria-label="Infinite Brain mapped to the OODA web">
+      <defs>
+        <marker id="ahb2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#4DA3FF"/></marker>
+        <marker id="ahg2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#46D08B"/></marker>
+        <marker id="ahr2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#FF6B6B"/></marker>
+      </defs>
+
+      <!-- feedback = MISSING (red dashed) -->
+      <path class="flow fb" d="M945,205 C 945,70 740,52 648,118" fill="none" stroke="#FF6B6B" stroke-width="2.2" stroke-dasharray="3 6" marker-end="url(#ahr2)"/>
+      <text class="arrlbl fb" x="772" y="62" text-anchor="middle" fill="#FF6B6B">TO BUILD (ratified): wager ledger + analytical plane</text>
+      <path class="flow fb" d="M898,278 C 700,470 360,470 252,290" fill="none" stroke="#FF6B6B" stroke-width="1.8" stroke-dasharray="2 7" marker-end="url(#ahr2)"/>
+      <text class="arrlbl fb" x="560" y="466" text-anchor="middle" fill="#FF6B6B">TO BUILD (ratified): verdicts re-shape intake</text>
+
+      <!-- implicit guidance: built, off at L1 -->
+      <path class="flow igc" d="M560,372 C 660,438 840,438 944,280" fill="none" stroke="#46D08B" stroke-width="2.6" stroke-dasharray="8 5" marker-end="url(#ahg2)"/>
+      <text class="arrlbl igc" x="752" y="430" text-anchor="middle" fill="#46D08B">auto-handle + learned rules (built, OFF at L1)</text>
+      <path class="flow igc" d="M396,120 C 350,76 286,78 250,196" fill="none" stroke="#46D08B" stroke-width="2" stroke-dasharray="8 5" marker-end="url(#ahg2)"/>
+      <text class="arrlbl igc" x="298" y="64" text-anchor="middle" fill="#46D08B">intake scoring filters perception</text>
+
+      <!-- env inputs -->
+      <g>
+        <rect class="envbox" x="18" y="86" width="132" height="50" rx="9"/><text class="chip" x="84" y="108" text-anchor="middle">X / YouTube / web</text><text class="chip" x="84" y="123" text-anchor="middle">email / Slack</text>
+        <rect class="envbox" x="18" y="214" width="132" height="50" rx="9"/><text class="chip" x="84" y="236" text-anchor="middle">deep research</text><text class="chip" x="84" y="251" text-anchor="middle">+ ideas</text>
+        <rect class="envbox" x="18" y="342" width="132" height="50" rx="9" style="stroke:rgba(255,107,107,0.4)"/><text class="chip" x="84" y="364" text-anchor="middle" fill="#ff9d9d">outside-world moves</text><text class="chip" x="84" y="379" text-anchor="middle" fill="#ff9d9d">(barely modeled)</text>
+        <path class="flow feed" d="M150,111 C 172,160 176,196 192,214" fill="none" stroke="#4DA3FF" stroke-width="1.8" marker-end="url(#ahb2)"/>
+        <path class="flow feed" d="M150,239 L188,239" fill="none" stroke="#4DA3FF" stroke-width="1.8" marker-end="url(#ahb2)"/>
+        <path class="flow feed" d="M150,367 C 172,318 176,282 192,266" fill="none" stroke="#FF6B6B" stroke-width="1.6" stroke-dasharray="3 5" marker-end="url(#ahr2)"/>
+      </g>
+
+      <!-- feed forward spine -->
+      <path class="flow feed" d="M312,240 L356,240" fill="none" stroke="#4DA3FF" stroke-width="2.6" marker-end="url(#ahb2)"/>
+      <path class="flow feed" d="M652,240 L706,240" fill="none" stroke="#4DA3FF" stroke-width="2.6" marker-end="url(#ahb2)"/>
+      <path class="flow feed" d="M832,240 L876,240" fill="none" stroke="#4DA3FF" stroke-width="2.6" marker-end="url(#ahb2)"/>
+
+      <!-- OBSERVE -->
+      <rect class="nodebox" x="192" y="198" width="120" height="84" rx="12"/>
+      <text class="lbl" x="252" y="230" text-anchor="middle">OBSERVE</text>
+      <text class="chip" x="252" y="249" text-anchor="middle">intake capture</text>
+      <text class="chip" x="252" y="264" text-anchor="middle">+ scoring</text>
+
+      <!-- ORIENT (big) -->
+      <rect class="orientbox" x="356" y="104" width="296" height="272" rx="16"/>
+      <text class="lblbig" x="504" y="128" text-anchor="middle" fill="#bcd4ff">ORIENT = the department</text>
+      <text class="chip" x="504" y="145" text-anchor="middle" fill="#7fa8e6">where the brain actually lives</text>
+      <g>
+        <rect class="chipbox" x="372" y="156" width="264" height="34" rx="8"/><text class="chip" x="504" y="178" text-anchor="middle">harness + runtime (substrate)</text>
+        <rect class="chipbox" x="372" y="196" width="264" height="34" rx="8"/><text class="chip" x="504" y="218" text-anchor="middle">canon + rules (tradition)</text>
+        <rect class="chipbox" x="372" y="236" width="264" height="34" rx="8"/><text class="chip" x="504" y="258" text-anchor="middle">prior tasks + memory</text>
+        <rect class="chipbox" x="372" y="276" width="264" height="34" rx="8"/><text class="chip" x="504" y="298" text-anchor="middle">intake (new information)</text>
+        <rect class="chipbox" x="372" y="316" width="264" height="34" rx="8" style="stroke:rgba(70,208,139,0.45)"/><text class="chip" x="504" y="338" text-anchor="middle" fill="#8fe3b6">head reasoning (analysis + synthesis)</text>
+      </g>
+
+      <!-- DECIDE -->
+      <rect class="nodebox" x="706" y="203" width="126" height="74" rx="12"/>
+      <text class="lbl" x="769" y="232" text-anchor="middle">DECIDE</text>
+      <text class="chip" x="769" y="251" text-anchor="middle">priority model</text>
+      <text class="chip" x="769" y="265" text-anchor="middle">(thin, deterministic)</text>
+
+      <!-- ACT -->
+      <rect class="nodebox" x="876" y="203" width="132" height="74" rx="12"/>
+      <text class="lbl" x="942" y="232" text-anchor="middle">ACT</text>
+      <text class="chip" x="942" y="251" text-anchor="middle">workflows / skills</text>
+      <text class="chip" x="942" y="265" text-anchor="middle">/ swarms</text>
+    </svg>
+    <div class="figcap">The architecture is strong on feed-forward and orientation. The red arrows are the work that matters most next.</div>
+  </div>
+
+  <div class="callout key"><strong>The load-bearing correction.</strong> Departments are where
+  <span class="hl" style="color:#fff">Orient</span> lives, not "Observe and Decide." Calling them
+  Observe-Decide demotes the one box that should dominate. Intake scoring is already orientation
+  (it filters reality against the model). The priority model is Decide, kept deliberately thin
+  because the D is the least important letter.</div>
+</section>
+
+<section id="test" class="reveal">
+  <div class="eyebrow">The quality gate</div>
+  <h2>Scored against Boyd's own diagnostic test</h2>
+  <p class="lead">The three meta-primitives are the test the corpus uses to falsify any claimed Boydian
+  application. Run the Infinite Brain through it honestly. The two weak axes below are now addressed by
+  the ratified wager ledger (see the next section), though it is designed and ratified, not yet built.</p>
+  <div class="grid g3">
+    <div class="card">
+      <div class="score s-pass">Pass</div>
+      <h3>Orientation dominates</h3>
+      <p>The whole repo is orientation infrastructure: retrieval over memory, the knowledge graph,
+      canon, the doctrine card, fat skills. Strong in the build. The only risk is framing pressure
+      toward "cycle faster."</p>
+      <span class="tag pass">strong in build, weak in framing</span>
+    </div>
+    <div class="card">
+      <div class="score s-part">Closing</div>
+      <h3>Interaction and isolation</h3>
+      <p>This was the biggest gap. The analytical plane now has an owner (devops-platform) and a
+      ratified design, the wager ledger, that scores actions against exogenous outcomes. Still weak
+      until it is built, but no longer an open gap with no plan. A model of the outside world's moves
+      stays the thinnest part.</p>
+      <span class="tag partial">addressed by the wager ledger</span>
+    </div>
+    <div class="card">
+      <div class="score s-part">Partial</div>
+      <h3>Novelty drives survival</h3>
+      <p>Correction-to-structure is a real destruction-and-creation engine but still operator-driven.
+      The ratified wager ledger gives it a trigger: a surprising verdict and the scientist agent turn
+      updating from exogenous toward self-generated. Partial until that runs.</p>
+      <span class="tag partial">trigger now designed</span>
+    </div>
+  </div>
+</section>
+
+<section id="circuits" class="reveal">
+  <div class="eyebrow">How it runs</div>
+  <h2>Two circuits, and the ladder as a novelty selector</h2>
+  <p class="lead">Boyd says two circuits must run at once: a fast implicit one that deploys the existing
+  repertoire, and a slow explicit one that builds new repertoire for genuine novelty. The brain maps
+  both cleanly.</p>
+  <table>
+    <thead><tr><th>Circuit</th><th>OODA pathway</th><th>In the brain</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td class="b">Implicit (fast)</td><td>Orient to Act, bypass Decide</td><td>basic task, workflow, fat skill, learned auto-handle rule</td><td><span class="tag partial">throttled off at L1</span></td></tr>
+      <tr><td class="b">Explicit (slow)</td><td>Orient to Decide to Act</td><td>scoper, then swarm-ai, sprint, or project</td><td><span class="tag pass">running, human-gated</span></td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><strong>The refinement this surfaces.</strong> Today the planning ladder
+  (task, swarm, sprint, project) is chosen by size and effort. Boyd's frame says it should be chosen
+  by <span class="hl" style="color:#fff">novelty</span>: does the existing repertoire cover this work,
+  or must new orientation be built. Routing by novelty rather than size is a small change to the
+  scoper, and a more faithful selector.</div>
+</section>
+
+<section id="gap" class="reveal">
+  <div class="eyebrow">What to build next</div>
+  <h2>The missing half: the Act-to-Orient feedback plane</h2>
+  <p class="lead">The brain has rich feed-forward and almost no feedback. In Boyd's terms that is not a
+  smaller loop, it is a broken one. Building the feedback plane is the highest-leverage OODA work in
+  the system, above more autonomy or more departments, and the ratified design for it is the wager
+  ledger in the next section. One build closes all three weak points
+  of the diagnostic test at once.</p>
+  <div class="grid g3">
+    <div class="card"><h3 style="color:var(--green)">Restores interaction</h3><p>Results, outcomes,
+      and mismatch flow back. The system can tell whether it is winning.</p></div>
+    <div class="card"><h3 style="color:var(--amber)">Triggers novelty</h3><p>A mismatch signal flags
+      when an orientation has gone stale and re-orientation is due.</p></div>
+    <div class="card"><h3 style="color:var(--blue)">Completes the web</h3><p>Feed-forward plus
+      feedback is a loop. Feed-forward alone is a pipeline.</p></div>
+  </div>
+  <div class="callout gap"><strong>Mismatch is fuel, not failure.</strong> The plane records
+  expectation against outcome and surfaces the gap. That gap is the raw material of re-orientation,
+  and the sensor a cascade-containment quarantine reads from. Spec:
+  <code>knowledge/ai-architecture/synthesis/feedback-plane-act-to-orient-loop.md</code>.</div>
+</section>
+
+<section id="ledger" class="reveal">
+  <div class="eyebrow">The build (ratified)</div>
+  <h2>The wager ledger: bookkeeping for AI harnesses</h2>
+  <p class="lead">This is how the feedback plane is built. Every consequential item is booked as a
+  scientific process: a pre-registered, falsifiable prediction tied to a metric, scored later against
+  an exogenous result and diagnosed. The brain becomes the durable hypothesis, action, and result
+  ledger that sits under any harness, so you own the learning when the harness changes.</p>
+
+  <div class="lifecycle">
+    <span class="step">observation</span><span class="ar">&rarr;</span>
+    <span class="step">routing</span><span class="ar">&rarr;</span>
+    <span class="step">disposition</span><span class="ar">&rarr;</span>
+    <span class="step new">wager</span><span class="ar">&rarr;</span>
+    <span class="step">action</span><span class="ar">&rarr;</span>
+    <span class="step new">verdict</span><span class="ar">&rarr;</span>
+    <span class="step">improvement</span>
+  </div>
+  <div class="figcap">Green steps are the new records. Every other stage reuses an existing brain contract.</div>
+
+  <h3>Three new tables, everything else reused</h3>
+  <div class="grid g3">
+    <div class="card"><span class="tag pass">new</span><h3>wager</h3><p>The pre-registered, falsifiable
+      prediction: a metric, a direction or threshold, a horizon, a confidence. Immutable once written,
+      which makes pre-registration nearly free in git.</p></div>
+    <div class="card"><span class="tag pass">new</span><h3>wager_verdict</h3><p>The result scored
+      against an exogenous source, the surprise (mismatch), and a hard-to-vary diagnosis that can raise
+      a re-orientation candidate.</p></div>
+    <div class="card"><span class="tag pass">new</span><h3>component_touch</h3><p>Which rule, skill,
+      agent, or canon node shaped the action, and which Orient sub-element it played. The attribution
+      edge that powers component health.</p></div>
+  </div>
+  <p style="text-align:center;color:var(--ink-faint);font-size:13.5px">Reused, not rebuilt: intake
+  record, routing decision, processed receipt, pkm-opportunity, the result envelope, the nine signals,
+  the metric primitive, and the planning ladder.</p>
+
+  <h3>The four rules that keep it honest</h3>
+  <div class="chips">
+    <span class="tag">Falsifiable</span>
+    <span class="tag">Pre-registered, immutable</span>
+    <span class="tag">Measured, not asserted</span>
+    <span class="tag">Hard-to-vary diagnosis</span>
+  </div>
+  <p>Headline metric: <span class="hl">calibration</span>, is 0.8 confidence right 80 percent of the
+  time. A periodic scientist agent reviews verdicts and recommends architecture changes, each of which
+  is itself a pre-registered wager. It recommends; it never self-approves canon.</p>
+
+  <div class="callout key"><strong>Where it lives.</strong> Git holds the contracts, the immutable
+  wagers, the touch-edges, and the diagnoses. The analytical plane holds the fact tables, the scores,
+  and the calibration view, and it defaults to a <span class="hl" style="color:#fff">local
+  Postgres</span> (swappable to a managed BI platform later, with no fork of truth). Component scores never live
+  in canon frontmatter. Operative contract: <code>_system/wager-ledger-rules.md</code>.</div>
+</section>
+
+</main>
+
+<footer>
+  Infinite Brain OS &nbsp;&bull;&nbsp; built 2026-06-18 &nbsp;&bull;&nbsp; a projection, not a source of truth<br/>
+  Canon owners: <code>knowledge/ai-architecture/synthesis/boyd-to-agent-architecture-ooda-map.md</code>
+
+</footer>
+
+<script>
+  // scroll reveal
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // legend -> isolate arrow class on its svg
+  document.querySelectorAll('.legend').forEach(function(leg){
+    var svg=document.getElementById(leg.getAttribute('data-for'));
+    if(!svg) return;
+    function clear(){svg.removeAttribute('data-active');svg.querySelectorAll('.flow').forEach(function(p){p.classList.remove('on');});}
+    leg.querySelectorAll('button').forEach(function(b){
+      var k=b.getAttribute('data-k');
+      function apply(){
+        if(k==='all'){clear();return;}
+        svg.setAttribute('data-active','1');
+        svg.querySelectorAll('.flow').forEach(function(p){p.classList.toggle('on',p.classList.contains(k));});
+      }
+      b.addEventListener('mouseenter',apply);
+      b.addEventListener('click',apply);
+      b.addEventListener('mouseleave',function(){if(k!=='all'){/* keep last click on touch */}});
+    });
+  });
+</script>
+</body>
+</html>

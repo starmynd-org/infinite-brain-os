@@ -15,8 +15,10 @@ created: "2026-05-31"
 ## Repo Identity
 
 - Repo slug: `<repo-slug>`
-- Canonical path: `<legacy-root>\<repo-name>`
+- Canonical path: `<your-repos-root>\internal\<repo-name>` (or `external\<repo-name>`)
 - Registry scope: `root-repos`
+- `repo_kind`: `brain | app | mixed`
+- `brain_tier`: `individual | department | company` (only when `repo_kind` includes brain)
 
 ## Primary Job
 

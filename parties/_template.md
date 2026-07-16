@@ -20,6 +20,7 @@ namespace_slugs: []
 department_slugs: []
 tool_slugs: []
 repo_slugs: []
+asset_refs: []
 notes: "Short operator note."
 ---
 
@@ -44,6 +45,11 @@ to this party.
 ## Related departments and tools
 
 List the departments, tools, and surfaces that materially depend on this party.
+
+## Related assets
+
+List any `assets/<asset-id>.md` entries that belong to this party via `asset_refs`, for example
+a brand's logo or style files.
 
 ## Notes
 

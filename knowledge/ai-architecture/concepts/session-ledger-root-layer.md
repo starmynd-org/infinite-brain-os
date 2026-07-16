@@ -81,7 +81,7 @@ debugging, or handoff recovery.
 ## Relationship to swarm sprints
 
 When a session is operating inside a swarm sprint, it updates both `sessions/` and
-an internal build record (not shipped), but for different reasons. `sessions/` keeps the conversation trail,
+`swarms/Sprints/...`, but for different reasons. `sessions/` keeps the conversation trail,
 tool traces, and closeout extraction. The sprint folder keeps the execution-facing artifacts
 and receipts the sprint itself needs. That is an intentional dual-write boundary, not a
 failure to integrate. Forcing one surface to do both jobs would either pollute the sprint

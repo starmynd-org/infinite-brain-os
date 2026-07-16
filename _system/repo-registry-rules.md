@@ -24,14 +24,14 @@ Use `repo-registry/` to answer:
 
 ## The active root and the active set
 
-The 2026-06-04 repo-root migration moved the active set to `<your-repos-root>`, with the OS and the
-internal active repos under `internal/` and external repos under `external/`. The legacy root
-`<legacy-root>` is retained only for legacy, dead, or source-material repos. The
+The active set lives under one active root (`<your-repos-root>`), with the OS and the
+internal active repos under `internal/` and external repos under `external/`. A legacy root,
+where one exists, is retained only for legacy, dead, or source-material repos. The
 repo-root `CLAUDE.md` and `AGENTS.md` are the source of truth for the lean active set; the registry maps
-both roots but must keep the active set accurate against that source. Active entries already point at the
-new root; legacy entries legitimately still point at the old root because those repos were left behind.
+both roots but must keep the active set accurate against that source. Active entries point at the
+active root; legacy entries legitimately still point at the old root because those repos were left behind.
 
-As of the 2026-06-09 platform-layer integration review the active set is: `infinite-brain-os`,
+A worked active set looks like: `infinite-brain-os` (the OS itself),
 `company-canon`, `example-app`, and `example-orchestrator`. A newly
 active repo earns its entry through the human-in-the-loop registry pass, since ownership and posture are
 operator-gated decisions, not silent additions.
@@ -67,12 +67,36 @@ Each repo entry should define:
 7. related tools or runtime systems
 8. digestion or migration posture, if relevant
 9. open risks or ambiguities
+10. `repo_kind`, one of the enum below
+11. `brain_tier`, when `repo_kind` includes brain
+
+### Repo kind and brain tier
+
+Two fields classify what a repo *is*, independent of who owns it (the internal-versus-external
+axis above) and independent of its operating status (the canonical status vocabulary below).
+
+- `repo_kind`: `brain | app | mixed`. `brain` is a repo organized as a knowledge-graph OS (it
+  carries or vendors `entities/`, participates in the namespace ontology, and is retrieved
+  rather than only read as code). `app` is a product or client codebase with no brain
+  ontology: a thin `.claude/` for product-development commands and skills is normal, an
+  `entities/` folder is not expected. `mixed` is a repo that carries a real `entities/`
+  adapter set alongside substantial non-brain application code; use it rather than forcing a
+  false binary.
+- `brain_tier`: `individual | department | company`. Applies only when `repo_kind` is `brain`
+  or `mixed`. `individual` is one operator's scratch-and-research layer. `department` is one
+  business function's operating assembly that has graduated out of a company brain's
+  `departments/` folder. `company` is the upstream core that individual and department
+  tiers vendor shared entities and doctrine from.
+
+The reasoning for the tier model and the graduation trigger between a department folder and
+a department repo lives in `knowledge/ai-architecture/pillars/reflexive-brain-topology.md`
+and `knowledge/ai-architecture/decisions/department-graduates-to-repo-on-trust-boundary.md`.
+This file states the operative fields only.
 
 ### Canonical status vocabulary
 
-The status field uses one of these canonical values. The set was widened on 2026-06-09 to match the
-values entries already carry; per-entry normalization to this set is a devops-platform registry-refinement
-task, not a silent rename.
+The status field uses one of these canonical values. Per-entry normalization to this set is a
+registry-refinement task, not a silent rename.
 
 - `primary`: the OS itself, the single source of truth.
 - `owned`: an active repo the OS owns and builds in (the internal active set).

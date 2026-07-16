@@ -32,4 +32,7 @@ are adapters, not owners.
 - Map your business onto the OS: `docs/onboard-business.md`
 - The intake flow: `intake/README.md`
 - The architecture: `knowledge/ai-architecture/INDEX.md`
+- The OS as an OODA loop (start with the visual):
+  `docs/ooda-infinite-brain-map.html`, then
+  `knowledge/ai-architecture/synthesis/ooda-architecture-index.md`
 - Namespace rules: `_system/namespaces/INDEX.md`

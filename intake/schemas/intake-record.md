@@ -122,7 +122,7 @@ support, not as new doctrine.
 
 - `id` present, `type` is `"intake-record"`, and `id` matches the filename without
   extension. If they differ, `id` appears in `aliases`.
-- `source` is one of the eight family slugs. `received_at` parses as ISO 8601. `created` is
+- `source` is one of the nine family slugs. `received_at` parses as ISO 8601. `created` is
   `YYYY-MM-DD`.
 - `creator`, `original_ref`, `raw_capture`, `summary`, `why_it_matters` are all present and
   non-empty. No placeholder text (`{todo}`, `TBD`) above `lifecycle_state: scratch`; write

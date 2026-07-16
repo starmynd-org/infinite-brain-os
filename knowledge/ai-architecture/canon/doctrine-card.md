@@ -79,7 +79,7 @@ tree, loading the minimal sufficient set by query class, never the whole graph.
    declare a transcript path under `sessions/logs/`, keep running notes, write a closeout
    review under `sessions/reviews/`, and move the record to `sessions/closed/`. If a
    session operates inside a swarm sprint, dual-write: `sessions/` for the conversation
-   trail, an internal build record (not shipped) for execution artifacts and receipts.
+   trail, `swarms/Sprints/...` for execution artifacts and receipts.
 2. **No self-approved canon.** Canon is operator-approved, always. An agent drafts at
    `verified_by: operator-pending`; the operator signs off. Every substantive canon
    revision gets a one-line dated changelog entry consistent with `verified_at` and
@@ -127,6 +127,13 @@ tree, loading the minimal sufficient set by query class, never the whole graph.
 - **Operating gaps live in synthesis.** Requirements for capability the system does not
   yet run are tracked in synthesis nodes (see `autonomy-readiness-requirements`), never
   asserted in canon.
+- **OODA orientation lens and the feedback loop.** Read as Boyd's OODA, the brain's strength is that
+  Orient is externalized (graph, canon, retrieval, skills) and its weakest arrow is Act-to-Orient
+  feedback. The decided design for that arrow is the wager ledger
+  ([[wager-ledger-and-scientific-loop]], contract `_system/wager-ledger-rules.md`): consequential
+  actions carry pre-registered, business-grounded predictions scored against exogenous metrics, and
+  departments own their slice via `owning_department_id`. Decided, not yet built. Operating guide:
+  [[department-operating-guide]].
 
 ## The eleven entity types
 
@@ -177,3 +184,6 @@ secret references (never raw values), `repo-registry/` for cross-repo ownership,
 - 2026-06-10: initial card created as the startup projection of core-doctrine
   (harness-hardening program, doctrine-card-and-routing-map sprint). Operator-approved
   (the-operator) in the 2026-06-10 working session that commissioned the program.
+- 2026-06-19: added the OODA-lens-and-feedback-loop discipline (wager ledger, department-owned slice).
+  Re-verified against core-doctrine; operator-approved (the-operator) in the 2026-06-19 canonization
+  session.

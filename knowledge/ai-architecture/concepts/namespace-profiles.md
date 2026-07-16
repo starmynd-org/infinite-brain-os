@@ -21,6 +21,9 @@ edges:
   - target: "[[metric-primitive]]"
     relation: "related_to"
     confidence: 0.82
+  - target: "[[ai-architecture-asset-reference-model]]"
+    relation: "informed_by"
+    confidence: 0.8
 created: "2026-05-30"
 ---
 
@@ -93,8 +96,11 @@ Some profiles share DNA but stay distinct on purpose.
   where data flows, how to run and diagnose) even where they touch the same metric.
 
 The rule is to revisit a merge only if two real namespaces prove the collapse, not to
-pre-merge on a structural hunch. A deferred Image / Multimodal profile is handled inside
-Design System for now and revisited when an image storage and embedding strategy exists.
+pre-merge on a structural hunch. A deferred Image / Multimodal profile is still handled inside
+Design System rather than as its own profile. The image storage and reference half of that gap
+is resolved by [[ai-architecture-asset-reference-model]], which mirrors the secret-reference
+pattern for large binary files; a dedicated content-embedding or image-retrieval profile
+remains open future work.
 
 ## Edges
 

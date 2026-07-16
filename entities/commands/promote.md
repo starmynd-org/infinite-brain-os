@@ -10,9 +10,6 @@ retrieval_class: "identity"
 export_class: "internal"
 description: "Promote a node from this personal repo to a department or company-canon repo. Rewrites frontmatter, resolves wikilinks, copies the file across repos, and opens a PR against the target repo."
 edges:
-  - target: "[[skill-cross-repo-move]]"
-    relation: "delegates_to"
-    confidence: 0.95
   - target: "[[agent-brain-curator]]"
     relation: "produces_input_for"
     confidence: 0.6
@@ -36,7 +33,7 @@ The first argument is the path to the node file in this repo (for example, `know
 
 1. Reads the source node file and verifies it has `lifecycle_state: research`. Any other state is a refusal. `scratch` is too early. `candidate` and `canon` are already promoted. `archive` should be reopened first.
 2. Looks up the target repo path. Convention: the target repo is cloned as a sibling directory next to this personal repo (for example, `../acme-marketing/` for `target=department` or `../acme-company-canon/` for `target=company-canon`). If the sibling is not present, the command fails with a clear message ("clone the target repo as a sibling before running /promote").
-3. Delegates to `[[skill-cross-repo-move]]` for the file-move, frontmatter-rewrite, and wikilink-resolution mechanics.
+3. Delegates to ``skill-cross-repo-move`` for the file-move, frontmatter-rewrite, and wikilink-resolution mechanics.
 4. Opens a pull request against the target repo via `gh pr create`. PR title: `promote: {node-id}`. PR body: a summary of what is being promoted, the source node id, the source repo, and a checklist for the reviewer.
 
 ## Frontmatter rewrite rules

@@ -19,9 +19,6 @@ edges:
   - target: "[[promotion-path-rules]]"
     relation: "depends_on"
     confidence: 0.78
-  - target: "[[skill-cross-synthesize-corpus]]"
-    relation: "related_to"
-    confidence: 0.65
   - target: "[[skill-review-output-linkage]]"
     relation: "related_to"
     confidence: 0.65
@@ -54,7 +51,7 @@ runs to absorb one correction into the right layer.
 - the correction is genuinely new information for a knowledge node rather than a behavior
   fix (route it as intake or a node edit)
 - the fix is large derived thinking across namespaces (use
-  [[skill-cross-synthesize-corpus]])
+  `skill-cross-synthesize-corpus`)
 
 ## Goal
 

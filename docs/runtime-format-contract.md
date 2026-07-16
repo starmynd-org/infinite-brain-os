@@ -61,4 +61,4 @@ This repository is a git-native knowledge system first. Runtime tools are adapte
 - Secrets live in n8n credentials or VPS secrets, never in workflow JSON or companion Markdown.
 - n8n execution history is operational telemetry. Distilled lessons become `memory` nodes only after review.
 - Webhook workflows are not treated as valid after import plus activation alone. They need a post-activation endpoint probe and any unresolved parity issue should be tracked as runtime follow-up work, not guessed away in docs.
-- The shared public proof pack for that webhook check lives at `../n8n-live-proof/README.md` when bundled at the repo root.
+- A deployment may bundle a proof pack for that webhook check at the repo root; this starter does not bundle one.

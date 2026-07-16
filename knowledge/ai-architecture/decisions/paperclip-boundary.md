@@ -56,9 +56,7 @@ not doctrine ownership inside the control plane.
 
 Primary sources:
 
-- an internal build record (not shipped)
-- an internal build record (not shipped)
-- an internal build record (not shipped)
+- internal build records (not shipped)
 - an internal build record (not shipped) (confirmed real schema)
 - an internal build record (not shipped) (locked projection, writeback, governance, budget, and agent contracts)
 

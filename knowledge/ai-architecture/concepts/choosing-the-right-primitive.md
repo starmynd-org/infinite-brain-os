@@ -115,12 +115,15 @@ up, and durable change always returns through a visible git promotion event.
         Namespace nodes (knowledge/<ns>/)      <- the truth plane
 ```
 
-Worked reading: a CRM "compose and send a campaign" action lives in a thin S3 composer surface. The
-operator clicks send. The embedded S4 runtime triggers the `email-campaign-build` agentic workflow,
-which invokes the copywriter and reviewer agents (judgment), which call the email-linter and
-figma-export tools (bounded capabilities), all reading the `email-campaign-production` and
-`drift-brand` namespaces. The surface shows the result and stages the durable change as a git
-promotion. No part of that logic lives in the surface; the surface only renders and triggers.
+Worked reading, realized in the shipped CRM app at `repos/external/acme/crm-app`: a
+"compose and send a campaign" action lives in a thin Email Studio composer surface. The operator
+clicks send. The embedded S4 runtime triggers the `email-campaign-build` agentic workflow, which
+invokes the copywriter and reviewer agents (judgment), which call the `crm-email-linter`,
+`crm-runtime-bridge`, and asset tools (bounded capabilities), all reading the brand and
+email-campaign-production namespaces. The surface shows the result and stages the durable change as
+a git promotion. No part of that logic lives in the surface; the surface only renders and triggers.
+This decomposition was proven in the brain, then extracted into that self-contained app; the CRM
+namespaces and tooling were archived out of the brain on 2026-06-17.
 
 Second worked reading: a CRM review surface owns runtime-plane state such as reviewer identity,
 comment threads, approval-in-flight status, and selected gallery context. That state is not a new

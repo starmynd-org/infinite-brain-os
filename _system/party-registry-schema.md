@@ -65,6 +65,7 @@ namespace_slugs: []                  # related knowledge namespaces, if any
 department_slugs: []                 # departments that materially work this party
 tool_slugs: []
 repo_slugs: []
+asset_refs: []                       # stable asset_ref ids this party's style or media belongs to
 notes: "Short operator note."
 ```
 
@@ -77,8 +78,10 @@ Required meaning:
 - `status`: the current relationship posture, kept honest (a fired client says so).
 - `parent_party_slug`: models trees such as client -> child engagement -> brand without
   duplicating the relationship into namespaces.
-- linkage lists (`namespace_slugs`, `department_slugs`, `tool_slugs`, `repo_slugs`): pointers
-  only. The pointed-at layer owns its own truth.
+- linkage lists (`namespace_slugs`, `department_slugs`, `tool_slugs`, `repo_slugs`,
+  `asset_refs`): pointers only. The pointed-at layer owns its own truth. `asset_refs` points at
+  `assets/<asset-id>.md` entries per `_system/asset-registry-rules.md`, most relevant for a
+  `brand` party's logo, color, and style files.
 
 ## Body shape
 
@@ -91,4 +94,6 @@ doctrine about a party's domain belongs in a namespace, not here.
 - not a CRM: live pipeline state, task queues, and approvals stay in runtime systems
 - not a credential store: secrets are referenced via `secrets/` entries that point back here
   through `party_slugs`
+- not an asset store: images, brand style files, and other large media are referenced via
+  `asset_refs` pointing at `assets/` entries, never stored inline here
 - not a namespace substitute: create a namespace only when a party accumulates real doctrine
