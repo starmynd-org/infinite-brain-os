@@ -19,7 +19,7 @@ fi
 
 count=0
 stale=0
-cutoff="$(date -d '3 days ago' +%Y-%m-%d 2>/dev/null || date +%Y-%m-%d)"
+cutoff="$(date -d '3 days ago' +%Y-%m-%d 2>/dev/null || date -v-3d +%Y-%m-%d 2>/dev/null || date +%Y-%m-%d)"
 
 stale_lines=""
 for f in "$ACTIVE_DIR"/*.md; do

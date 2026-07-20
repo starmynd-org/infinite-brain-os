@@ -43,7 +43,7 @@ pointer_name_for_namespace() {
 }
 
 mapfile -t namespace_slugs < <(
-  find "$KNOWLEDGE_DIR" -maxdepth 1 -mindepth 1 -type d -name '*-tool-contract' -printf '%f\n' | sort
+  find "$KNOWLEDGE_DIR" -maxdepth 1 -mindepth 1 -type d -name '*-tool-contract' -exec basename {} \; | sort
 )
 
 for tool_file in "$TOOLS_DIR"/*.md; do
