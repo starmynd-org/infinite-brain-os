@@ -94,6 +94,6 @@ Support and provenance for this pillar are collected in
 `computer-in-the-corner-reference-pack`, including:
 
 - the May 31, 2026 article text supplied by the operator
-- the Dominic conversation that sharpened the department and intake framing
+- a stakeholder conversation that sharpened the department and intake framing
 - the named historical references to Solow, David, and Brynjolfsson
 - the named modern industry references to Karpathy, the operator Ng, and a16z

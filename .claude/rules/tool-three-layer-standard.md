@@ -79,8 +79,10 @@ counts that non-zero exit as a validation error, when any root pointer lacks bot
 `*-tool-contract` namespace has no root pointer.
 
 During the preceding backfill the same check was warn-only so the gap stayed visible without
-blocking unrelated work. The backfill closed every gap, so program close promoted the check
-from warning to error. A new tool
+blocking unrelated work. The backfill closed every gap, reaching full coverage across the root
+pointer set and the `*-tool-contract` namespaces, so program close promoted the check from warning
+to error. The check counts the live tree on every run, so the coverage figures are read from
+`_system/checks/tool-three-layer-standard-check.sh` output, never recorded here. A new tool
 cannot now be added without either its knowledge graph or an explicit `pointer-only` exemption.
 
 ## Build rule

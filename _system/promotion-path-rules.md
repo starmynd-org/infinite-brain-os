@@ -97,8 +97,13 @@ Until the operator approves, the material stays in `synthesis/` as a candidate. 
 questions never live permanently in canon; they stay in `synthesis/` or `intake/`.
 
 - Operator approval gate: human, not deterministic, not agent.
-- `derived_from`, `verified_by`, `verified_at`, and `## Changelog` presence on a
-  `canon_posture: full` namespace: enforced by `validate.sh` (deterministic).
+- `derived_from`, `verified_by`, `verified_at`, and `## Changelog` presence on the canon
+  node of record of a `canon_posture: full` namespace: checked deterministically by
+  `_system/checks/canon-field-check.sh`, reported by `bash _system/validate.sh` as a
+  WARNING. Warn-only, not blocking, as of 2026-07-16: the check reports the gap, it does not
+  reject the tree. Promotion to a blocking error is an operator decision recorded per the
+  promotion path in `_system/enforcement-tiers.md`. Presence is all that is mechanical here;
+  whether the provenance is honest and the approval real stays human.
 - Whether the synthesis is genuinely canon-worthy: curator check plus operator decision
   (fuzzy then human).
 

@@ -36,12 +36,19 @@ shape of the system, not a deficiency to engineer away.
 | Tier | Count |
 |------|-------|
 | validate | 5 |
+| validate (warn-only) | 2 |
 | hook | 2 |
-| audit | 16 |
-| prose | 50 |
-| total numbered rules | 73 |
+| audit | 14 |
+| prose | 58 |
+| total numbered rules | 81 |
 
-By series: SESSION 17, LOAD 12, CONTRA 10, FRESH 10, EVAL 10, CORR 5, INTAKE 9.
+The `validate (warn-only)` split appeared 2026-07-16 when FRESH-2 and FRESH-6 moved out of
+audit-planned into a shipped check that validate.sh runs but does not fail on
+(`canon-field-check.sh`). A warn-only validate row is checked on every run and reported; it
+just does not reject the tree yet. It is a promotion decision away from the `validate` tier
+proper, which is why it is counted separately rather than folded in.
+
+By series: SESSION 17, LOAD 12, CONTRA 10, FRESH 10, EVAL 10, CORR 5, INTAKE 9, MBW 8.
 Lettered sub-rules (SESSION-6A through 6E, SESSION-8A, SESSION-8B, LOAD-7A) count as
 distinct rules.
 
@@ -56,14 +63,20 @@ Shipped (in `_system/checks/`, all warn-only):
 - `adapter-sync-check.sh`: entities/ versus adapter drift, CLAUDE.md and AGENTS.md
   co-edit warning
 - `uncommitted-work-check.sh`: working-tree status one-liner
+- `canon-field-check.sh` (2026-07-16, drift-repair sprint): `verified_at`, `verified_by`,
+  `derived_from`, and `## Changelog` presence on the canon nodes of record of every
+  `canon_posture: full` namespace, plus the `freshness_posture` enum. Run by validate.sh,
+  warn-only: validate.sh reports its findings as warnings and does not consume its exit
+  code. Covers FRESH-2 and FRESH-6 and the promotion-path canon-field claim.
 
 Planned (named here, not yet written):
 
 - `session-ledger-audit.sh`: closeout completeness over `sessions/closed/` and
   `sessions/reviews/` (record fields, usage receipts, review presence, cross-links)
-- `namespace-health-audit.sh`: freshness metadata over registries and canon
-  (`freshness_posture` enum, `verified_at` and `verified_by` presence and staleness,
-  eval-set presence and size)
+- `namespace-health-audit.sh`: the freshness metadata NOT covered by `canon-field-check.sh`,
+  namely posture-versus-baseline comparison (FRESH-4), `verified_at` staleness against
+  material edits (FRESH-8), and eval-set presence and size (EVAL-2, EVAL-3, EVAL-6). The
+  presence half of its original scope shipped as `canon-field-check.sh` instead.
 - `intake-hygiene-audit.sh`: intake tree hygiene (no live-queue folders, stub id and
   timestamp forms)
 
@@ -128,19 +141,28 @@ link checks, and is not re-declared per row.
 
 ## FRESH rules (`_system/freshness-review-rules.md`)
 
-Honesty note: freshness-review-rules.md lists the `freshness_posture` enum and the
-`verified_at` and `verified_by` presence checks as deterministic validate.sh territory,
-but the current validate.sh contains neither check. They are declared audit-tier
-(planned) here and are the strongest candidates for promotion into validate.sh.
+Honesty note (updated 2026-07-16, sprint `2026-07-16-system-drift-repair`): the gap this
+note used to record is closed. Both checks now exist as
+`_system/checks/canon-field-check.sh` and run inside `bash _system/validate.sh`, WARN-ONLY,
+alongside the `derived_from` and `## Changelog` presence checks that
+`promotion-path-rules.md` claimed. The rule files now state the warn-only posture rather
+than claiming blocking enforcement, so the three surfaces agree.
+
+The remaining honest gap is posture, not existence: at implementation 40 findings stood
+across 72 canon nodes of record, so the tree cannot pass these checks as errors today.
+Promotion to blocking is an operator decision per the promotion path below. Note the
+structural reason it cannot be agent-closed: `verified_at` and `verified_by` record
+operator approval of canon, and no agent may self-approve canon, so the backfill is the
+operator's to do or to waive.
 
 | Rule | Tier | Mechanism and notes |
 |------|------|---------------------|
 | FRESH-1 | prose | Scoping review by posture is review-procedure behavior. |
-| FRESH-2 | audit | `namespace-health-audit.sh` (planned): registry `freshness_posture` is one of the three values. Promotion candidate for validate.sh. |
+| FRESH-2 | validate (warn-only) | `canon-field-check.sh` (shipped 2026-07-16), run by validate.sh: registry `freshness_posture` is one of the three values. Clean across every registry entry at implementation. Promotion candidate: this row alone could go blocking today. |
 | FRESH-3 | prose | Whether content is stable doctrine, and therefore review-on-edit, is judgment. |
 | FRESH-4 | audit | `namespace-health-audit.sh` (planned): registry postures compared against the locked baseline table; deviations reported for curator review. |
 | FRESH-5 | prose | Posture guidance for future profile types; judgment at namespace creation. |
-| FRESH-6 | audit | `namespace-health-audit.sh` (planned): `verified_at` and `verified_by` present on `core-doctrine.md` and `current-truth.md`. The rule file claims validate.sh enforces this today; it does not. Promotion candidate. |
+| FRESH-6 | validate (warn-only) | `canon-field-check.sh` (shipped 2026-07-16), run by validate.sh: `verified_at` and `verified_by` present on the canon node of record (`core-doctrine.md`, or `core-contract.md` on the tool-contract profile) and on `current-truth.md` where present. The rule file no longer claims blocking enforcement. 22 of 72 nodes of record lacked the pair at implementation, so this row cannot go blocking until the operator verifies or waives them; an agent cannot backfill an operator approval. |
 | FRESH-7 | prose | Whether a confirmation actually happened, versus a formatting edit, is human or curator knowledge. |
 | FRESH-8 | audit | `namespace-health-audit.sh` (planned): the date comparison (`verified_at` versus latest material edits, cadence-window staleness) is mechanical; whether the content is still true stays prose. |
 | FRESH-9 | prose | Exempting detail nodes from `verified_at` is a scoping statement. |
@@ -169,7 +191,7 @@ but the current validate.sh contains neither check. They are declared audit-tier
 | CORR-2 | prose | An operator override is a human statement. |
 | CORR-3 | prose | Recognizing a one-off or context-specific correction is judgment. |
 | CORR-4 | prose | Choosing the lightest durable home that closes the loop is the routing judgment. |
-| CORR-5 | prose | Operator approval for canon revisions is a human gate; the changelog and verified-fields structure it relies on is covered under FRESH-6 (audit, planned). |
+| CORR-5 | prose | Operator approval for canon revisions is a human gate; the changelog and verified-fields structure it relies on is covered under FRESH-6 (validate, warn-only, via `canon-field-check.sh`). |
 
 ## INTAKE rules (`_system/namespace-intake-rules.md`)
 
@@ -184,6 +206,23 @@ but the current validate.sh contains neither check. They are declared audit-tier
 | INTAKE-7 | validate | Same validate.sh block: a receipt missing a routing decision or destination link is an ERROR. |
 | INTAKE-8 | audit | `intake-hygiene-audit.sh` (planned): stub id form `intake-<source>-<date>-<slug>` and ISO `received_at` timestamps are regex-checkable. |
 | INTAKE-9 | prose | Migration posture for a past sprint; historical scope. |
+
+## MBW rules (`_system/multi-brain-workspace-contract.md`)
+
+The parent-workspace contract is instantiated in workspace scaffolds and rollout tooling, not inside this
+company brain, so `validate.sh` here has nothing to check and the series is prose. The one deterministic obligation, no secret value in the parent or copied layer (MBW-8),
+is already covered by the secret-registry scan and is not re-declared per row.
+
+| Rule | Tier | Mechanism and notes |
+|------|------|---------------------|
+| MBW-1 | prose | One opened root, brains mounted as independent repos and git-ignored, is a workspace-scaffold convention. |
+| MBW-2 | prose | Default-to-shared routing, individual for the unproven, is routing judgment. |
+| MBW-3 | prose | The single `/start` bootstrap and its graceful degradation are build and runtime behavior. |
+| MBW-4 | prose | Core-versus-content classification and the `proposal/<slug>-<topic>` gate are curator judgment plus the human merge gate, the branch form of the promotion-path operator gate. |
+| MBW-5 | prose | The read-only runtime copy-up, its provenance, and workspace-command preservation are build and runtime behavior. |
+| MBW-6 | prose | Generating the brain-selection index from each brain's INDEX is a build step. |
+| MBW-7 | prose | Keeping the generated layers read-only and out of truth is the surface-boundary judgment. |
+| MBW-8 | prose | Edit-only settings guards and the trust posture are build conventions; the no-secret-value half is covered by the secret-registry validate check and not re-declared. |
 
 ## Unnumbered repo-wide contracts
 

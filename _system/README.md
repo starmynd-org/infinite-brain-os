@@ -82,7 +82,7 @@ procedure or policy a maintainer must follow (`namespace-intake-rules.md`,
 `canon-changelog-rules.md`, `department-assembly-rules.md`,
 `department-runtime-contract.md`, `session-ledger-rules.md`, `tool-registry-rules.md`,
 `repo-registry-rules.md`, `secret-registry-rules.md`, `asset-registry-rules.md`,
-`wager-ledger-rules.md`). Each names the
+`wager-ledger-rules.md`, `multi-brain-workspace-contract.md`). Each names the
 `ai-architecture` doctrine node that explains why it exists.
 
 ### The validator: `_system/validate.sh`
@@ -124,7 +124,8 @@ doctrine, so the validator and the rules never drift.
 - Building or revising a department charter: read `department-charter-rules.md`. Serious
   departments should have both `INDEX.md` and `CHARTER.md`.
 - Building or revising the cross-repo map: read `repo-registry-rules.md`. If a department
-  materially depends on another repo under `<legacy-root>`, create or
+  materially depends on another repo under the active root `<your-repos-root>` (`internal/`
+  for repos this operation owns, `external/` for client-owned or co-operated repos), create or
   update a `repo-registry/` entry and link it from the department `INDEX.md`.
 - Building or revising the shared secret posture: read `secret-registry-rules.md`, keep durable
   references in the root `secrets/` registry, and keep raw values in the external secret backend
@@ -145,6 +146,10 @@ doctrine, so the validator and the rules never drift.
   observation-to-disposition-to-wager-to-verdict lifecycle, department ownership via
   `owning_department_id`) and the doctrine guide
   `knowledge/ai-architecture/playbooks/department-operating-guide.md`.
+- Standing up a parent workspace over several brains: read `multi-brain-workspace-contract.md` (the `MBW`
+  series: the `brains/` mount, default-to-shared routing, the `/start` bootstrap, the governed `/sync`
+  with proposal-branch routing, the read-only runtime copy-up, and the brain-selection index) and the
+  doctrine guide `knowledge/ai-architecture/playbooks/stand-up-a-multi-brain-parent-workspace.md`.
 
 ## What this folder is not
 

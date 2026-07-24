@@ -111,9 +111,9 @@ Every real department `INDEX.md` should link directly to:
 - at least one workflow under `workflows/`
 - at least one intake path or intake playbook under `intake/`
 
-If the department materially depends on other repos under
-`<legacy-root>`, it should also link to the relevant entries under
-`repo-registry/`.
+If the department materially depends on other repos under the active root
+`<your-repos-root>` (see `repo-registry-rules.md` for the active-root and active-set
+definition), it should also link to the relevant entries under `repo-registry/`.
 
 If a department does not yet have one of these, state the gap explicitly under `Open Gaps`.
 

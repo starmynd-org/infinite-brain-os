@@ -140,6 +140,11 @@ Top files after canon:
   and how does a brain repo differ from a non-brain app repo): load
   [[reflexive-brain-topology]], [[department-graduates-to-repo-on-trust-boundary]],
   [[graduate-a-department-to-its-own-brain-repo]], and `_system/repo-registry-rules.md`.
+- **Multi-brain parent workspace** (how one person works across several brains at once: a
+  `.claude/` router over a `brains/` folder mounting a shared brain plus an individual brain,
+  a `/start` bootstrap, a governed `/sync` with proposal-branch routing, the runtime copy-up,
+  and the brain-selection index): load [[stand-up-a-multi-brain-parent-workspace]],
+  [[reflexive-brain-topology]], and `_system/multi-brain-workspace-contract.md`.
 - **System versus doctrine layering** (where the operative contract lives versus where the
   reasoning lives, when to read `_system/` versus this namespace): load
   [[system-vs-doctrine-boundary]], then `_system/README.md`.
@@ -329,6 +334,7 @@ knowledge/ai-architecture/
     upgrade-a-namespace-to-v2.md
     review-namespace-health.md
     process-namespace-intake.md
+    stand-up-a-multi-brain-parent-workspace.md
   synthesis/                     # ships with the OODA orientation set; grow yours here
     boyd-to-agent-architecture-ooda-map.md
     ooda-architecture-index.md

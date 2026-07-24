@@ -81,6 +81,7 @@ load the orientation canon before the deeper graph:
 | Correction and learning: how does repeated correction become structure | [[correction-loop-absorption]] |
 | Namespace upgrade or audit: how is a namespace moved to V2 or its health checked | [[upgrade-a-namespace-to-v2]], [[review-namespace-health]], `namespace-audit-wave-order` |
 | Repo topology: when does a department or the individual layer deserve its own repo, how do individual, department, and company brain tiers compose for a company running the standard, and how does a brain repo differ from an app repo | [[reflexive-brain-topology]], [[department-graduates-to-repo-on-trust-boundary]], [[graduate-a-department-to-its-own-brain-repo]], `_system/repo-registry-rules.md` |
+| Multi-brain parent workspace: how one person works across several brains, a `.claude/` router over a `brains/` folder, the `/start` bootstrap, the governed `/sync` with proposal-branch routing, the runtime copy-up, and the brain-selection index | [[stand-up-a-multi-brain-parent-workspace]], [[reflexive-brain-topology]], `_system/multi-brain-workspace-contract.md` |
 
 ## Notes
 

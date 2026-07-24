@@ -90,12 +90,17 @@ before any wave closes, regardless of posture. Only the fuzzy freshness pass is 
 - `live`: fuzzy freshness pass most often, on every relevant edit and on the most frequent
   scheduled cadence, because live state decays fastest.
 
-## What validate.sh enforces vs what a curator decides
+## What validate.sh checks vs what a curator decides
 
-Deterministic (validate.sh):
+Deterministic, reported by `bash _system/validate.sh` via
+`_system/checks/canon-field-check.sh`. Both are WARN-ONLY as of 2026-07-16: the check
+reports the gap as a warning and does not reject the tree. Promoting either to a blocking
+error is an operator decision recorded per the promotion path in
+`_system/enforcement-tiers.md`.
 
-- `canon/core-doctrine.md` and `canon/current-truth.md` carry `verified_at` and
-  `verified_by` (presence check; part of canon checks)
+- the canon node of record (`canon/core-doctrine.md`, or `canon/core-contract.md` for the
+  tool-contract profile) and `canon/current-truth.md` where present carry `verified_at`,
+  `verified_by`, `derived_from`, and a `## Changelog` (presence check only)
 - `freshness_posture` in the registry entry is one of `review-on-edit`, `periodic`, `live`
 
 Fuzzy (curator or freshness-reviewer agent, not validate.sh):

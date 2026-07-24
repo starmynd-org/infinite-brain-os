@@ -94,4 +94,6 @@ per [[reflexive-brain-topology]] rather than staying three separately maintained
 `implements` the trigger decision in [[department-graduates-to-repo-on-trust-boundary]].
 `derived_from` [[reflexive-brain-topology]] and the upstream deployment's field-tested
 client-release procedure. The registry fields this playbook writes are
-defined in `_system/repo-registry-rules.md`.
+defined in `_system/repo-registry-rules.md`. A graduated department brain is often mounted
+alongside a person's individual brain in a parent workspace, per
+[[stand-up-a-multi-brain-parent-workspace]] and `_system/multi-brain-workspace-contract.md`.

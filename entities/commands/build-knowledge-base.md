@@ -121,7 +121,7 @@ Do not force the operator into a fixed flag schema when plain-English instructio
 ## Expected defaults
 
 - Assume the target repo is:
-  `<legacy-root>\infinite-brain-os`
+  `<your-repos-root>\internal\infinite-brain-os`
   unless the operator clearly says otherwise.
 - Assume the target location is:
   `knowledge/<namespace>/`

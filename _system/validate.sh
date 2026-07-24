@@ -43,6 +43,8 @@ GENERATED_MD_WALK_PRUNES=(
   "*/outputs/_runtime/*"
   "*/tools/starter-export/overlay"
   "*/tools/starter-export/overlay/*"
+  "*/tools/client-export/overlay"
+  "*/tools/client-export/overlay/*"
   "*/node_modules"
   "*/node_modules/*"
 )
@@ -378,39 +380,16 @@ registry_field() {
 BASE_SURFACES=(INDEX.md canon playbooks support synthesis)
 
 # Reduced-base namespaces are exempted from the serious-base-surface requirement.
-# personal-operator GRADUATED to a serious namespace on 2026-06-03 (sprint
-# 2026-06-03-chief-of-staff-buildout, Wave 0) and was removed from this list so its serious
-# base is enforced (migration Rule 6: the validator evolves with the doctrine in the same wave).
-# _examples/* starter scaffolds remain reduced-base via is_reduced_base_namespace below.
-REDUCED_BASE_NAMESPACES=()
-
 is_reduced_base_namespace() {
   local slug="$1"
-  local ns
-  # Registry-driven (preferred): a namespace declares `reduced_base: true` in its registry entry.
+  # Registry-driven: a namespace declares `reduced_base: true` in its registry entry.
   # Graduating a namespace to the serious base is then a registry edit (set false / remove the field),
   # not a validator code change. This is the scalable path for many departments bringing domain
   # namespaces that start reduced-base and graduate.
   [[ "$(registry_field "$slug" "reduced_base")" == "true" ]] && return 0
-  # Legacy explicit list (kept for any namespace not yet carrying the registry field).
-  for ns in "${REDUCED_BASE_NAMESPACES[@]}"; do
-    [[ "$slug" == "$ns" ]] && return 0
-  done
   # Treat any _examples/* namespace as reduced base (starter and example scaffolds).
   [[ "$slug" == _examples* ]] && return 0
   return 1
-}
-
-# is_v2_queued
-# A namespace whose registry declares v2_status: queued is scheduled for V2 upgrade but
-# not yet upgraded (contract Part 12, migration compatibility: additive and non-blocking
-# during transition). Its missing base surfaces and full-canon files are WARNINGS, not
-# ERRORS, so the validator stays green while the queued upgrade is tracked in the audit
-# packets. Any namespace without v2_status: queued (absent, or v2_status: upgraded) is
-# enforced as an ERROR, so V2-upgraded and newly created namespaces must comply.
-is_v2_queued() {
-  local slug="$1"
-  [[ "$(registry_field "$slug" "v2_status")" == "queued" ]]
 }
 
 # check_base_surfaces
@@ -418,7 +397,7 @@ is_v2_queued() {
 # a base surface is an error. Reduced-base namespaces (_examples/* starter scaffolds)
 # are exempt.
 check_base_surfaces() {
-  local ns_dir slug surface target queued msg
+  local ns_dir slug surface target msg
   for ns_dir in "$REPO_ROOT"/knowledge/*/; do
     [[ -d "$ns_dir" ]] || continue
     slug="$(basename "$ns_dir")"
@@ -426,8 +405,6 @@ check_base_surfaces() {
     if is_reduced_base_namespace "$slug"; then
       continue
     fi
-    queued=0
-    is_v2_queued "$slug" && queued=1
     for surface in "${BASE_SURFACES[@]}"; do
       target="${ns_dir}${surface}"
       if [[ "$surface" == *.md ]]; then
@@ -436,12 +413,8 @@ check_base_surfaces() {
         [[ -d "$target" ]] && continue
       fi
       msg="knowledge/$slug is missing required $([[ "$surface" == *.md ]] && echo "file '$surface'" || echo "folder '$surface/'") (contract Part 1.2)"
-      if [[ $queued -eq 1 ]]; then
-        WARNINGS+=("QUEUED V2 GAP: $msg [v2_status: queued, upgrade tracked in Namespace_Audits]")
-      else
-        ERRORS+=("MISSING BASE SURFACE: $msg")
-        FAIL=1
-      fi
+      ERRORS+=("MISSING BASE SURFACE: $msg")
+      FAIL=1
     done
   done
 }
@@ -454,7 +427,7 @@ check_base_surfaces() {
 # canon/core-contract.md as its canon file of record (namespace-profiles.md, tool-contract
 # profile), so core-contract.md satisfies the core-doctrine.md requirement for it.
 check_full_canon() {
-  local ns_dir slug posture profile cf queued
+  local ns_dir slug posture profile cf
   local full_canon_files=(README.md core-doctrine.md agent-load-order.md)
   for ns_dir in "$REPO_ROOT"/knowledge/*/; do
     [[ -d "$ns_dir" ]] || continue
@@ -463,19 +436,13 @@ check_full_canon() {
     posture="$(registry_field "$slug" "canon_posture")"
     [[ "$posture" == "full" ]] || continue
     profile="$(registry_field "$slug" "profile")"
-    queued=0
-    is_v2_queued "$slug" && queued=1
     for cf in "${full_canon_files[@]}"; do
       if [[ "$cf" == "core-doctrine.md" && "$profile" == "tool-contract" && -f "${ns_dir}canon/core-contract.md" ]]; then
         continue
       fi
       [[ -f "${ns_dir}canon/${cf}" ]] && continue
-      if [[ $queued -eq 1 ]]; then
-        WARNINGS+=("QUEUED V2 GAP: knowledge/$slug declares canon_posture: full but is missing canon/$cf (contract Part 3.3) [v2_status: queued, upgrade tracked in Namespace_Audits]")
-      else
-        ERRORS+=("MISSING FULL-CANON FILE: knowledge/$slug declares canon_posture: full but is missing canon/$cf (contract Part 3.3)")
-        FAIL=1
-      fi
+      ERRORS+=("MISSING FULL-CANON FILE: knowledge/$slug declares canon_posture: full but is missing canon/$cf (contract Part 3.3)")
+      FAIL=1
     done
   done
 }
@@ -879,7 +846,13 @@ def is_plumbing(rel):
         return True
     if rel.startswith("outputs/_runtime/"):
         return True
+    # Export overlay trees are payload for the exported brain, not nodes in this brain.
+    # Their INDEX.md and canon/agent-load-order.md are frontmatter-exempt in the target brain
+    # by the same rule as above, but the patterns there anchor at knowledge/ and so do not
+    # match an overlay-prefixed path. Keep this list in step with GENERATED_MD_WALK_PRUNES.
     if rel.startswith("tools/starter-export/overlay/"):
+        return True
+    if rel.startswith("tools/client-export/overlay/"):
         return True
     return any(pattern in rel for pattern in plumbing_patterns)
 
@@ -1376,6 +1349,20 @@ done
 # entities/rules/tool-three-layer-standard.md and
 # _system/enforcement-tiers.md.
 # ---------------------------------------------------------------------------
+# Canon-field completeness (promotion-path-rules and freshness-review-rules canon claims,
+# plus the FRESH-2 freshness_posture enum). WARN-ONLY as of 2026-07-16: the exit code is
+# reported, not consumed as a failure. Promotion to error is an operator decision recorded
+# per the promotion path in _system/enforcement-tiers.md.
+echo "Running warn-only canon field check (_system/checks/)..."
+CANON_FIELD_CHECK="$REPO_ROOT/_system/checks/canon-field-check.sh"
+if [[ -f "$CANON_FIELD_CHECK" ]]; then
+  canon_field_output="$(bash "$CANON_FIELD_CHECK" 2>&1)" || true
+  while IFS= read -r canon_line; do
+    [[ -n "$canon_line" ]] || continue
+    WARNINGS+=("CANON FIELD (warn-only): ${canon_line#canon-field: }")
+  done <<< "$canon_field_output"
+fi
+
 echo "Running enforced tool three-layer standard check (_system/checks/)..."
 TOOL_THREE_LAYER_CHECK="$REPO_ROOT/_system/checks/tool-three-layer-standard-check.sh"
 if [[ -f "$TOOL_THREE_LAYER_CHECK" ]]; then
