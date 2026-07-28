@@ -151,7 +151,7 @@ The same posture applies to party scope. Optional metadata such as:
 ```yaml
 party_slugs: [acme, drift]
 client_slug: "acme-crm"
-brand_slug: "drift"
+brand_slug: "acme"
 ```
 
 may be used on nodes that materially tie to an external commercial scope, but the durable source

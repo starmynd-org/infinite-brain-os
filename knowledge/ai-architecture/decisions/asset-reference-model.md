@@ -98,7 +98,7 @@ Primary sources:
 
 - `_system/secret-reference-schema.md` and `_system/secret-registry-rules.md` (the precedent
   pattern this decision applies to binary assets)
-- `_system/party-registry-schema.md` and `parties/brands/drift.md` (the existing brand party
+- `_system/party-registry-schema.md` and `parties/brands/acme.md` (the existing brand party
   record this decision attaches to)
 - `knowledge/ai-architecture/concepts/surface-classes.md` and `_system/surface-contract-rules.md`
   (the promotion-event and runtime-plane framing the upload tool follows)

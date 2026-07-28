@@ -22,7 +22,7 @@ If the department materially belongs to external commercial scope, add optional 
 ```yaml
 party_slugs: [acme, drift]
 client_slug: "acme-crm"
-brand_slug: "drift"
+brand_slug: "acme"
 ```
 
 ## Mission

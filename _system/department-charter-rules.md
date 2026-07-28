@@ -52,7 +52,7 @@ Rules:
 ```yaml
 party_slugs: [acme, drift]
 client_slug: "acme-crm"
-brand_slug: "drift"
+brand_slug: "acme"
 ```
 
 ## Minimum charter sections

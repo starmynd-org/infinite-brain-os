@@ -58,7 +58,7 @@ If the tool materially belongs to external commercial scope, use:
 ```yaml
 party_slugs: [acme, drift]
 client_slug: "acme-crm"
-brand_slug: "drift"
+brand_slug: "acme"
 ```
 
 ## Body sections
