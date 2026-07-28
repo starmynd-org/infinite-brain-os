@@ -11,9 +11,12 @@ FAIL=0
 CHECKED=0
 ERRORS=()
 WARNINGS=()
+# Bash 3.2 compatibility (stock macOS): no associative arrays anywhere in this
+# script. Knowledge-node metadata lives in three parallel indexed arrays keyed by
+# position, and the link-target sets further down are newline-delimited strings.
 KNOWLEDGE_NODE_FILES=()
-declare -A KNOWLEDGE_NODE_IDS=()
-declare -A KNOWLEDGE_HAS_OUTBOUND=()
+KNOWLEDGE_NODE_ID_LIST=()
+KNOWLEDGE_HAS_OUTBOUND_LIST=()
 
 REPO_MD_WALK_PRUNES=(
   "$REPO_ROOT/.git"
@@ -145,7 +148,9 @@ extract_frontmatter() {
     fi
 
     if [[ $in_frontmatter -eq 1 && "$line" == "---" ]]; then
-      printf '%s\n' "${frontmatter_lines[@]}"
+      if [[ ${#frontmatter_lines[@]} -gt 0 ]]; then
+        printf '%s\n' "${frontmatter_lines[@]}"
+      fi
       return 0
     fi
 
@@ -233,12 +238,14 @@ frontmatter_alias_values() {
         inline_values="${inline_values#[}"
         inline_values="${inline_values%]}"
         IFS=',' read -r -a inline_items <<< "$inline_values"
-        for raw_item in "${inline_items[@]}"; do
-          alias_value="${raw_item#"${raw_item%%[![:space:]]*}"}"
-          alias_value="${alias_value%"${alias_value##*[![:space:]]}"}"
-          alias_value="$(trim_wrapping_quotes "$alias_value")"
-          [[ -n "$alias_value" ]] && printf '%s\n' "$alias_value"
-        done
+        if [[ ${#inline_items[@]} -gt 0 ]]; then
+          for raw_item in "${inline_items[@]}"; do
+            alias_value="${raw_item#"${raw_item%%[![:space:]]*}"}"
+            alias_value="${alias_value%"${alias_value##*[![:space:]]}"}"
+            alias_value="$(trim_wrapping_quotes "$alias_value")"
+            [[ -n "$alias_value" ]] && printf '%s\n' "$alias_value"
+          done
+        fi
         return 0
       fi
       in_aliases=1
@@ -307,7 +314,7 @@ check_project_pointers() {
   local frontmatter="$2"
   local type_value
 
-  type_value="$(frontmatter_value_from_text "$frontmatter" "type:")"
+  type_value="$(frontmatter_value_from_text "$frontmatter" "type:")" || true
   type_value="$(trim_wrapping_quotes "$type_value")"
   if [[ "$type_value" =~ ^[Pp]roject$ ]]; then
     local missing=()
@@ -344,7 +351,7 @@ check_obsidian_alias_compat() {
 
   rel="${filepath#$REPO_ROOT/}"
   basename_no_ext="$(basename "$filepath" .md)"
-  node_id="$(frontmatter_value_from_text "$frontmatter" "id:")"
+  node_id="$(frontmatter_value_from_text "$frontmatter" "id:")" || true
   node_id="$(trim_wrapping_quotes "$node_id")"
 
   if [[ -z "$node_id" || "$basename_no_ext" == "$node_id" ]]; then
@@ -522,25 +529,47 @@ normalize_relative_link_target() {
   printf '%s\n' "$target"
 }
 
+# Link-target sets, bash 3.2 compatible: each set is a newline-delimited string
+# (leading newline included) so membership is one literal substring match and no
+# associative arrays are needed. Duplicates are harmless.
+RESOLVABLE_TARGETS_SET=$'\n'
+REFERENCED_NAMES_SET=$'\n'
+
+resolvable_targets_add() {
+  RESOLVABLE_TARGETS_SET+="$1"$'\n'
+}
+
+resolvable_targets_has() {
+  [[ "$RESOLVABLE_TARGETS_SET" == *$'\n'"$1"$'\n'* ]]
+}
+
+referenced_names_add() {
+  REFERENCED_NAMES_SET+="$1"$'\n'
+}
+
+referenced_names_has() {
+  [[ "$REFERENCED_NAMES_SET" == *$'\n'"$1"$'\n'* ]]
+}
+
 populate_resolvable_targets() {
   local path match frontmatter target_id alias_value base_name
 
   if command -v rg >/dev/null 2>&1; then
     while IFS= read -r -d '' path; do
       base_name="${path##*/}"
-      RESOLVABLE_TARGETS["${base_name%.md}"]=1
+      resolvable_targets_add "${base_name%.md}"
     done < <(rg --files --null "${LINK_INDEX_DIRS[@]}" "${GRAPH_MD_GLOBS[@]}")
 
     while IFS= read -r match; do
       match="${match#id:}"
       match="${match#"${match%%[![:space:]]*}"}"
       match="$(trim_wrapping_quotes "$match")"
-      [[ -n "$match" ]] && RESOLVABLE_TARGETS["$match"]=1
+      [[ -n "$match" ]] && resolvable_targets_add "$match"
     done < <(rg --no-filename -o '^id:[[:space:]]*["'"'"']?[^"'"'"']+' "${LINK_INDEX_DIRS[@]}" "${GRAPH_MD_GLOBS[@]}")
 
     while IFS= read -r match; do
       match="$(trim_wrapping_quotes "$match")"
-      [[ -n "$match" ]] && RESOLVABLE_TARGETS["$match"]=1
+      [[ -n "$match" ]] && resolvable_targets_add "$match"
     done < <(rg --no-filename -o '"[a-z0-9][a-z0-9-]*"' "${LINK_INDEX_DIRS[@]}" "${GRAPH_MD_GLOBS[@]}")
     return
   fi
@@ -549,13 +578,14 @@ populate_resolvable_targets() {
     [[ -d "$path" ]] || continue
     while IFS= read -r -d '' path; do
       base_name="${path##*/}"
-      RESOLVABLE_TARGETS["${base_name%.md}"]=1
+      resolvable_targets_add "${base_name%.md}"
       if frontmatter="$(extract_frontmatter "$path")"; then
-        target_id="$(frontmatter_value_from_text "$frontmatter" "id:")"
+        # || true: a frontmatter block without the key must not abort under set -e.
+        target_id="$(frontmatter_value_from_text "$frontmatter" "id:")" || true
         target_id="$(trim_wrapping_quotes "$target_id")"
-        [[ -n "$target_id" ]] && RESOLVABLE_TARGETS["$target_id"]=1
+        [[ -n "$target_id" ]] && resolvable_targets_add "$target_id"
         while IFS= read -r alias_value; do
-          [[ -n "$alias_value" ]] && RESOLVABLE_TARGETS["$alias_value"]=1
+          [[ -n "$alias_value" ]] && resolvable_targets_add "$alias_value"
         done < <(frontmatter_alias_values "$frontmatter")
       fi
     done < <(graph_markdown_walk "$path")
@@ -572,8 +602,8 @@ scan_knowledge_links() {
       rest="${rest#*:}"
       link_target="$(normalize_wikilink_target "$rest")"
       [[ -z "$link_target" ]] && continue
-      REFERENCED_NAMES["$link_target"]=1
-      if [[ -z "${RESOLVABLE_TARGETS[$link_target]+x}" ]]; then
+      referenced_names_add "$link_target"
+      if ! resolvable_targets_has "$link_target"; then
         rel="${file#$REPO_ROOT/}"
         WARNINGS+=("BROKEN WIKILINK: $rel references [[$link_target]] but no file '$link_target.md' or matching id/alias exists in the vault (knowledge/, _system/, entities/, workflows/, intake/)")
         BROKEN_LINK_WARN=$((BROKEN_LINK_WARN + 1))
@@ -613,8 +643,8 @@ scan_knowledge_links() {
     while IFS=$'\t' read -r link_type link_target; do
       [[ -z "$link_target" ]] && continue
       if [[ "$link_type" == "wiki" ]]; then
-        REFERENCED_NAMES["$link_target"]=1
-        if [[ -z "${RESOLVABLE_TARGETS[$link_target]+x}" ]]; then
+        referenced_names_add "$link_target"
+        if ! resolvable_targets_has "$link_target"; then
           WARNINGS+=("BROKEN WIKILINK: $rel references [[$link_target]] but no file '$link_target.md' or matching id/alias exists in the vault (knowledge/, _system/, entities/, workflows/, intake/)")
           BROKEN_LINK_WARN=$((BROKEN_LINK_WARN + 1))
         fi
@@ -1062,14 +1092,14 @@ else
     if [[ "$rel" == knowledge/* && "$rel" != knowledge/*/archive/* ]]; then
       base_name="${file##*/}"
       if [[ "$base_name" != "INDEX.md" ]]; then
-        node_id="$(frontmatter_value_from_text "$frontmatter" "id:")"
+        node_id="$(frontmatter_value_from_text "$frontmatter" "id:")" || true
         node_id="$(trim_wrapping_quotes "$node_id")"
         KNOWLEDGE_NODE_FILES+=("$file")
-        KNOWLEDGE_NODE_IDS["$file"]="$node_id"
+        KNOWLEDGE_NODE_ID_LIST+=("$node_id")
         if frontmatter_has_key "$frontmatter" "edges:" && { [[ "$frontmatter" == *"target: [["* ]] || [[ "$frontmatter" == *'target: "[['* ]]; }; then
-          KNOWLEDGE_HAS_OUTBOUND["$file"]=1
+          KNOWLEDGE_HAS_OUTBOUND_LIST+=(1)
         else
-          KNOWLEDGE_HAS_OUTBOUND["$file"]=0
+          KNOWLEDGE_HAS_OUTBOUND_LIST+=(0)
         fi
       fi
     fi
@@ -1116,7 +1146,7 @@ if [[ -d "$NAMESPACE_DIR" ]]; then
       fi
     done
 
-    ls_value="$(frontmatter_value_from_text "$local_frontmatter" "lifecycle_state:")"
+    ls_value="$(frontmatter_value_from_text "$local_frontmatter" "lifecycle_state:")" || true
     ls_value="$(trim_wrapping_quotes "$ls_value")"
     if [[ -n "$ls_value" ]] && ! [[ "$ls_value" =~ ^($NAMESPACE_ALLOWED_LIFECYCLE)$ ]]; then
       ERRORS+=("NAMESPACE FILE INVALID lifecycle_state '$ls_value' (must be $NAMESPACE_ALLOWED_LIFECYCLE): $ns_rel")
@@ -1218,9 +1248,9 @@ echo "Checking links (wikilinks and relative markdown links)..."
 # _system/ that a [[wikilink]] could resolve to. A target resolves if a file named
 # <name>.md exists anywhere under those trees, or if <name> is declared as an id or
 # alias in any frontmatter. We index by basename without extension plus declared ids.
+# The index lives in the newline-delimited RESOLVABLE_TARGETS_SET and
+# REFERENCED_NAMES_SET strings defined with their helpers above (bash 3.2 safe).
 LINK_INDEX_DIRS=("$REPO_ROOT/knowledge" "$REPO_ROOT/_system" "$REPO_ROOT/entities" "$REPO_ROOT/workflows" "$REPO_ROOT/intake")
-declare -A RESOLVABLE_TARGETS=()
-declare -A REFERENCED_NAMES=()
 BROKEN_LINK_WARN=0
 if [[ $FAST_PYTHON_SCAN -eq 0 ]]; then
   populate_resolvable_targets
@@ -1235,17 +1265,20 @@ fi
 # ---------------------------------------------------------------------------
 echo "Checking for orphan nodes..."
 if [[ $FAST_PYTHON_SCAN -eq 0 ]]; then
-  for file in "${KNOWLEDGE_NODE_FILES[@]}"; do
+  node_idx=0
+  while [[ $node_idx -lt ${#KNOWLEDGE_NODE_FILES[@]} ]]; do
+    file="${KNOWLEDGE_NODE_FILES[$node_idx]}"
+    node_id="${KNOWLEDGE_NODE_ID_LIST[$node_idx]}"
+    has_outbound="${KNOWLEDGE_HAS_OUTBOUND_LIST[$node_idx]}"
+    node_idx=$((node_idx + 1))
     rel="${file#$REPO_ROOT/}"
     base="${file##*/}"
     base="${base%.md}"
-    node_id="${KNOWLEDGE_NODE_IDS["$file"]-}"
-    has_outbound="${KNOWLEDGE_HAS_OUTBOUND["$file"]-0}"
 
     referenced=0
-    if [[ -n "${REFERENCED_NAMES[$base]+x}" ]]; then
+    if referenced_names_has "$base"; then
       referenced=1
-    elif [[ -n "$node_id" && -n "${REFERENCED_NAMES[$node_id]+x}" ]]; then
+    elif [[ -n "$node_id" ]] && referenced_names_has "$node_id"; then
       referenced=1
     fi
 

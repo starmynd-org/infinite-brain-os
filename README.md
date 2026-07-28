@@ -12,13 +12,37 @@ AI coding agent (Claude Code, Codex, or any file-reading agent) is the runtime.
 
 No database, no server, no vendor lock-in. If you can read this repo, so can your agents.
 
+## Prerequisites
+
+Four things before the quickstart:
+
+- **Git.** Windows: install [Git for Windows](https://git-scm.com/download/win), which
+  includes Git Bash. macOS: run `git --version` in Terminal and accept the command line
+  tools install if prompted. Linux: `apt install git` or your distro's equivalent.
+- **A bash shell.** Windows: use the Git Bash terminal that ships with Git for Windows
+  (or WSL if you prefer); plain cmd or PowerShell cannot run the validator. macOS and
+  Linux: the built-in terminal works, and the validator runs on the stock macOS bash.
+- **An AI coding agent.** [Claude Code](https://claude.com/claude-code) is the primary
+  runtime (it needs a paid Anthropic plan; follow its own install guide). Codex or any
+  file-reading agent also works.
+- **A GitHub account** (or another git host), so your brain can back up to a private
+  remote of your own. The [GitHub CLI](https://cli.github.com/) (`gh`) makes
+  authentication easier but is optional.
+
+Also optional: `python3` speeds the validator up (it falls back to awk without it), and
+[Obsidian](https://obsidian.md/) gives you the graph view. Neither is required.
+
 ## Quickstart
 
 ```bash
-git clone <this-repo> my-brain && cd my-brain
-bash _system/validate.sh     # the contract holds: zero errors on a fresh clone
+git clone https://github.com/starmynd-org/infinite-brain-os.git my-brain && cd my-brain
+bash _system/validate.sh     # exit 0 and "All checks passed" on a fresh clone
 claude                       # or your agent of choice; CLAUDE.md orients it
 ```
+
+The validator prints a small set of known warnings on the shipped example content; that
+warning set is part of the box. Errors are the contract: a fresh clone has zero, and
+every change you make must keep it that way.
 
 Then say to your agent:
 

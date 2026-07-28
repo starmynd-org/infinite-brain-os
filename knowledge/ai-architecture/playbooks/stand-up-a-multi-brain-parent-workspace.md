@@ -48,9 +48,13 @@ work promoted up.
 
 Author the workspace's own commands, which the copy-up never overwrites:
 
-- `/start`: install or check the cloud sign-in the brains need for data, probe git-remote reachability
-  and give the plain re-auth instruction when it fails, clone or refresh every brain under `brains/`,
-  then run `/sync` (MBW-3).
+- `/start`: install or check the cloud sign-in and any CLIs the brains need for data (install a CLI only
+  if it is missing, authenticate only if its session is missing or stale), probe git-remote reachability
+  and give the plain re-auth instruction when it fails, clone or refresh every brain under `brains/`, then
+  run `/sync` (MBW-3). Read the shared brain's tool contracts for which CLIs it needs and how each one
+  authenticates; a CLI vendored inside the shared brain installs from the cloned copy, not a separate
+  download. Not every brain ships an auth tool or a connection doc, so when it does not, `/start` does
+  the sign-in generically and inlines the connection guidance rather than pointing at a missing file.
 - `/sync`: the governed sync (MBW-4). Push the individual brain freely. Push shared-brain content
   (`outputs/`, `sessions/`) to the shared branch. Route any shared-brain core change to a
   `proposal/<slug>-<topic>` branch, push that branch, and tell the person who reviews it. Pull before
@@ -102,6 +106,17 @@ secrets before any push, the same adversarial read a client-team release applies
   core changes gate through the proposal branch.
 - Deliver flat. A zip that wraps the workspace in its own folder double-nests on extraction and the person
   opens an empty shell where `.claude/` never loads.
+- The shared brain's identity is two independent things: its folder name and its remote (host plus owner).
+  When adapting an existing rollout for a different shared brain, change both. A find-and-replace of the
+  name alone leaves the old remote, and the clone silently points at the wrong brain.
+- Match the router's command examples to the shared brain's actual commands and verify they exist. Different
+  brains ship different tools; a stale example teaches the wrong command.
+- When a CLI needs a setup credential (an OAuth client), `/start` may bundle it in the workspace at a
+  git-ignored path (for example `.claude/setup/`) so it rides in the delivered handoff but never enters a
+  committed repo. Do this only for a non-confidential credential (an installed or Desktop OAuth client,
+  whose secret is non-confidential by design), never a service-account key or a confidential client secret,
+  and deliver the handoff over a private channel. A per-person CLI signs in as that person, not a shared
+  account.
 
 ## What this playbook is not
 

@@ -1,0 +1,22 @@
+departments/chief-of-staff/points-ledger/*.jsonl merge=union
+
+# Line-ending contract for this repo.
+#
+# The validator (_system/validate.sh), the shared checks (_system/checks/), and
+# sync-adapters.sh parse files byte-wise, so every text file must check out with
+# LF endings on every platform, regardless of the local core.autocrlf setting.
+# Without this file, Git for Windows' default autocrlf=true produces CRLF
+# checkouts that break bash ("$'\r': command not found") and frontmatter parsing.
+* text=auto eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+
+# Imported raw captures, archived legacy corpora, and sprint artifacts keep the
+# line endings they arrived with: no normalization on these trees.
+intake/sources/** -text
+**/archive/** -text
+swarms/** -text
+outputs/department-head-voice-briefings/** -text

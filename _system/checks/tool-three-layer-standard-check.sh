@@ -42,9 +42,10 @@ pointer_name_for_namespace() {
   printf '%s\n' "${namespace_slug%-tool-contract}.md"
 }
 
-mapfile -t namespace_slugs < <(
-  find "$KNOWLEDGE_DIR" -maxdepth 1 -mindepth 1 -type d -name '*-tool-contract' -printf '%f\n' | sort
-)
+# Newline-delimited list, not an array: bash 3.2 (stock macOS) has no mapfile,
+# and BSD find has no -printf, so the basename is stripped with sed. An empty
+# list stays an empty string, which every consumer below handles.
+namespace_slugs="$(find "$KNOWLEDGE_DIR" -maxdepth 1 -mindepth 1 -type d -name '*-tool-contract' | sed 's|.*/||' | sort)"
 
 for tool_file in "$TOOLS_DIR"/*.md; do
   [ -e "$tool_file" ] || continue
@@ -59,7 +60,7 @@ for tool_file in "$TOOLS_DIR"/*.md; do
     continue
   fi
 
-  if ! printf '%s\n' "${namespace_slugs[@]}" | grep -Fxq "$expected_namespace"; then
+  if ! printf '%s\n' "$namespace_slugs" | grep -Fxq "$expected_namespace"; then
     note "pointer missing expected graph: tools/$base expects knowledge/$expected_namespace/ but that namespace does not exist and the pointer is not contract_status: pointer-only"
     continue
   fi
@@ -69,7 +70,8 @@ for tool_file in "$TOOLS_DIR"/*.md; do
   fi
 done
 
-for namespace_slug in "${namespace_slugs[@]}"; do
+while IFS= read -r namespace_slug; do
+  [ -n "$namespace_slug" ] || continue
   found_pointer=0
   for tool_file in "$TOOLS_DIR"/*.md; do
     [ -e "$tool_file" ] || continue
@@ -86,7 +88,7 @@ for namespace_slug in "${namespace_slugs[@]}"; do
   if [ "$found_pointer" -eq 0 ]; then
     note "namespace missing pointer: knowledge/$namespace_slug/ has no referencing root tool pointer (expected tools/$(pointer_name_for_namespace "$namespace_slug"))"
   fi
-done
+done <<< "$namespace_slugs"
 
 if [ "$issue_count" -eq 0 ]; then
   echo "tool-three-layer-standard: all root pointers map to a graph or explicit pointer-only exemption, and every *-tool-contract namespace has a pointer."

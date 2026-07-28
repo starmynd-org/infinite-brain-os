@@ -3,15 +3,29 @@
 A thirty-minute walkthrough that touches every part of the OS once, using only files inside
 this repo. Do it with your AI agent open (Claude Code or Codex) in the repo root.
 
+## 0. Before you start
+
+You need git, a bash shell (on Windows: the Git Bash terminal that ships with Git for
+Windows, not cmd or PowerShell), and an AI coding agent such as
+[Claude Code](https://claude.com/claude-code). The README's Prerequisites section covers
+the details, including the optional pieces (`gh`, `python3`, Obsidian).
+
 ## 1. Prove the contract (two minutes)
 
 ```bash
 bash _system/validate.sh
 ```
 
-Exit 0, zero errors. This is the baseline: every change you make from now on keeps it
-that way. The validator checks frontmatter, namespace base surfaces, registry entries,
-session surfaces, deterministic-workflow pairing, links, and the style rule.
+Exit 0, "All checks passed", zero errors. This is the baseline: every change you make
+from now on keeps it that way. The validator checks frontmatter, namespace base surfaces,
+registry entries, session surfaces, deterministic-workflow pairing, links, and the style
+rule.
+
+You will also see a WARNINGS block and a few warn-only lines. Those are the shipped
+baseline of the example content (template files that link by filename, example nodes
+without inbound references), not something you broke. The contract is the exit code and
+the absence of a FAILURES block; a new warning that appears after one of your changes is
+yours to look at.
 
 ## 2. Read the doctrine the way an agent does (five minutes)
 
@@ -52,6 +66,12 @@ Create a scratch Knowledge node in knowledge/emberline-studio/concepts/ called
 wholesale-channel.md: two paragraphs on what a wholesale channel would mean for the studio,
 full frontmatter, lifecycle_state scratch, one edge to brand-essentials.
 ```
+
+Full frontmatter means all eight required keys: `id`, `type`, `namespace`,
+`lifecycle_state`, `summary`, `confidence`, `retrieval_class`, and `export_class`, with
+the id repeated in `aliases`. The easiest way to get it right is to copy the frontmatter
+shape of `knowledge/emberline-studio/concepts/seasonal-collection.md` and change the
+values. The validator enforces all eight; a node with fewer fails.
 
 Run the validator again (still exit 0), read the node, sharpen one sentence, then:
 

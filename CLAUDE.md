@@ -96,11 +96,13 @@ standalone starter holds all four states locally with the same discipline.
 
 ## Frontmatter contract
 
-Every node-bearing markdown file opens with YAML frontmatter carrying at minimum `id`,
-`type`, `namespace`, and `lifecycle_state`, with the id repeated in `aliases`; serious nodes
-add `summary`, `confidence`, `retrieval_class`, `export_class`, `edges`, and `created`. Ids
-are kebab-case and stable. Wikilinks must resolve. See the worked examples throughout this
-repo before inventing conventions.
+Every node-bearing markdown file opens with YAML frontmatter carrying the eight required
+keys the validator enforces: `id`, `type`, `namespace`, `lifecycle_state`, `summary`,
+`confidence`, `retrieval_class`, and `export_class`, with the id repeated in `aliases`.
+Serious nodes add `edges` and `created`. Ids are kebab-case and stable. Wikilinks must
+resolve. When creating a node, copy the frontmatter shape of a shipped example (for
+instance `knowledge/emberline-studio/concepts/seasonal-collection.md`) rather than
+inventing conventions.
 
 ## Hard style rule
 

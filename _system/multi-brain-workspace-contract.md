@@ -53,9 +53,11 @@ work is promoted upward, never edited into the shared brain directly.
 ### MBW-3 One bootstrap command
 
 A single `/start` command sets up or wakes a machine end to end: it establishes the credentials the
-brains need (a cloud sign-in for data, and reachability of the git remote), clones or refreshes every
-brain under `brains/`, then runs `/sync`. It is idempotent and degrades gracefully: a missing credential
-is reported as one plain instruction, never as raw tool output, and never silently skipped.
+brains need (a cloud sign-in for data, and reachability of the git remote), installs and authenticates
+any CLI the shared brain depends on (install only if missing, authenticate only if the session is
+missing or stale), clones or refreshes every brain under `brains/`, then runs `/sync`. It is idempotent
+and degrades gracefully: a missing credential is reported as one plain instruction, never as raw tool
+output, and never silently skipped.
 
 ### MBW-4 Governed sync, backend-agnostic, GitHub by default
 
@@ -103,10 +105,14 @@ upstream brain is authoritative, per the surface boundary.
 ### MBW-8 Secret and trust posture
 
 No secret value lives in the parent workspace or the copied layer; secrets stay by reference per
-`_system/secret-registry-rules.md`. The workspace `settings.json` expresses file guards with `Edit(path)`
-rules (which cover every file-editing tool) and never relies on `Write(path)` rules, and it splits any
-compound command permission into matchable parts. The opened root must be trusted once before its saved
-permissions apply.
+`_system/secret-registry-rules.md`. The one allowed exception is a non-confidential CLI setup input, an
+installed or Desktop OAuth client whose secret is non-confidential by design, bundled at a git-ignored
+path (for example `.claude/setup/`) so it rides in the delivered handoff but never enters a committed
+repo; a service-account key or a confidential client secret is never bundled, and any handoff that
+carries even a non-confidential credential goes over a private channel. The workspace `settings.json`
+expresses file guards with `Edit(path)` rules (which cover every file-editing tool) and never relies on
+`Write(path)` rules, and it splits any compound command permission into matchable parts. The opened root
+must be trusted once before its saved permissions apply.
 
 ## What is checked
 

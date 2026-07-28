@@ -72,8 +72,13 @@ the names and remotes; otherwise build it from the steps below.
    layers untracked so the mounted brains stay independent (MBW-1).
 3. Author the router (`CLAUDE.md` plus its `AGENTS.md` mirror): default real and shared work to the
    shared brain, unproven work to the individual brain, proven work promoted up (MBW-2).
-4. Author `/start`: check or install the cloud sign-in the brains need, probe git-remote reachability and
-   give the plain re-auth instruction on failure, clone or refresh each brain, then run `/sync` (MBW-3).
+4. Author `/start`: check or install the cloud sign-in and any CLIs the brains need (install a CLI only
+   if missing, authenticate only if the session is missing or stale; a CLI vendored in the shared brain
+   installs from the cloned copy), probe git-remote reachability and give the plain re-auth instruction
+   on failure, clone or refresh each brain, then run `/sync` (MBW-3). If a CLI needs a non-confidential
+   setup credential (an installed or Desktop OAuth client), bundle it at a git-ignored `.claude/setup/`
+   path so it ships in the handoff but never enters a committed repo (MBW-8), and adapt both the shared
+   brain's folder name and its remote for the target department.
 5. Author `/sync`: push the individual brain freely; push shared-brain content to the shared branch;
    route any shared-brain core change to a `proposal/<slug>-<topic>` branch and name the reviewer; pull
    before push; degrade gracefully (MBW-4).

@@ -60,11 +60,9 @@ compresses into canon and how the router should route, is the work of the three 
 
 ## Inputs
 
-- The target namespace's audit packet at
-  an internal build record (not shipped),
-  in this repo. The packets were migrated in with the sprint; `swarms/Sprints/` here is their
-  canonical home per `_system/swarm-sprint-rules.md`. A copy survives at the dead legacy root; do not
-  read it.
+- The target namespace's audit packet, an internal build record (not shipped): the audit
+  packet your own migration sprint produces for the namespace, kept under `swarms/Sprints/`
+  per `_system/swarm-sprint-rules.md`.
   The packet declares the current file inventory, the chosen profile, the canon posture,
   the expected folder set, the migration moves, and the retrieval eval queries.
 - The target namespace's current tree under `knowledge/<namespace>/`.

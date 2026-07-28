@@ -28,7 +28,24 @@ note() {
   drift=$((drift + 1))
 }
 
+# Count registrable departments (an OPERATIONS.md outside _template and fleet-coordinator).
+# A repo with none, such as a fresh starter clone, has nothing to reconcile, so
+# a missing register file is expected state there, not drift.
+registrable=0
+for ops in "$ROOT"/departments/*/OPERATIONS.md; do
+  [ -e "$ops" ] || continue
+  slug="$(basename "$(dirname "$ops")")"
+  case "$slug" in
+    _template|fleet-coordinator) continue ;;
+  esac
+  registrable=$((registrable + 1))
+done
+
 if [ ! -f "$REGISTER" ]; then
+  if [ "$registrable" -eq 0 ]; then
+    echo "operations-register: no department carries an OPERATIONS.md yet; no register view is required."
+    exit 0
+  fi
   note "departments/operations-register.md is missing; the unified operations register has no view file."
   echo "operations-register: 1 drift finding (warn-only)."
   exit 0

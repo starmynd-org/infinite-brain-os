@@ -2,6 +2,9 @@
 
 The first note to open, whether you arrived through Obsidian, an AI agent, or a terminal.
 
+New machine? The README's Prerequisites section lists the small tool set you need first
+(git, a bash shell, an AI coding agent, a GitHub account).
+
 ## First fifteen minutes
 
 1. Read `README.md` for what this OS is and the folder map.
@@ -9,7 +12,9 @@ The first note to open, whether you arrived through Obsidian, an AI agent, or a 
    working together around a fictional candle studio.
 3. Read `knowledge/ai-architecture/canon/doctrine-card.md`: the one-page projection of the
    whole architecture. Drill into `canon/core-doctrine.md` when you want the full why.
-4. Run `bash _system/validate.sh`. It exits 0 on a fresh clone; keep it that way.
+4. Run `bash _system/validate.sh`. It exits 0 with "All checks passed" on a fresh clone;
+   keep it that way. It also prints a small set of known warnings on the shipped example
+   content: those ship in the box and are not yours to fix. Errors are yours.
 5. Read `docs/getting-started.md` and do the walkthrough: read canon, run a command,
    create a note, promote it.
 
