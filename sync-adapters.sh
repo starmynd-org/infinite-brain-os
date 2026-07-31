@@ -22,7 +22,7 @@ for type in "${CLAUDE_MAP[@]}"; do
       [[ -e "$canonical" ]] || continue
       filename="$(basename "$canonical")"
       target=".claude/${type}/${filename}"
-      if [[ -e "$target" ]] && [[ "$(readlink -f "$canonical")" == "$(readlink -f "$target")" ]]; then
+      if [[ -e "$target" ]] && cmp -s "$canonical" "$target"; then
         continue
       fi
       cp -f "$canonical" "$target"
@@ -36,7 +36,7 @@ for type in "${CODEX_MAP[@]}"; do
       [[ -e "$canonical" ]] || continue
       filename="$(basename "$canonical")"
       target=".codex/${type}/${filename}"
-      if [[ -e "$target" ]] && [[ "$(readlink -f "$canonical")" == "$(readlink -f "$target")" ]]; then
+      if [[ -e "$target" ]] && cmp -s "$canonical" "$target"; then
         continue
       fi
       cp -f "$canonical" "$target"
