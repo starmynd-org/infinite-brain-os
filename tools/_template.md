@@ -56,7 +56,7 @@ secret_refs: []
 If the tool materially belongs to external commercial scope, use:
 
 ```yaml
-party_slugs: [acme, drift]
+party_slugs: [acme, globex]
 client_slug: "acme-crm"
 brand_slug: "acme"
 ```

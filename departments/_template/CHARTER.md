@@ -20,7 +20,7 @@ answers what it optimizes and how success is measured.
 If the department materially belongs to external commercial scope, add optional frontmatter like:
 
 ```yaml
-party_slugs: [acme, drift]
+party_slugs: [acme, globex]
 client_slug: "acme-crm"
 brand_slug: "acme"
 ```

@@ -50,7 +50,7 @@ Rules:
   parties:
 
 ```yaml
-party_slugs: [acme, drift]
+party_slugs: [acme, globex]
 client_slug: "acme-crm"
 brand_slug: "acme"
 ```

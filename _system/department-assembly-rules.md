@@ -149,7 +149,7 @@ is explicit, reviewable, and portable across Obsidian, Paperclip, Claude Code, a
 The same posture applies to party scope. Optional metadata such as:
 
 ```yaml
-party_slugs: [acme, drift]
+party_slugs: [acme, globex]
 client_slug: "acme-crm"
 brand_slug: "acme"
 ```
