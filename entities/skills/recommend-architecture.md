@@ -116,6 +116,35 @@ that surfaced goes to an explicit `## Later` list with one line each on what wou
 it. A brain that recommends everything recommends nothing; the ceiling forces the ranking
 to mean something.
 
+## Externally dated commitments (outside the ceiling)
+
+The three shapes above all describe how a business works: knowledge it reasons from, a function
+it runs, a loop it repeats. None of them describes a thing the business has committed to build
+and hand to someone. A business that ships deliverables to clients will therefore carry work
+that no shape fits, and the failure mode is silent: the set comes back tidy, bounded and
+complete-looking while saying nothing about the most time-critical thing in the business. The
+interview captures such work perfectly well; this skill is where it gets dropped.
+
+The rule: **any commitment the map records with an external date is scoped, whether or not it
+fits one of the three shapes.** External means the date was set by someone other than the person
+interviewed: a client, a board, a contract, a regulator, a platform, a funding window. A date the
+person set for themselves is a priority signal and does not trigger this rule.
+
+An item admitted this way:
+
+- appears in `## Recommended now` with the rest, ranked, and marked plainly as outside the
+  ceiling and outside the three shapes
+- carries the same why, value statement, effort class and priority rank as every other item
+- names its deliverable, who receives it, and the date, each quoted from the map
+- scaffolds as a project plus a sprint like any accepted item, per
+  [[workflow-onboard-business-architecture]] stage 5, whose build waves describe the build
+  directly because there is no builder skill to call
+
+Do not use this rule to admit work that merely feels urgent or important. No external date, no
+admission; the parked lists remain the right home for everything else. The rule exists because a
+deadline set by someone else cannot be renegotiated by ranking it lower, so a set that omits one
+is not a smaller set, it is a wrong one.
+
 ## Anti-recommendation discipline
 
 The set must include a non-empty `## Do not build yet` list: things the interview made
@@ -166,6 +195,8 @@ plain-English gloss the first time it appears.
 - every recommendation quotes the interview verbatim in its why
 - value, effort class, and priority rank present on every item
 - ceiling respected: max one department, three namespaces, three workflows
+- every commitment the map records with an external date appears in the set, marked as outside
+  the ceiling, or the set is wrong
 - `## Do not build yet` is non-empty and reasoned
 - namespace recommendations name a profile and carry 5 to 10 research questions
 - department recommendations carry owned namespaces, head agent shape, and three
@@ -175,6 +206,8 @@ plain-English gloss the first time it appears.
 
 ## Anti-patterns
 
+- a set that is silent on a commitment the map records with an external date, because no shape
+  fit it. The three shapes bound what the set may recommend, not what it may notice
 - recommending the full architecture menu instead of ranking under the ceiling
 - rationales that paraphrase the system's preferences instead of quoting the person
 - recommending a department because the function sounds important rather than because
