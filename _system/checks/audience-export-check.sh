@@ -80,7 +80,11 @@ find "$ROOT" -name '*.md' -type f -not -path '*/.git/*' -not -path '*/node_modul
         gsub(/^[[:space:]]+|[[:space:]]+$/, "", cls)
         gsub(/^["'"'"']|["'"'"']$/, "", cls)
       }
-      infm && /^audience_grant:[[:space:]]/ { grant = "yes" }
+      # Matches both YAML forms. The grant record carries who granted it, when, and from which
+      # class to which, so its natural form is a block whose key line ends at the colon. Requiring
+      # whitespace after the colon made every block-form grant invisible, which reported a
+      # correctly granted node as an ungranted widening. Found by the two-brain overlay fixture.
+      infm && /^audience_grant:([[:space:]]|$)/ { grant = "yes" }
     ' > "$TMP"
 
 exported=0; held=0; unset_count=0; ungranted=0; errors=0
