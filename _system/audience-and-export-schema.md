@@ -74,6 +74,40 @@ Therefore: **an audience widening is never implied.** It is recorded, on the nod
 grant naming who granted it and when. A node whose `export_class` widened without a grant is a
 finding, not a merge conflict to resolve in favour of the newer value.
 
+## The grant record
+
+An audience widening is recorded on the node it widens:
+
+```yaml
+audience_grant:
+  granted_by: "operator"
+  granted_on: "2026-09-06"
+  from_class: "internal"
+  to_class: "public"
+  content_digest: "sha256:2b8594dc4914c75b..."
+```
+
+`granted_by`, `granted_on`, `from_class` and `to_class` are required. `to_class` must equal the
+node's `export_class` today: a grant that approved a move to `public` on a node now marked
+`department` is describing a different act, and it is reported rather than reconciled. `to_class` may
+never be `private`, because `private` is a stop and nothing is ever granted into it.
+
+`content_digest` is what makes a grant refutable. Without it, "approved" means "approved once, for
+whatever the file said at the time", and the node can be rewritten under a standing approval with
+nothing to notice. With it, an edit after the grant makes the grant **stale** and the widening stops
+being covered. A grant with no digest is well formed but unpinned, which is a finding and not a
+failure.
+
+The digest is `_system/checks/node-digest.sh`, and it **excludes the `audience_grant` block itself**.
+That is not a convenience: a record cannot contain a hash of itself, because writing the pin changes
+the content, which changes the digest, which changes the pin. The consequence is deliberate.
+Re-approving, or correcting the date on a grant, does not invalidate it. Editing the thing the grant
+approved does.
+
+Checked by `_system/checks/audience-grant-check.sh`, and unlike the enum check this one is **strict
+from the first day**, because the shipped tree carries zero grants and therefore no inherited debt to
+grandfather. A malformed grant can only exist because somebody wrote one.
+
 ## Enforcement tier
 
 `frontmatter-enum-check.sh` ships **warn-only against an enumerated baseline**, matching the posture
