@@ -1322,6 +1322,32 @@ for pdir in "${INTAKE_PROCESSED_DIRS[@]}"; do
   done < <(find "$pdir" -name '*.md' -not -path '*/.git/*' -print0)
 done
 
+echo "Checking that the starter carries no .github/ path..."
+# Why a shipped brain must not carry .github/, and why this is an error rather than a warning.
+#
+# The guided setup binds a GitHub App to the user's organisation with the smallest permission set
+# that can do the job. That set is contents:write. It is sufficient TODAY only because this repo
+# contains no .github/ path at all: creating or updating anything under .github/workflows/ needs
+# workflows:write, a materially larger grant that lets an installed App add code that runs in CI
+# with the org's runners and secrets.
+#
+# So the permission model and this repo's contents are coupled across two owners. The day somebody
+# adds a CI file here, the minimal grant silently stops being sufficient, and the failure surfaces
+# as a confusing setup error at a customer rather than as a decision anybody made. This check turns
+# that coupling into a visible, local failure at the moment the file is added.
+#
+# If a workflow genuinely becomes necessary, the fix is not to delete this check: it is to widen the
+# App's permission set deliberately, with the consent screen that implies, and then change this rule
+# and say why. Added under B01, requested by the independent reviewer.
+GITHUB_PATHS=$(find "$REPO_ROOT" -name '.github' -not -path '*/.git/*' 2>/dev/null || true)
+if [[ -n "$GITHUB_PATHS" ]]; then
+  while IFS= read -r gh_path; do
+    [[ -z "$gh_path" ]] && continue
+    ERRORS+=("GITHUB PATH PRESENT: ${gh_path#$REPO_ROOT/} must not exist in the starter. The guided setup grants the GitHub App contents:write only, which cannot create or update .github/workflows/; that needs workflows:write. Remove the path, or widen the App permission set deliberately and amend _system/validate.sh.")
+    FAIL=1
+  done <<< "$GITHUB_PATHS"
+fi
+
 echo "Checking for em dashes and en dashes..."
 if command -v rg >/dev/null 2>&1; then
   if rg -n --pcre2 '[\x{2014}\x{2013}]' "$REPO_ROOT" \
