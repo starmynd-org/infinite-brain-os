@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+# Enum membership for the three frontmatter fields that decide where a node may go.
+#
+# validate.sh requires eight frontmatter keys and checks that they are PRESENT. It never checks that
+# their values are members of the enums the schema files document. That gap is not hypothetical: this
+# tree already carries retrieval_class values of "normal" (10 nodes) and "explicit" (6) alongside the
+# documented identity | domain | ephemeral, accepted silently for as long as they have existed.
+#
+# It matters most for export_class, because that is the field an audience boundary would be built on.
+# A privacy marker that the validator does not enforce is a privacy marker that drifts, and a drifted
+# privacy marker is worse than none: it reads as a guarantee while admitting any spelling.
+#
+# So this check exists before the marker does.
+#
+#   bash _system/checks/frontmatter-enum-check.sh              # warn-only, compares against the baseline
+#   bash _system/checks/frontmatter-enum-check.sh --strict     # any out-of-enum value fails
+#   bash _system/checks/frontmatter-enum-check.sh --regenerate # rewrite the drift baseline
+#
+# Default is warn-only and exits 0 on known drift, because promoting a check to blocking is an
+# operator decision recorded in _system/enforcement-tiers.md, and shipping this as blocking today
+# would fail the starter against its own validator on sixteen pre-existing nodes. What it does do is
+# make the drift enumerated and countable, and separate NEW drift from the inherited kind, which is
+# the same posture warning-baseline-check.sh takes.
+#
+# CAP03 / B01.
+set -uo pipefail
+
+CHECKS_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+BRAIN_ROOT=$(cd "$CHECKS_DIR/../.." && pwd)
+BASELINE="$BRAIN_ROOT/_system/known-enum-drift.txt"
+
+# The enums. Sources: _system/namespace-profiles.md and the lifecycle enum validate.sh already
+# enforces on namespace registry files (scratch|research|candidate|canon|archive), plus
+# _system/audience-and-export-schema.md for the export axis.
+ENUM_lifecycle_state="scratch research candidate canon archive"
+ENUM_retrieval_class="identity domain ephemeral"
+ENUM_export_class="private internal department public"
+
+MODE=warn
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --strict) MODE=strict ;;
+    --regenerate) MODE=regenerate ;;
+    -h|--help) sed -n '2,27p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    *) printf 'frontmatter-enum-check: unknown argument %s\n' "$1" >&2; exit 2 ;;
+  esac
+  shift
+done
+
+FOUND=$(mktemp); KNOWN=$(mktemp)
+trap 'rm -f "$FOUND" "$KNOWN"' EXIT
+
+# The whole scan is one awk process over every file.
+#
+# The readable spelling is a shell loop calling awk per file and sed per field. On this tree that is
+# six hundred awk spawns plus eleven hundred sed spawns, and on Windows a spawn costs tens of
+# milliseconds, so the check did not finish inside two minutes and would simply never be run. Parsing,
+# unquoting and enum membership all happen inside the single awk pass instead.
+#
+# Two parsing facts this tree forces. A value may be quoted, and it may carry a trailing "#" comment:
+# one node writes `retrieval_class: "identity"   # a party record is identity, not domain doctrine`.
+# A reader that keeps the comment reports a false violation, which is how a check earns a reputation
+# for crying wolf and stops being run. And only the frontmatter block counts, because the schema files
+# quote example frontmatter in their prose constantly and none of that is a declaration.
+find "$BRAIN_ROOT" -name '*.md' -type f -not -path '*/.git/*' -not -path '*/node_modules/*' -print0 \
+  | xargs -0 awk -v root="$BRAIN_ROOT/" \
+      -v e_life="$ENUM_lifecycle_state" \
+      -v e_ret="$ENUM_retrieval_class" \
+      -v e_exp="$ENUM_export_class" '
+    BEGIN {
+      split(e_life, a, " "); for (i in a) ok["lifecycle_state" SUBSEP a[i]] = 1
+      split(e_ret,  b, " "); for (i in b) ok["retrieval_class" SUBSEP b[i]] = 1
+      split(e_exp,  c, " "); for (i in c) ok["export_class"    SUBSEP c[i]] = 1
+    }
+    FNR == 1 { infm = ($0 == "---") ? 1 : 0; next }
+    infm && $0 == "---" { infm = 0; next }
+    infm && /^(lifecycle_state|retrieval_class|export_class):[[:space:]]/ {
+      idx = index($0, ":")
+      field = substr($0, 1, idx - 1)
+      value = substr($0, idx + 1)
+      sub(/[[:space:]]*#.*$/, "", value)
+      gsub(/^[[:space:]]+|[[:space:]]+$/, "", value)
+      gsub(/^["'"'"']|["'"'"']$/, "", value)
+      gsub(/^[[:space:]]+|[[:space:]]+$/, "", value)
+      if (value == "") next
+      if (!((field SUBSEP value) in ok)) {
+        rel = FILENAME
+        sub(root, "", rel)
+        printf "%s\t%s\t%s\n", field, value, rel
+      }
+    }
+  ' \
+  | LC_ALL=C sort -u > "$FOUND"
+
+n_found=$(grep -c . < "$FOUND" || true)
+
+if [ "$MODE" = regenerate ]; then
+  {
+    printf '# Known frontmatter enum drift: values already in the tree that are not enum members.\n#\n'
+    printf '# Generated by _system/checks/frontmatter-enum-check.sh --regenerate. Every line here is a\n'
+    printf '# node whose value the schema does not define. The list is not an endorsement: it is the\n'
+    printf '# inherited debt, written down so NEW drift is visible against it. Shrinking this file is\n'
+    printf '# the work; growing it silently is the failure this check exists to prevent.\n#\n'
+    printf '# Regenerated %s.\n\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    cat "$FOUND"
+  } > "$BASELINE"
+  printf 'regenerated\t%s\t%s known drift entr(ies)\n' "$BASELINE" "$n_found"
+  exit 0
+fi
+
+if [ -f "$BASELINE" ]; then
+  grep -v '^#' "$BASELINE" | grep -v '^[[:space:]]*$' | LC_ALL=C sort > "$KNOWN"
+else
+  : > "$KNOWN"
+fi
+
+NEW=$(LC_ALL=C comm -13 "$KNOWN" "$FOUND")
+FIXED=$(LC_ALL=C comm -23 "$KNOWN" "$FOUND")
+n_known=$(grep -c . < "$KNOWN" || true)
+n_new=$(printf '%s' "$NEW" | grep -c . || true)
+n_fixed=$(printf '%s' "$FIXED" | grep -c . || true)
+
+printf 'frontmatter-enum: %s value(s) outside the documented enums, %s inherited.\n' "$n_found" "$n_known"
+
+if [ "$n_fixed" -gt 0 ]; then
+  printf '\nFIXED (%s inherited entr(ies) gone). Regenerate the baseline to lock the improvement in:\n' "$n_fixed"
+  printf '%s\n' "$FIXED" | sed 's/^/  + /'
+fi
+
+if [ "$n_new" -gt 0 ]; then
+  printf '\nNEW (%s value(s) not in the enums and not inherited):\n' "$n_new"
+  printf '%s\n' "$NEW" | sed 's/^/  ! /'
+  printf '\nverdict\tNEW DRIFT\n'
+  exit 1
+fi
+
+if [ "$MODE" = strict ] && [ "$n_found" -gt 0 ]; then
+  printf '\nINHERITED (%s, failing because --strict was requested):\n' "$n_found"
+  cat "$FOUND" | sed 's/^/  ! /'
+  printf '\nverdict\tSTRICT FAIL\n'
+  exit 1
+fi
+
+printf '\nverdict\tCLEAN (no new drift)\n'
+exit 0
