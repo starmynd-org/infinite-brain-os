@@ -74,7 +74,9 @@ that control again before trusting the claim.
    the same id; the validator's `--workspace` argument is that id.
 2. Fix the business timezone (an IANA name such as `UTC` or `Europe/London`). It is the
    business's own zone, named by the person: ask once and record it; never write `UTC`
-   silently because nobody said.
+   silently because nobody said. When you cannot ask, write the zone you chose into the
+   pointer node as a declared placeholder and say it needs confirming. (The Pebble Press
+   example declares UTC because its invented owner chose it.)
 3. Fix the recognition rule per metric: one sentence naming the business date rule (for
    example "order paid, Europe/London business day"), the native unit and currency per
    metric, a real as-of instant per source, and the revision's own as-of instant. All
@@ -114,9 +116,12 @@ that control again before trusting the claim.
 10. Zero versus omitted, in one sentence: on a complete day, omit the cell of a channel that
    was closed or had nothing to sell (zero by contract), and write an explicit `"0"` only
    when the channel was open and observed to sell nothing.
-11. A member the person did not mention on a day they call complete is never zero: either
-    the day is not complete (mark it `incomplete`) or the cell is `null` (unknown). Ask
-    once; when the answer is not known, mark the day incomplete.
+11. A whole channel or source the person did not mention on a day they call complete is
+    never zero: either the day is not complete (mark it `incomplete`) or its cells are
+    `null` (unknown). Ask once; when the answer is not known, mark the day incomplete. The
+    dividing line from rule 10: a product missing from the list of an open channel that
+    was reported that day is an observed zero (omit it); a channel or source missing from
+    the day altogether is unknown.
 12. A coverage record for a date with no rows is allowed and means something:
     `incomplete` with no rows is an honest gap; `complete` with no rows asserts zero for
     every cell that day.
@@ -173,8 +178,8 @@ Fact line, one per nonempty line of `facts/<name>.jsonl`, exactly these fields:
 - Rows are unique on (dataset, date, metricId, full dimension tuple) across all of the
   dataset's files. `workspaceId` and `sourceId` must equal the catalog's on every row.
 
-Files are UTF-8 without BOM, one JSON object per nonempty line, LF line endings (the format also accepts CRLF; this
-OS's `.gitattributes` writes LF, so write LF), an
+Files are UTF-8 without BOM, one JSON object per nonempty line, LF line endings (the format also accepts CRLF; write
+LF, and the root `.gitattributes` marks `kyn/` `-text` so git never converts it either way), an
 optional final newline, no blank interior lines, no arrays, no extra fields. Sort rows the
 same way every time (date, then each grain axis with `null` last, then metric id) so
 diffs stay readable.
