@@ -65,31 +65,57 @@ checked by the engine's validator before it replaces the live one. The contract 
 
 ## Prepare the meaning before the rows
 
-1. Fix the business timezone (an IANA name such as `UTC` or `Europe/London`), the
-   recognition rule per metric (for example "order paid, UTC business day"), the native
-   unit and currency per metric, a real as-of instant per source, and the revision's own
-   as-of instant. All as-of values are UTC in `YYYY-MM-DDTHH:mm:ssZ`; a source as-of can not
-   be later than the catalog as-of. If you do not know when a source was last read, find
-   out; do not write the time the script ran.
-2. Choose one finest grain per dataset: the list of dimension ids every fact in it carries.
-   Flows (revenue, units) go in an `aggregate` dataset; levels (stock on hand) go in a
-   `snapshot` dataset. A primitive metric belongs to exactly one dataset. A ratio is
-   declared in the catalog, never stored as rows.
-3. Give every dimension member a stable id and a separate label. When a fact's member is
-   unknown, write `null` for that axis; it will show as `(Unmapped)`, never as a total.
-   Each child member has exactly one parent in this revision; renaming or reparenting
-   restates the whole revision.
-4. Sum every raw contribution that lands in the same cell (same date, metric and member
+1. Fix the `workspaceId`: the key the reporting host uses for this OS. If nobody has told
+   you one, use this repo's own slug and say in your summary that the host must be given
+   the same id; the validator's `--workspace` argument is that id.
+2. Fix the business timezone (an IANA name such as `UTC` or `Europe/London`). It is the
+   business's own zone, named by the person: ask once and record it; never write `UTC`
+   silently because nobody said.
+3. Fix the recognition rule per metric: one sentence naming the business date rule (for
+   example "order paid, Europe/London business day"), the native unit and currency per
+   metric, a real as-of instant per source, and the revision's own as-of instant. All
+   as-of values are UTC in `YYYY-MM-DDTHH:mm:ssZ`; a source as-of can not be later than the
+   catalog as-of. If you do not know when a source was last read, find out; never write the
+   time the script ran. When the numbers were dictated in chat or typed by hand, the as-of
+   is the moment the person gave them, in UTC, and the source name says so, for example
+   "Typed by the owner on 2026-03-04".
+4. Choose the `revision`: any stable nonempty string; `<date>-r<n>` (the date you prepared
+   it, then a run number) is the recommended shape.
+5. Choose one finest grain per dataset: the list of dimension ids every fact in it carries.
+   Include every axis the business reports per row (if sales come per product and per
+   channel, the grain is both). Flows (revenue, units) go in an `aggregate` dataset; levels
+   (stock on hand) go in a `snapshot` dataset. A primitive metric belongs to exactly one
+   dataset. A ratio is declared in the catalog, never stored as rows, and it is optional:
+   add average price only when a report will ask for it.
+6. One `sourceId` per dataset, and every metric in it carries that same source. When two
+   exports (a till and a web export, say) feed the same metric, either declare one source
+   whose name names both honestly ("Till and web export, read together") or split them
+   into two datasets with separately named metrics. Recommended: one source named
+   honestly, unless the two exports have different as-of times, in which case two datasets.
+7. Give every dimension member a stable id and a separate label. The id is the identifier
+   the source itself uses (a SKU is right); the label carries the name. When a fact's member
+   is unknown, write `null` for that axis; it will show as `(Unmapped)`, never as a total. A
+   tuple may be null on one axis and known on another. Each child member has exactly one
+   parent in this revision; renaming or reparenting restates the whole revision.
+8. Sum every raw contribution that lands in the same cell (same date, metric and member
    tuple) upstream into one row. Never drop rows because their keys look alike. A retry
    replaces the cell; it never appends a second copy.
-5. Decide coverage per dataset and date. `complete` asserts that every primitive metric and
+9. Decide coverage per dataset and date. `complete` asserts that every primitive metric and
    every member at that date was exhaustively observed. Under that assertion an omitted
    cell on a complete flow date means zero, so a wrong `complete` changes the numbers.
    `incomplete` (or a missing coverage record) makes every aggregate touching that date
-   unknown, never zero. Write a zero you observed as `"0"`; write a value you do not know
-   as `null`. A null stays unknown even on a complete date: every total that includes that
-   cell comes back null with a reason, while the other metrics in the same rows stay
-   numbers.
+   unknown, never zero. Write a value you do not know as `null`. A null stays unknown even
+   on a complete date: every total that includes that cell comes back null with a reason,
+   while the other metrics in the same rows stay numbers.
+10. Zero versus omitted, in one sentence: on a complete day, omit the cell of a channel that
+   was closed or had nothing to sell (zero by contract), and write an explicit `"0"` only
+   when the channel was open and observed to sell nothing.
+11. A member the person did not mention on a day they call complete is never zero: either
+    the day is not complete (mark it `incomplete`) or the cell is `null` (unknown). Ask
+    once; when the answer is not known, mark the day incomplete.
+12. A coverage record for a date with no rows is allowed and means something:
+    `incomplete` with no rows is an honest gap; `complete` with no rows asserts zero for
+    every cell that day.
 
 ## The contract in short
 
@@ -202,7 +228,9 @@ into separate folders; never truncate silently.
    total), one null versus zero case and any ratio or level, with exact decimal
    arithmetic (Python's `decimal`, never floats). Keep the workings and the validator
    output as a file under `outputs/`, never inside `kyn/`; the folder holds only the
-   catalog and its listed files.
+   catalog and its listed files. That file is a node: the standard frontmatter with
+   `type: "Output"` and a `produced_by` edge to this skill, in the shape of the shipped
+   `outputs/2026-06-05-spring-collection-brief.md`, per `_system/outputs-placement-rules.md`.
 
 The validator certifies structure and arithmetic: fields, references, uniqueness, hashes,
 budgets, and that supported queries reproduce the sums. It never certifies that the source
@@ -314,8 +342,11 @@ Hand answers, which the engine reproduces:
    `kyn-previous`. When there is no live `kyn/` yet (the first revision), the move is just
    `mv kyn-staging kyn`. Never copy single files into a live folder; a mix of revisions
    fails its hashes, and the fix is a whole folder, not a removed hash.
-2. Update the Data pointer node under `data/` (revision, as-of, read date) and commit the
-   folder and the node together with a plain message.
+2. Update the Data pointer node under `data/` (revision, as-of, read date). Preparing and
+   checking do not commit or publish anything; commit the folder and the node together,
+   with a plain message, only when the person asks for the revision to be committed. If
+   this OS's `CLAUDE.md` asks for a session ledger entry, write it as for any other session
+   (`[[skill-manage-ai-session]]`); the skill adds no extra record of its own.
 3. A running dashboard reads the new revision after `adapter.reload()` or a fresh adapter;
    a report keeps pointing at its own frozen copy. Both are the reporting host's concern,
    not files in this OS.
