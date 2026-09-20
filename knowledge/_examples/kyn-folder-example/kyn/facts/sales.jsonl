@@ -1,0 +1,14 @@
+{"workspaceId":"pebble-press","date":"2026-03-01","metricId":"revenue","sourceId":"till","value":"30.00","currency":"USD","dimensions":{"channel":"web"}}
+{"workspaceId":"pebble-press","date":"2026-03-01","metricId":"units","sourceId":"till","value":"2","currency":null,"dimensions":{"channel":"web"}}
+{"workspaceId":"pebble-press","date":"2026-03-01","metricId":"revenue","sourceId":"till","value":"45.00","currency":"USD","dimensions":{"channel":"stall"}}
+{"workspaceId":"pebble-press","date":"2026-03-01","metricId":"units","sourceId":"till","value":"3","currency":null,"dimensions":{"channel":"stall"}}
+{"workspaceId":"pebble-press","date":"2026-03-02","metricId":"revenue","sourceId":"till","value":"0.00","currency":"USD","dimensions":{"channel":"web"}}
+{"workspaceId":"pebble-press","date":"2026-03-02","metricId":"units","sourceId":"till","value":"0","currency":null,"dimensions":{"channel":"web"}}
+{"workspaceId":"pebble-press","date":"2026-03-02","metricId":"revenue","sourceId":"till","value":"60.00","currency":"USD","dimensions":{"channel":"stall"}}
+{"workspaceId":"pebble-press","date":"2026-03-02","metricId":"units","sourceId":"till","value":"4","currency":null,"dimensions":{"channel":"stall"}}
+{"workspaceId":"pebble-press","date":"2026-03-02","metricId":"revenue","sourceId":"till","value":"15.00","currency":"USD","dimensions":{"channel":null}}
+{"workspaceId":"pebble-press","date":"2026-03-02","metricId":"units","sourceId":"till","value":"1","currency":null,"dimensions":{"channel":null}}
+{"workspaceId":"pebble-press","date":"2026-03-03","metricId":"revenue","sourceId":"till","value":"20.00","currency":"USD","dimensions":{"channel":"web"}}
+{"workspaceId":"pebble-press","date":"2026-03-03","metricId":"units","sourceId":"till","value":"1","currency":null,"dimensions":{"channel":"web"}}
+{"workspaceId":"pebble-press","date":"2026-03-03","metricId":"revenue","sourceId":"till","value":null,"currency":"USD","dimensions":{"channel":"stall"}}
+{"workspaceId":"pebble-press","date":"2026-03-03","metricId":"units","sourceId":"till","value":"2","currency":null,"dimensions":{"channel":"stall"}}

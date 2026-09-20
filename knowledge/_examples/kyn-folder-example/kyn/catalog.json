@@ -1,0 +1,44 @@
+{
+  "format": "kyn-files/v1",
+  "workspaceId": "pebble-press",
+  "name": "Pebble Press (Synthetic)",
+  "revision": "2026-03-04-r1",
+  "asOf": "2026-03-04T08:00:00Z",
+  "timezone": "UTC",
+  "writeDiscipline": "replace-folder",
+  "sources": [
+    {"id": "till", "name": "Invented till export (Synthetic)", "asOf": "2026-03-04T07:30:00Z"}
+  ],
+  "dimensions": [
+    {
+      "id": "channel",
+      "name": "Sales channel",
+      "parentId": null,
+      "history": "restated-snapshot",
+      "file": {"path": "dimensions/channel.jsonl", "bytes": 98, "rows": 2, "sha256": "02c2ab7c76d85411142db5a360532def094cb989b481e8dd56d6105a102510ca"}
+    }
+  ],
+  "metrics": [
+    {"id": "revenue", "name": "Revenue", "kind": "flow", "unit": "USD", "currency": "USD", "scale": 2, "sign": "nonnegative", "recognition": "Order paid, UTC business day", "sourceId": "till"},
+    {"id": "units", "name": "Units sold", "kind": "flow", "unit": "unit", "currency": null, "scale": 0, "sign": "nonnegative", "recognition": "Order paid, UTC business day", "sourceId": "till"},
+    {"id": "average_price", "name": "Average unit price", "kind": "ratio", "unit": "USD/unit", "currency": "USD", "scale": 2, "sign": "nonnegative", "recognition": "Revenue over units for the same rows", "sourceId": "till", "numerator": "revenue", "denominator": "units"}
+  ],
+  "datasets": [
+    {
+      "id": "daily-sales",
+      "name": "Daily sales by channel",
+      "kind": "aggregate",
+      "sourceId": "till",
+      "grain": ["channel"],
+      "metricIds": ["revenue", "units", "average_price"],
+      "files": [
+        {"path": "facts/sales.jsonl", "bytes": 2113, "rows": 14, "sha256": "5ebf0a093bd1bec991205b3395c26676862ff4071c51b8768f3ae2fd623e6da9"}
+      ],
+      "coverage": [
+        {"date": "2026-03-01", "status": "complete"},
+        {"date": "2026-03-02", "status": "complete"},
+        {"date": "2026-03-03", "status": "incomplete"}
+      ]
+    }
+  ]
+}

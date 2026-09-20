@@ -20,3 +20,8 @@ intake/sources/** -text
 **/archive/** -text
 swarms/** -text
 outputs/department-head-voice-briefings/** -text
+
+# KYN folders (kyn-files/v1): catalog descriptors hash exact bytes, so the live
+# home and the shipped synthetic example must check out byte for byte.
+/kyn/** -text
+knowledge/_examples/kyn-folder-example/kyn/** -text
