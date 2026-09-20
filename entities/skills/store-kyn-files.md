@@ -87,7 +87,9 @@ checked by the engine's validator before it replaces the live one. The contract 
    cell on a complete flow date means zero, so a wrong `complete` changes the numbers.
    `incomplete` (or a missing coverage record) makes every aggregate touching that date
    unknown, never zero. Write a zero you observed as `"0"`; write a value you do not know
-   as `null` (it stays unknown even on a complete date).
+   as `null`. A null stays unknown even on a complete date: every total that includes that
+   cell comes back null with a reason, while the other metrics in the same rows stay
+   numbers.
 
 ## The contract in short
 
@@ -115,7 +117,8 @@ counter to sum), `asOf`, `timezone`, `writeDiscipline` (`"replace-folder"`), `so
   `files` is a list of descriptors. `coverage` is a list of `{"date","status"}`, one per
   date, `status` `complete` or `incomplete`; every fact date needs one.
 - Descriptor: `{"path","bytes","rows","sha256"}`. `path` is exactly
-  `dimensions/<id>.jsonl` or `facts/<name>.jsonl`, unique across the catalog; `bytes` is the
+  `dimensions/<id>.jsonl` or `facts/<name>.jsonl` (the name follows the id rule above and
+  need not equal the dataset id), unique across the catalog; `bytes` is the
   file's byte length; `rows` is its count of nonempty lines; `sha256` is 64 lowercase hex
   characters over the exact bytes, newlines included.
 
@@ -146,8 +149,13 @@ same way every time (date, then each grain axis with `null` last, then metric id
 diffs stay readable.
 
 Snapshots: a level is read at one date, or grouped by date, or with `latest`, which means
-the globally latest complete snapshot date. Levels add across members at one date and
-never across dates; a stock of 10 on Monday and 8 on Wednesday is 8 today, not 18.
+the globally latest complete snapshot date; a range over several snapshot dates is refused
+(check M02). Levels add across members at one date and never across dates; a stock of 10
+on Monday and 8 on Wednesday is 8 today, not 18.
+
+Reading back: a grouped query lists only the groups that have rows. A cell you omitted on
+a complete day is zero when you ask for it directly (a filter on that member), but it does
+not appear as a row of its own in a grouped result.
 
 Budgets: catalog at most 1 MiB; each listed file at most 8 MiB; catalog plus files at most
 32 MiB; at most 128 listed files, 100,000 fact rows and 20,000 members in total; one line
@@ -192,7 +200,9 @@ into separate folders; never truncate silently.
    convert a null to zero, delete a hash, or loosen a budget to get to green.
 5. Hand-check at least one total, one grouped reconciliation (the groups add up to the
    total), one null versus zero case and any ratio or level, with exact decimal
-   arithmetic, and keep the workings with the folder.
+   arithmetic (Python's `decimal`, never floats). Keep the workings and the validator
+   output as a file under `outputs/`, never inside `kyn/`; the folder holds only the
+   catalog and its listed files.
 
 The validator certifies structure and arithmetic: fields, references, uniqueness, hashes,
 budgets, and that supported queries reproduce the sums. It never certifies that the source
@@ -301,8 +311,9 @@ Hand answers, which the engine reproduces:
 
 1. With the staged folder green, replace the live one in one move from the repo root:
    `mv kyn kyn-previous && mv kyn-staging kyn`, rerun the validator on `kyn/`, then delete
-   `kyn-previous`. Never copy single files into a live folder; a mix of revisions fails its
-   hashes, and the fix is a whole folder, not a removed hash.
+   `kyn-previous`. When there is no live `kyn/` yet (the first revision), the move is just
+   `mv kyn-staging kyn`. Never copy single files into a live folder; a mix of revisions
+   fails its hashes, and the fix is a whole folder, not a removed hash.
 2. Update the Data pointer node under `data/` (revision, as-of, read date) and commit the
    folder and the node together with a plain message.
 3. A running dashboard reads the new revision after `adapter.reload()` or a fresh adapter;
