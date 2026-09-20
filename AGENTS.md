@@ -81,7 +81,7 @@ The starter ships three registered surfaces and one reference set:
 - `knowledge/ai-architecture/`: the full reference doctrine (read-first).
 - `knowledge/personal-operator/`: the operator's own reduced skeleton (fill it in).
 - `knowledge/emberline-studio/`: the worked example namespace (study, then replace).
-- `knowledge/_examples/`: eight unregistered profile reference scaffolds.
+- `knowledge/_examples/`: eight unregistered profile reference scaffolds, plus `kyn-folder-example` (a synthetic KYN folder for the `store-kyn-files` skill, not a profile).
 
 Run `bash _system/validate.sh` to check the vault. When adding a namespace, register it in
 `_system/namespaces/` and follow `entities/skills/build-namespace.md`.

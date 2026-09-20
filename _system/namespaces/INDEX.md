@@ -47,6 +47,9 @@ they demonstrate the folder shape and node conventions of each profile, they tak
 intake, and they never appear in the catalog above. Copy from them when standing up a new
 namespace; do not route work into them.
 
+`knowledge/_examples/kyn-folder-example/` is not a profile scaffold: it is the synthetic `kyn/` folder
+the `store-kyn-files` skill uses as its worked example, with a pointer node at `data/kyn-synthetic-example.md`.
+
 ## By group
 
 ### personal
