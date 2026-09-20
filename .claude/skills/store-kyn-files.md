@@ -29,7 +29,9 @@ A repeatable technique for turning numbers you already hold into a `kyn/` folder
 Infinity Reporting can read: one catalog, one member file per dimension, one or more fact
 files, every file sealed with its byte length, row count and SHA-256, and the whole folder
 checked by the engine's validator before it replaces the live one. The contract is
-`kyn-files/v1`. Everything a reader needs to write a valid folder is in this file.
+`kyn-files/v1`. This file is meant to be enough on its own: a reader who saw only it produced a
+valid folder on the first try (CMD-P7-REPORTS control, 2026-09-20); after any edit to this file, run
+that control again before trusting the claim.
 
 ## Use when
 
@@ -53,7 +55,9 @@ checked by the engine's validator before it replaces the live one. The contract 
   read it directly. A report copies the whole folder into `reports/<id>/kyn/` on the
   reporting host and freezes it there; report copies are never edited.
 - In this OS's terms the folder is a prepared reporting surface, not a system of record.
-  `data/` still holds only pointers: write one Data node under `data/` whose
+  `CLAUDE.md` says this OS is "Not a system of record for numbers" and that `data/` holds
+  pointers; `kyn/` keeps that true because it is a prepared copy, and the record of every
+  number stays upstream in the source the catalog names. `data/` still holds only pointers: write one Data node under `data/` whose
   `state_stored_at` names the folder path, so agents cite the pointer and the numbers stay
   in the sealed files. The shipped example pointer is `data/kyn-synthetic-example.md`; copy
   its shape for your live folder.
@@ -169,7 +173,8 @@ Fact line, one per nonempty line of `facts/<name>.jsonl`, exactly these fields:
 - Rows are unique on (dataset, date, metricId, full dimension tuple) across all of the
   dataset's files. `workspaceId` and `sourceId` must equal the catalog's on every row.
 
-Files are UTF-8 without BOM, one JSON object per nonempty line, LF line endings, an
+Files are UTF-8 without BOM, one JSON object per nonempty line, LF line endings (the format also accepts CRLF; this
+OS's `.gitattributes` writes LF, so write LF), an
 optional final newline, no blank interior lines, no arrays, no extra fields. Sort rows the
 same way every time (date, then each grain axis with `null` last, then metric id) so
 diffs stay readable.
@@ -183,9 +188,10 @@ Reading back: a grouped query lists only the groups that have rows. A cell you o
 a complete day is zero when you ask for it directly (a filter on that member), but it does
 not appear as a row of its own in a grouped result.
 
-Budgets: catalog at most 1 MiB; each listed file at most 8 MiB; catalog plus files at most
-32 MiB; at most 128 listed files, 100,000 fact rows and 20,000 members in total; one line
-at most 16 KiB; at most 3,660 days in any dataset's coverage span. Larger sets are split
+Budgets (design limits, not measured capacity): the catalog stays under 1 MiB and each listed
+file under 8 MiB, with everything together under 32 MiB; no more than 128 listed files,
+100,000 fact rows or 20,000 members; no line over 16 KiB; no dataset spanning more than
+3,660 days of coverage. Larger sets are split
 into separate folders; never truncate silently.
 
 ## Write, seal and check
