@@ -56,7 +56,7 @@ namespace; do not route work into them.
 
 ### operations
 
-- `ai-architecture`: the AI-system architecture and governance doctrine this OS runs on
+- `ai-architecture`: the AI-system architecture and governance doctrine this brain runs on
 
 ## Registering a new namespace
 

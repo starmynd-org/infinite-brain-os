@@ -38,7 +38,7 @@ every deployment.
 | Lane | Role | Route here when the item is | Mechanism |
 |---|---|---|---|
 | `intake-operations` | owns the intake fabric itself | routing doctrine, receipts, source-family playbooks, scoring or destination-map changes | edit the durable `intake/` trail directly |
-| system stewardship | structural stewardship of the OS | a likely canon candidate, a namespace-structure implication, a new tool, workflow, or department implication, or a refined project-task recommendation born from intake | record the opportunity alongside the normal receipt and review it on the operator's cadence |
+| system stewardship | structural stewardship of the brain | a likely canon candidate, a namespace-structure implication, a new tool, workflow, or department implication, or a refined project-task recommendation born from intake | record the opportunity alongside the normal receipt and review it on the operator's cadence |
 | the operator | the human decision channel | any human-bound item: a decision, approval, blocker, or assumption needing sign-off | escalate per the surfacing rules; never route human-bound work straight into a namespace |
 
 ## Cross-link, never dual-own

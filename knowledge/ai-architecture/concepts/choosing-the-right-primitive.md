@@ -4,7 +4,7 @@ aliases: ["choosing-the-right-primitive", "primitive-selection", "workflow-vs-su
 type: "Knowledge"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "The decision discipline for choosing among the OS primitives when building application logic: tool versus workflow versus surface versus agent versus skill. Prefer the lowest-power primitive that fits, compose rather than invent, and keep surfaces thin. Prevents structural churn of the core primitives."
+summary: "The decision discipline for choosing among the brain's primitives when building application logic: tool versus workflow versus surface versus agent versus skill. Prefer the lowest-power primitive that fits, compose rather than invent, and keep surfaces thin. Prevents structural churn of the core primitives."
 confidence: 0.86
 retrieval_class: "domain"
 export_class: "internal"
@@ -149,4 +149,4 @@ stays bounded.
 
 This concept drives the primitive-selection contract in `_system/primitive-selection-rules.md`, the
 CRM-as-primitives proof program, and any future application-as-primitives build. It is the guard
-that keeps the eleven entity types and the five surface classes stable as the OS absorbs more apps.
+that keeps the eleven entity types and the five surface classes stable as the brain absorbs more apps.

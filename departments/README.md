@@ -3,7 +3,7 @@ id: "departments-readme"
 type: "Doc"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "Root overview for the departments assembly layer in the Infinite Brain OS."
+summary: "Root overview for the departments assembly layer in the Infinite Brain."
 confidence: 0.87
 retrieval_class: "identity"
 export_class: "internal"

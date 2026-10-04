@@ -171,7 +171,7 @@ Departments do not own intake as a separate knowledge namespace. They consume th
 - intake playbooks tailored to its domain
 - destination receipts under `intake/destinations/<department-or-namespace>/`
 
-But the intake system itself remains root OS infrastructure.
+But the intake system itself remains root infrastructure of the brain.
 
 ## Tool and runtime boundary
 

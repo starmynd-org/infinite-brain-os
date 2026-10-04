@@ -4,7 +4,7 @@ aliases: ["tools-readme", "tool-registry"]
 type: "Doc"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "Root registry for tools used by the Infinite Brain OS, its departments, and its namespaces."
+summary: "Root registry for tools used by the Infinite Brain, its departments, and its namespaces."
 confidence: 0.9
 retrieval_class: "identity"
 export_class: "public"
@@ -17,7 +17,7 @@ created: "2026-05-31"
 
 Use this folder to answer:
 
-- what tools exist in this OS
+- what tools exist in this brain
 - what each tool is for
 - which departments depend on it
 - which namespaces reason about it

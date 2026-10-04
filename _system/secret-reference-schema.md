@@ -48,7 +48,7 @@ Required meaning:
 
 - `id`: the stable repo-facing identifier. Never change this casually. Provider migration should
   normally update `backend` or `locator`, not the `id`.
-- `status`: whether the secret reference is actively usable by the OS.
+- `status`: whether the secret reference is actively usable by the brain.
 - `owner_department`: the department that owns the posture, usually `devops-platform` for shared
   credentials.
 - `backend`: the current resolution backend.

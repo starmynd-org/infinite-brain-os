@@ -68,7 +68,7 @@ A real component-library namespace drives:
   approved patterns
 - onboarding paths for engineers joining a project (load canon plus the relevant
   component records)
-- the public component docs export (`llms.txt` or a Storybook-companion catalogue)
+- the public component docs export (`llms.txt` or a Storybook-companion catalog)
 
 ## Archive and provenance
 

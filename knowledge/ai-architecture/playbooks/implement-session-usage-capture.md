@@ -51,7 +51,7 @@ If a field is unknown, leave it blank and explain why in `usage_notes`.
 
 Usage data is runtime truth, not canon truth. The durable receipt belongs in `sessions/` only after
 it has been captured or looked up. A surface or runtime must never make session cost visible only in
-an opaque vendor dashboard if the session itself is otherwise tracked in the OS.
+an opaque vendor dashboard if the session itself is otherwise tracked in the brain.
 
 ## Collection patterns in order of preference
 

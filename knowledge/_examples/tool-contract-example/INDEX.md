@@ -40,7 +40,7 @@ Every real tool-contract namespace should carry a short explicit statement, usua
 
 - which fit class applies: `ai-architecture-component`, `os-operational-tool`,
   `client-or-external-delivery-tool`, or `department-local-tool`
-- what part of the OS the tool serves
+- what part of the brain the tool serves
 - what the tool is allowed to own
 - what remains outside the tool boundary
 

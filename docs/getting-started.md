@@ -1,6 +1,6 @@
 # Getting Started
 
-A thirty-minute walkthrough that touches every part of the OS once, using only files inside
+A thirty-minute walkthrough that touches every part of the brain once, using only files inside
 this repo. Do it with your AI agent open (Claude Code or Codex) in the repo root.
 
 ## 0. Before you start
@@ -91,7 +91,7 @@ repo recoverable and reviewable.
 
 ## Where to go from here
 
-- Map your real business onto the OS: `docs/onboard-business.md` runs an interview and
+- Map your real business onto the brain: `docs/onboard-business.md` runs an interview and
   recommends an architecture.
 - Build your first real namespace: `entities/skills/build-namespace.md`.
 - Assemble your first department: `entities/skills/build-department.md` plus

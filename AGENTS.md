@@ -1,6 +1,6 @@
-# Infinite Brain OS, Working Repo (Codex)
+# Infinite Brain, Working Repo (Codex)
 
-This repo is the operating system for running a business with AI agents. You have full
+This repo is the brain for running a business with AI agents. You have full
 write autonomy here. Codex does the heavy lifting; this file orients it.
 
 If the task touches architecture, routing, knowledge structure, sessions, swarms, or

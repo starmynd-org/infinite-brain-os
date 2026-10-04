@@ -53,7 +53,7 @@ scope explicit without forcing every party to become a namespace.
 A root relationship layer for external or business actors. This is where stable client, brand,
 vendor, partner, and influencer records live. `parties/` owns relationship identity and scope.
 `knowledge/` owns retrieval doctrine. `departments/` owns operating assembly. Use `parties/` when
-many parts of the OS need to refer to the same external actor without creating a namespace solely
+many parts of the brain need to refer to the same external actor without creating a namespace solely
 for classification.
 
 ### The asset layer: `assets/`

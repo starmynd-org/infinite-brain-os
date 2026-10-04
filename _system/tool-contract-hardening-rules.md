@@ -25,7 +25,7 @@ Use this rule file to answer:
 Every node in a tool-contract namespace's `operations/` folder carries a `verification`
 frontmatter field with exactly one of these values:
 
-- `doc-derived`: written from documentation only; never executed by this OS
+- `doc-derived`: written from documentation only; never executed in this brain
 - `dry-run-tested`: exercised without side effects (validate-only flags, list or describe
   calls standing in for the real mutation, schema-level checks)
 - `live-tested`: executed for real against the tool, with the evidence reference recorded
@@ -44,7 +44,7 @@ When posture changes, also update the node's `verified_at` and `verified_by` fie
 ## Coverage ledger
 
 Every tool-contract namespace carries `support/coverage-ledger.md`: one row per operation,
-endpoint, command, or option group in the tool's full surface, whether or not the OS
+endpoint, command, or option group in the tool's full surface, whether or not the brain
 documents it. Allowed coverage statuses:
 
 - `documented`: an operation node exists (the row names it)
@@ -73,7 +73,7 @@ evidence pointer. Discrepancies found during hardening are triaged to exactly on
 Test plans are durable: `playbooks/hardening-test-plan.md` in the target namespace, with
 three tiers. Tier 1 is functional, at least one test per documented operation, derived
 from the coverage ledger. Tier 2 is scenario, end-to-end journeys reflecting how agents
-in this OS actually use the tool. Tier 3 is the deterministic edge matrix: parameter
+in this brain actually use the tool. Tier 3 is the deterministic edge matrix: parameter
 boundaries, pagination edges, empty results, unicode and size extremes, every documented
 error code, idempotency retries, and rate-limit behavior, expressed as a case matrix.
 Re-hardening after upstream changes re-executes the plan, not a fresh improvisation.

@@ -1,7 +1,7 @@
 # Tool Registry Rules
 
 `tools/` is the root operating registry for execution dependencies. It is the place to
-declare what tools exist in the OS, what they are for, which departments and namespaces rely
+declare what tools exist in the brain, what they are for, which departments and namespaces rely
 on them, and where deeper contracts, runtime surfaces, and credential references live.
 
 `tools/` is not a replacement for deep tool documentation. When a tool needs substantial
@@ -50,7 +50,7 @@ This can be expressed through frontmatter plus a short written body.
 
 ## System fit classification
 
-Every serious tool entry should say how the tool fits into the wider OS, not just what
+Every serious tool entry should say how the tool fits into the wider brain, not just what
 the vendor does. Use one primary fit class:
 
 - `ai-architecture-component`
@@ -60,7 +60,7 @@ the vendor does. Use one primary fit class:
 
 The written body should also answer:
 
-- what part of the OS this tool serves
+- what part of the brain this tool serves
 - what the tool is allowed to own
 - what remains outside the tool boundary
 - whether the tool should roll up into `_system/` and `knowledge/ai-architecture/`
@@ -94,7 +94,7 @@ Use one primary status:
 - `limited`
 - `deprecated`
 
-The status should describe whether the Infinite Brain OS can actually use the tool in
+The status should describe whether the Infinite Brain can actually use the tool in
 practice, not whether the vendor exists.
 
 ## Department and namespace linkage

@@ -1,7 +1,7 @@
 # Party Registry Schema
 
 This file defines the operative shape of a party record. A party is a durable external or
-business actor (client, brand, vendor, partner, influencer) that many parts of the OS need to
+business actor (client, brand, vendor, partner, influencer) that many parts of the brain need to
 reference by a stable identity. The layer rationale lives in `parties/README.md`; this file
 states the contract the validator enforces.
 

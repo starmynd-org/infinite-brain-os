@@ -46,7 +46,7 @@ answers. Many operators run brains for weeks before opening a vault.
 
 **What it is for.** Running deterministic workflows: fixed steps, schedules, and
 integrations that should execute exactly the same way every time without an AI in the
-loop. In this OS, n8n workflow JSON lives in `automations/n8n/`, each export paired with
+loop. In this brain, n8n workflow JSON lives in `automations/n8n/`, each export paired with
 a companion Markdown node that is the brain's record of what the automation does.
 
 **You want it when** a workflow has fully stabilized: the steps never need judgment, it
@@ -99,7 +99,7 @@ month one.
 `http://localhost:3100/api` and setup runs through the Paperclip CLI. Because
 distribution and versions move, follow the Paperclip project's own documentation rather
 than this page. If you
-do not have access to a Paperclip build, skip this entirely; nothing else in the OS
+do not have access to a Paperclip build, skip this entirely; nothing else in the brain
 depends on it.
 
 ## The order that usually makes sense

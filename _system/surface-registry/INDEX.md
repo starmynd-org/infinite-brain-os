@@ -1,6 +1,6 @@
 # Surface Registry
 
-This registry lists the surfaces connected to the OS. One file per surface, shaped by
+This registry lists the surfaces connected to the brain. One file per surface, shaped by
 `_template.md` and governed by `_system/surface-contract-rules.md`. Each entry carries the
 nine-item declaration and a `class:` of S1 through S5. Each entry should also be linked from
 its owning department `INDEX.md`.

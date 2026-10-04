@@ -4,7 +4,7 @@ aliases: ["apps-decompose-into-primitives", "app-primitive-north-star", "self-ho
 type: "Knowledge"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "North-star pillar: a real application is not a monolith to host but a composition of the OS core primitives (namespaces, agents, skills, workflows, tools) with a thin surface UX on top, self-hosted by the Claude Code or Codex agent runtime in a shareable repo. The CRM app is the first proof, now realized: it decomposed into the OS core primitives and shipped as the self-contained repos/external/acme/crm-app app, passing the test that the core primitives can absorb real app development without leaving the primitives."
+summary: "North-star pillar: a real application is not a monolith to host but a composition of the brain's core primitives (namespaces, agents, skills, workflows, tools) with a thin surface UX on top, self-hosted by the Claude Code or Codex agent runtime in a shareable repo. The CRM app is the first proof, now realized: it decomposed into the brain's core primitives and shipped as the self-contained repos/external/acme/crm-app app, passing the test that the core primitives can absorb real app development without leaving the primitives."
 confidence: 0.88
 retrieval_class: "identity"
 export_class: "internal"
@@ -33,9 +33,9 @@ created: "2026-06-03"
 This is a program north star that keeps getting lost across chats and agents. It is written here,
 in the doctrine layer, so every commander and agent loads it before touching application work.
 
-The test the OS is trying to pass: **can the core primitives of `infinite-brain-os` absorb
+The test the brain is trying to pass: **can the core primitives of `infinite-brain-os` absorb
 real application development without leaving the primitives?** A real app should not be hosted as a
-foreign monolith bolted onto the repo. It should decompose into the OS's native primitives, with
+foreign monolith bolted onto the repo. It should decompose into the brain's native primitives, with
 only a thin surface UX on top, and the runtime should be the agent itself (Claude Code or Codex),
 not a separate application backend.
 
@@ -47,7 +47,7 @@ applications.
 
 ## The decomposition contract: app piece to primitive
 
-Every part of an application maps to a primitive that already exists in this OS. Port one piece at
+Every part of an application maps to a primitive that already exists in this brain. Port one piece at
 a time; what cannot map to a higher primitive gets packaged as a custom tool.
 
 | Application piece | Target primitive | Home |
@@ -120,7 +120,7 @@ primitives is that validation.
 
 ## Status
 
-This is the operative north star for application work in this OS. It is research-state doctrine,
+This is the operative north star for application work in this brain. It is research-state doctrine,
 operator-pending. The CRM-as-primitives proof program validated it end to end and shipped the result
 as the self-contained `repos/external/acme/crm-app` app. Any agent or commander doing
 application work loads this node first so the goal stops getting lost.

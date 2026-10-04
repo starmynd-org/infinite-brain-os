@@ -7,7 +7,7 @@ New machine? The README's Prerequisites section lists the small tool set you nee
 
 ## First fifteen minutes
 
-1. Read `README.md` for what this OS is and the folder map.
+1. Read `README.md` for what this brain is and the folder map.
 2. Take the example tour in the README: eight short files that show every entity type
    working together around a fictional candle studio.
 3. Read `knowledge/ai-architecture/canon/doctrine-card.md`: the one-page projection of the
@@ -34,10 +34,10 @@ are adapters, not owners.
 
 - Main browse note (Obsidian): `OBSIDIAN-DASHBOARD.md`
 - The walkthrough: `docs/getting-started.md`
-- Map your business onto the OS: `docs/onboard-business.md`
+- Map your business onto the brain: `docs/onboard-business.md`
 - The intake flow: `intake/README.md`
 - The architecture: `knowledge/ai-architecture/INDEX.md`
-- The OS as an OODA loop (start with the visual):
+- The brain as an OODA loop (start with the visual):
   `docs/ooda-infinite-brain-map.html`, then
   `knowledge/ai-architecture/synthesis/ooda-architecture-index.md`
 - Namespace rules: `_system/namespaces/INDEX.md`

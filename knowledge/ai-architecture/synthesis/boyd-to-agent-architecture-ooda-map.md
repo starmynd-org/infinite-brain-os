@@ -110,7 +110,7 @@ brain through it:
 ## Verdict and what this drives
 
 As a single-department cell the brain is a genuine OODA loop, and an unusually strong one
-because Orient is externalized and inspectable. As a full OS with OODA fully incorporated
+because Orient is externalized and inspectable. As a whole brain with OODA fully incorporated
 it is not there yet, for one conceptual reason (the loop is framed and pressured as the
 four-box cartoon) and one engineering reason (the feedback half of the web is unbuilt). The
 highest-leverage OODA work is not more autonomy or more departments; it is the

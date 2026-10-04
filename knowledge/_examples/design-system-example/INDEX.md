@@ -9,7 +9,7 @@ body, not deep content.
 ## Profile
 
 Design-system. This profile carries approved visual and stylistic canon: design
-principles (pillars), token definitions, asset catalogues, usage examples, and external
+principles (pillars), token definitions, asset catalogs, usage examples, and external
 references. The profile adds `pillars/`, `tokens/`, `assets/`, `examples/`, and
 `references/` to the shared base. See [[namespace-profiles]] for the operative profile
 registry.

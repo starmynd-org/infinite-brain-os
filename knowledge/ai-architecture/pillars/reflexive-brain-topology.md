@@ -4,7 +4,7 @@ aliases: ["knowledge-ai-architecture-reflexive-brain-topology", "reflexive-brain
 type: "Knowledge"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "The enterprise standard for how one company organizes its repos once it runs the Infinite Brain internally: a company-level shared parent, a plural individual brain tier (one repo per person), a department brain tier, and one company brain tier, plus an orthogonal brain-versus-app repo-kind classification for repos that are not knowledge-graph OSes at all."
+summary: "The enterprise standard for how one company organizes its repos once it runs the Infinite Brain internally: a company-level shared parent, a plural individual brain tier (one repo per person), a department brain tier, and one company brain tier, plus an orthogonal brain-versus-app repo-kind classification for repos that are not brains at all."
 confidence: 0.85
 retrieval_class: "domain"
 export_class: "public"

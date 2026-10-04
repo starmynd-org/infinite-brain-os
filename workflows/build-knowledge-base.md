@@ -50,7 +50,7 @@ upgrades from audit packets.
 
 - when the operator wants a new real namespace, not a stub
 - when a legacy folder or corpus should be converted into Infinite Brain style
-- when the current OS architecture should be tested on a live source set
+- when the brain's current architecture should be tested on a live source set
 
 ## Inputs
 
@@ -177,7 +177,7 @@ with:
 - cross-namespace follow-ups still needed
 - validator/lint result
 - open questions
-- lessons about the OS itself
+- lessons about the brain itself
 
 ## Output format
 

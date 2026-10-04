@@ -1,6 +1,6 @@
 # Primitive Selection Rules
 
-This file is the operative contract for choosing among the OS primitives when building application
+This file is the operative contract for choosing among the brain's primitives when building application
 logic. Its reasoning lives in `knowledge/ai-architecture/concepts/choosing-the-right-primitive.md`
 and the north star in `knowledge/ai-architecture/pillars/apps-decompose-into-primitives.md`. Apply
 this contract before creating any tool, workflow, agent, skill, or surface so the core primitives

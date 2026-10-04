@@ -36,7 +36,7 @@ The unit that creates business ROI is not a single agent or workflow. It is a de
 assembly that can receive inputs, reason over its own knowledge, run recurring execution,
 produce outputs, and escalate exceptions to a thin human layer.
 
-That assembly should be explicit in the OS. The recommended physical home is a root
+That assembly should be explicit in the brain. The recommended physical home is a root
 `departments/` layer, because the department is not itself a knowledge namespace. It is a
 cross-entity operating surface that points at namespaces, agents, skills, workflows, tools,
 metrics, projects, and human review gates.

@@ -24,14 +24,14 @@ Use `repo-registry/` to answer:
 
 ## The active root and the active set
 
-The active set lives under one active root (`<your-repos-root>`), with the OS and the
+The active set lives under one active root (`<your-repos-root>`), with the brain and the
 internal active repos under `internal/` and external repos under `external/`. A legacy root,
 where one exists, is retained only for legacy, dead, or source-material repos. The
 repo-root `CLAUDE.md` and `AGENTS.md` are the source of truth for the lean active set; the registry maps
 both roots but must keep the active set accurate against that source. Active entries point at the
 active root; legacy entries legitimately still point at the old root because those repos were left behind.
 
-A worked active set looks like: `infinite-brain-os` (the OS itself),
+A worked active set looks like: `infinite-brain-os` (the brain itself),
 `company-canon`, `example-app`, and `example-orchestrator`. A newly
 active repo earns its entry through the human-in-the-loop registry pass, since ownership and posture are
 operator-gated decisions, not silent additions.
@@ -75,7 +75,7 @@ Each repo entry should define:
 Two fields classify what a repo *is*, independent of who owns it (the internal-versus-external
 axis above) and independent of its operating status (the canonical status vocabulary below).
 
-- `repo_kind`: `brain | app | mixed`. `brain` is a repo organized as a knowledge-graph OS (it
+- `repo_kind`: `brain | app | mixed`. `brain` is a repo organized as a knowledge graph (it
   carries or vendors `entities/`, participates in the namespace ontology, and is retrieved
   rather than only read as code). `app` is a product or client codebase with no brain
   ontology: a thin `.claude/` for product-development commands and skills is normal, an
@@ -98,9 +98,9 @@ This file states the operative fields only.
 The status field uses one of these canonical values. Per-entry normalization to this set is a
 registry-refinement task, not a silent rename.
 
-- `primary`: the OS itself, the single source of truth.
-- `owned`: an active repo the OS owns and builds in (the internal active set).
-- `active`: an actively used runtime repo (for example the orchestrator) that the OS depends on.
+- `primary`: the brain itself, the single source of truth.
+- `owned`: an active repo the brain owns and builds in (the internal active set).
+- `active`: an actively used runtime repo (for example the orchestrator) that the brain depends on.
 - `supporting`: a related repo that supports a department without being primary or owned.
 - `imported-self-contained`: a repo whose corpus was imported, retained self-contained afterward.
 - `legacy-source` or `legacy`: retained only as prior art or migration source-material.
@@ -141,7 +141,7 @@ Create or update a repo-registry entry when any of the following are true:
 - a department depends on the repo operationally
 - the repo is a future digestion target
 - the repo contains source material for a namespace migration
-- the repo holds important runtime systems or integrations used by the OS
+- the repo holds important runtime systems or integrations used by the brain
 - the repo is part of the active expansion plan
 
 ## First implementation guidance

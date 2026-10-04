@@ -50,7 +50,7 @@ the first and most common category error to avoid.
   records under `intake/sources/<source>/`, get a routing decision, and only then move
   into a durable home. Do not write an unprocessed inbound item straight into a namespace
   as if it were settled understanding. See [[intake-fabric-namespace]] for why intake is
-  a root OS layer and not an ordinary knowledge namespace.
+  a root layer of the brain and not an ordinary knowledge namespace.
 - If the work is **durable understanding** that has been digested and is ready to be
   retrieved and reasoned from, it goes to a **namespace** under `knowledge/<namespace>/`:
   a concept, decision, playbook, synthesis note, or, when operator-approved and

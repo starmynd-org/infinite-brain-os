@@ -1,6 +1,6 @@
 # parties
 
-`parties/` is the root relationship layer for external or business actors the OS needs to
+`parties/` is the root relationship layer for external or business actors the brain needs to
 reference repeatedly. It is where stable client, brand, vendor, partner, influencer, and related
 party identities live.
 
@@ -22,7 +22,7 @@ tools, or runtime CRM systems.
 - full doctrine that should live in `knowledge/<namespace>/`
 - runtime system configuration
 
-## Relationship to the rest of the OS
+## Relationship to the rest of the brain
 
 - `parties/` owns stable relationship identity and scope
 - `knowledge/` owns retrieval and doctrine

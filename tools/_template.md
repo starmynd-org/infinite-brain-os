@@ -3,7 +3,7 @@ id: "tool-template"
 type: "Doc"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "Template for adding a tool to the Infinite Brain OS tool registry."
+summary: "Template for adding a tool to the Infinite Brain tool registry."
 confidence: 0.86
 retrieval_class: "identity"
 export_class: "internal"
@@ -64,7 +64,7 @@ brand_slug: "acme"
 ## Body sections
 
 - what the tool does
-- why it matters in this OS
+- why it matters in this brain
 - system fit class and boundary
 - deep namespace link
 - who owns it
@@ -100,7 +100,7 @@ System fit class: `os-operational-tool`
 
 Then answer in prose:
 
-- what part of the OS this tool serves
+- what part of the brain this tool serves
 - what it is allowed to own
 - what remains outside its boundary
 - whether it should roll into `_system/` and `knowledge/ai-architecture/`

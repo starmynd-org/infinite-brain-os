@@ -199,7 +199,7 @@ Create a short build report with:
 - cross-namespace changes made or deferred
 - open ambiguities
 - validator/lint result
-- what parts of the current OS felt strong or awkward
+- what parts of the current brain felt strong or awkward
 
 ## Quality checks
 

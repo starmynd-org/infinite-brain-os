@@ -44,7 +44,7 @@ takes the stated fallback.
 1. **Test plan.** Derive `playbooks/hardening-test-plan.md` in the target namespace from
    the coverage ledger. Tier 1, functional: at least one test per documented operation,
    asserting the documented payload, response shape, and error behavior. Tier 2,
-   scenario: end-to-end journeys reflecting how agents in this OS actually use the tool
+   scenario: end-to-end journeys reflecting how agents in this brain actually use the tool
    (the ideal-use cases), which catch cross-operation contract gaps Tier 1 misses.
    Tier 3, edge matrix: parameter boundaries, pagination edges, empty results, size and
    unicode extremes, every documented error code, idempotency retries, and rate-limit

@@ -46,7 +46,7 @@ is `_system/tool-contract-hardening-rules.md`; the full procedure is
    receipt.
 2. Write or refresh `playbooks/hardening-test-plan.md` in the target namespace. Tier 1:
    at least one functional test per documented operation, derived from the coverage
-   ledger. Tier 2: scenario tests for the real journeys agents in this OS run end to
+   ledger. Tier 2: scenario tests for the real journeys agents in this brain run end to
    end. Tier 3: the edge matrix (boundaries, pagination, error codes, idempotency,
    rate-limit behavior) plus a harness script in `playbooks/harness/` that executes the
    matrix deterministically; size it dense for local runtimes, rate-limit-bounded for

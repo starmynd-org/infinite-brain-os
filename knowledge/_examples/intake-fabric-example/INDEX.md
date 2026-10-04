@@ -95,7 +95,7 @@ Historical context lives in `support/`.
   `intake/processed/` at repo root. This namespace holds only doctrine.
 - Assuming this namespace holds the authoritative routing rules. Routing doctrine lives at
   `intake/routing/destination-rules.md`. This namespace explains why that structure exists.
-- Treating intake as a knowledge namespace. Intake is a root OS layer. It captures and
+- Treating intake as a knowledge namespace. Intake is a root layer of the brain. It captures and
   routes. The destination namespace owns the durable canon. Intake never owns truth.
 - Expecting synthesis here. Profile H is thin by design. Derived thinking from processed
   intake items should go into the destination namespace where the item was routed, not

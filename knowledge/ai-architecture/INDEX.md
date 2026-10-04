@@ -31,7 +31,7 @@ Canon entry points, in order:
 2. [[core-doctrine]]: the compressed first-principles synthesis. Read this whole before
    any architecture-touching, contract-touching, or canon-touching work. It routes you to
    the deeper node, and it wins over the card on any conflict.
-3. [[system-overview]]: the single read-this-first map of the whole OS, the entity types,
+3. [[system-overview]]: the single read-this-first map of the whole brain, the entity types,
    and how the system is oriented and navigated.
 4. [[problem-to-architecture]]: the operator procedure for turning an unstructured problem
    or business workflow into an implementable AI-architecture-shaped system.
@@ -59,10 +59,10 @@ Top files after canon:
 - **Session startup orientation** (what must an agent know before any work in this
   repo): load [[doctrine-card]], then `_system/retrieval-routing-map.md` when the task
   touches a knowledge domain, then drill down per the card's pointers.
-- **System overview** (what is the whole OS, the entity types, how it is navigated): load
+- **System overview** (what is the whole brain, the entity types, how it is navigated): load
   [[system-overview]].
 - **Problem to architecture** (how to turn an unstructured problem or business workflow
-  into the OS): load [[problem-to-architecture]] and [[system-overview]].
+  into the brain): load [[problem-to-architecture]] and [[system-overview]].
 - **Department architecture** (how to turn a business function into an AI-first department,
   where departments live, what a department must contain, and how intake-operations hands
   structural opportunities to infinite-brain-ops): load [[department-model]],
@@ -90,7 +90,7 @@ Top files after canon:
 - **Control model** (where does truth live, what owns runtime state, what is a surface):
   load [[infinite-brain-control-model]], [[surface-boundary]], [[surface-classes]],
   [[planning-to-execution-ladder]], [[deterministic-workflow-boundary]].
-- **App composition and primitive selection** (how a real application becomes OS primitives with a
+- **App composition and primitive selection** (how a real application becomes the brain's primitives with a
   thin surface, self-hosted by the agent runtime, and when to use a tool versus a workflow versus a
   surface versus an agent or skill): load [[apps-decompose-into-primitives]],
   [[choosing-the-right-primitive]], [[surface-classes]], [[entity-tools]], and
@@ -108,7 +108,7 @@ Top files after canon:
   `autonomy-readiness-requirements`, `autonomy-architecture-gap-register`,
   `operator-priority-and-surfacing-model`, `autonomy-operating-model`, and
   `department-head-runtime`.
-- **Scorecard, cadence, and accountability** (what operating loop the OS still needs above
+- **Scorecard, cadence, and accountability** (what operating loop the brain still needs above
   sessions and swarms): load [[core-doctrine]], `autonomy-readiness-requirements`,
   `operator-priority-and-surfacing-model`, `human-interaction-membrane`, and
   `department-head-runtime`.

@@ -14,7 +14,7 @@ as part of the durable audit trail.
 
 ## The session layer (locked)
 
-Rule SESSION-1: `sessions/` is a root OS layer, not a knowledge namespace and not a canon
+Rule SESSION-1: `sessions/` is a root layer of the brain, not a knowledge namespace and not a canon
 surface. It stores durable session receipts, full transcripts, and closeout reviews for AI
 conversations that touched this repo.
 

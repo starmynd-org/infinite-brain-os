@@ -4,7 +4,7 @@
 
 Use this folder to answer:
 
-- what stable secret ids exist in the OS
+- what stable secret ids exist in the brain
 - which surfaces, tools, or workflows may resolve each secret
 - which backend currently stores the real value
 - what rotation and exposure policy applies
@@ -14,7 +14,7 @@ This folder does not store secret values.
 ## Core rule
 
 The repo stores references and policy metadata. A trusted runtime resolves the value at
-execution time, from wherever the value actually lives (a cloud secret manager, an OS
+execution time, from wherever the value actually lives (a cloud secret manager, an operating system
 keychain, a password manager). The model should see ids and redacted outcomes, never raw
 credentials.
 

@@ -4,7 +4,7 @@ aliases: ["skill-recommend-architecture", "recommend-architecture"]
 type: "Skill"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "Map a business map onto the OS ontology and produce a bounded, prioritized recommendation set: knowledge namespaces to research, departments to create, workflows to build, each justified by the person's own words, plus an explicit do-not-build-yet list."
+summary: "Map a business map onto the brain's ontology and produce a bounded, prioritized recommendation set: knowledge namespaces to research, departments to create, workflows to build, each justified by the person's own words, plus an explicit do-not-build-yet list."
 confidence: 0.8
 retrieval_class: "domain"
 export_class: "public"
@@ -40,7 +40,7 @@ created: "2026-06-10"
 # recommend-architecture
 
 Use this skill to turn a confirmed business map into an architecture recommendation set.
-This is the judgment layer of onboarding: it decides what the OS should hold for this
+This is the judgment layer of onboarding: it decides what the brain should hold for this
 business, in what order, and, just as deliberately, what it should not build yet.
 
 ## Use when
@@ -125,7 +125,7 @@ This list is a deliverable, not an afterthought.
 
 ## Optional tooling note (outside the ceiling)
 
-The OS has three optional local surfaces: Obsidian (reading and graph browsing), n8n
+The brain has three optional local surfaces: Obsidian (reading and graph browsing), n8n
 (deterministic workflow runtime), and Paperclip (runtime cockpit for departments). They
 are surfaces, not architecture, so they never count against the ceiling and never appear
 as ranked recommendations. Include a short `## Optional tooling` section only when the

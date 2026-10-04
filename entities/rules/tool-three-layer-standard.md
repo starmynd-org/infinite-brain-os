@@ -8,7 +8,7 @@ summary: "Every registered tool carries a root pointer, a deep tool-contract nam
 confidence: 0.83
 retrieval_class: "domain"
 export_class: "internal"
-description: "Apply this rule when registering, backfilling, or validating any tool entry in the Infinite Brain OS."
+description: "Apply this rule when registering, backfilling, or validating any tool entry in the Infinite Brain."
 verified_by: "operator-pending"
 edges:
   - target: "[[_system/tool-registry-rules.md]]"
@@ -19,7 +19,7 @@ created: "2026-06-17"
 
 # Rule: Tool Three-Layer Standard
 
-Every Tool in the Infinite Brain OS is measured against one three-layer standard.
+Every Tool in the Infinite Brain is measured against one three-layer standard.
 
 ## The three layers
 

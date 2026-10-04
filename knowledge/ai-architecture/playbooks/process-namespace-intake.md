@@ -22,7 +22,7 @@ created: "2026-05-30"
 
 ## Summary
 
-Intake is the root OS layer that receives inbound items from many sources and moves the
+Intake is the root layer of the brain that receives inbound items from many sources and moves the
 high-signal ones into durable homes. This playbook processes one intake item end to end:
 read its captured record, decide where it belongs, do the work, and write a processed
 receipt. Intake never owns truth. The destination namespace owns canon; the receipt only

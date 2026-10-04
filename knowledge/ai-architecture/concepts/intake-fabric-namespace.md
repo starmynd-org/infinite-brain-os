@@ -4,7 +4,7 @@ aliases: ["knowledge-ai-architecture-intake-fabric-namespace", "ai-architecture-
 type: "Knowledge"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "Intake is a root OS layer, not an ordinary knowledge namespace. A three-layer split keeps connectors and live queues external, durable receipts and routing in git, and distilled knowledge in destination namespaces."
+summary: "Intake is a root layer of the brain, not an ordinary knowledge namespace. A three-layer split keeps connectors and live queues external, durable receipts and routing in git, and distilled knowledge in destination namespaces."
 confidence: 0.9
 retrieval_class: "domain"
 export_class: "internal"
@@ -18,13 +18,13 @@ edges:
 created: "2026-05-30"
 ---
 
-# Intake Fabric As A Root OS Layer
+# Intake Fabric As A Root Layer Of The Brain
 
 ## Summary
 
 Intake is the convergence point for inbound items from many sources: X, bookmarks,
-YouTube, web, repos, email, Slack, ideas, and AI-guided deep research. It is a root OS
-layer at `intake/`, not a knowledge namespace under `knowledge/<namespace>/` (contract
+YouTube, web, repos, email, Slack, ideas, and AI-guided deep research. It is a root
+layer of the brain at `intake/`, not a knowledge namespace under `knowledge/<namespace>/` (contract
 Part 5, Profile H). It receives items, preserves source context, tracks processing and
 routing, and moves high-signal items into durable homes. Intake never owns truth; the
 destination namespace does.

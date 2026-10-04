@@ -102,5 +102,5 @@ The department is real when:
 
 ## Notes
 
-This playbook is the practical bridge from the shadow-department thesis to concrete OS design.
+This playbook is the practical bridge from the shadow-department thesis to the concrete design of the brain.
 Pair it with [[problem-to-architecture]] when designing a new department from scratch.

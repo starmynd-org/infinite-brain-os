@@ -13,7 +13,7 @@ created: "2026-05-31"
 # Client workspace
 
 This folder is the root registry for repos that matter to this brain. The brain becomes a
-multi-repo operating system as soon as it coordinates work in even one sibling repo, and
+multi-repo system as soon as it coordinates work in even one sibling repo, and
 this registry is how agents know what exists beyond the brain itself.
 
 Use it to answer:

@@ -126,5 +126,5 @@ point-in-time record and is not a knowledge node.
   file links back to the source record per [[migration-compatibility-rules]].
 - The connector layer (OAuth, polling, token refresh, live queue) stays in the operational app
   and is never written to git. This workflow reads fetched content, not live queue state.
-- See [[process-namespace-intake]] for the doctrine on why intake is a root OS layer and never
+- See [[process-namespace-intake]] for the doctrine on why intake is a root layer of the brain and never
   owns truth.

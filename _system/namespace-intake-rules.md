@@ -2,7 +2,7 @@
 
 Operative rules for how a namespace consumes intake and what intake is allowed to write
 into git. This file is the operative contract. The reasoning lives in
-[[intake-fabric-namespace]] (why intake is a root OS layer) and [[process-namespace-intake]]
+[[intake-fabric-namespace]] (why intake is a root layer of the brain) and [[process-namespace-intake]]
 (the procedure an agent runs to process an item into a namespace).
 
 Scope: contract Part 5. This file governs the durable layer (`intake/` in git) and the

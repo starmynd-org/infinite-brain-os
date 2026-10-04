@@ -1,9 +1,9 @@
-# Infinite Brain OS
+# Infinite Brain
 
-A git-backed operating system for running a business with AI agents. Plain Markdown and
+A git-backed brain for running a business with AI agents. Plain Markdown and
 YAML, readable by any file-reading agent, owned by you.
 
-The Infinite Brain is a knowledge OS: it makes what your business knows, decides, and does
+The Infinite Brain is a knowledge system: it makes what your business knows, decides, and does
 reliably retrievable and safely executable by AI agents, today and after the tools change.
 Knowledge lives in namespaces with an explicit promotion path to operator-approved canon.
 Work lives in projects with typed entities (commands, agents, skills, rules, workflows,
@@ -60,7 +60,7 @@ Or open the folder as an Obsidian vault (config ships in `.obsidian/`) and read
 - **The doctrine.** `knowledge/ai-architecture/` is the full reference architecture: the
   control spine, the namespace model, canon versus synthesis, retrieval doctrine, surface
   boundaries, and the agent-authority limits. It is the "why" behind every folder here.
-- **The OODA orientation set.** How the whole OS reads as John Boyd's real OODA web:
+- **The OODA orientation set.** How the whole brain reads as John Boyd's real OODA web:
   the bridge, the feedback-plane spec, and a router index in
   `knowledge/ai-architecture/synthesis/`, the wager-ledger design that closes the
   Act-to-Orient arrow, and an interactive visual explainer

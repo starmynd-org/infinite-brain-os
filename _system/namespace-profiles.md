@@ -76,12 +76,12 @@ the profile-additive folders, the canon file of record, the lint emphasis, and m
 - Canon file of record: `canon/core-contract.md` (in place of or alongside
   `core-doctrine.md`).
 - System-fit requirement: `canon/core-contract.md` must state how the tool fits into the
-  wider OS, what it is allowed to own, what remains outside the tool boundary, and which
+  wider brain, what it is allowed to own, what remains outside the tool boundary, and which
   fit class applies. Use one of:
   - `ai-architecture-component`: the tool materially shapes the operating model, control
     plane, surface boundary, or planning-to-execution posture. These namespaces should
     link back into `_system/` and `knowledge/ai-architecture/`.
-  - `os-operational-tool`: the tool is shared OS infrastructure or an important
+  - `os-operational-tool`: the tool is shared infrastructure of the brain or an important
     cross-department operational dependency, but does not redefine architecture doctrine.
   - `client-or-external-delivery-tool`: the tool is primarily used to deliver client or
     external work and should stay bounded to that delivery surface.
@@ -192,7 +192,7 @@ the profile-additive folders, the canon file of record, the lint emphasis, and m
 - Slug: `intake-fabric`
 - Job: receive inbound items from many sources, preserve source context, track processing
   and routing, move high-signal items into durable homes.
-- Location: this is a root OS layer at `intake/`, not a `knowledge/<namespace>/`
+- Location: this is a root layer of the brain at `intake/`, not a `knowledge/<namespace>/`
   namespace. A thin `knowledge/<intake-name>/` namespace may hold only distilled doctrine,
   decisions, playbooks, and receipts.
 - Shared base: applies to the thin knowledge namespace if one exists. The root `intake/`

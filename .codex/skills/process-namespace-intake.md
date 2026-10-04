@@ -39,7 +39,7 @@ created: "2026-05-30"
 Process one captured intake item end to end: read the source record, decide where it
 belongs, make the smallest correct change in the destination namespace, and write a
 processed receipt that records what happened and links back to the source. This skill is
-the executable technique. The doctrine for why intake is a root OS layer and where the
+the executable technique. The doctrine for why intake is a root layer of the brain and where the
 three-layer boundary sits lives in the playbook
 [[knowledge-ai-architecture-process-namespace-intake]]; the operative contract for what
 intake may write into git lives in [[namespace-intake-rules]]. Run the technique, obey

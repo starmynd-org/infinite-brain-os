@@ -4,7 +4,7 @@ aliases: ["knowledge-ai-architecture-session-ledger-root-layer", "session-ledger
 type: "Knowledge"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "Sessions are a root OS layer for AI chat registration, transcript retention, and closeout reviews: a durable audit trail that feeds memory, tasks, swarms, and knowledge surfaces without becoming canon."
+summary: "Sessions are a root layer of the brain for AI chat registration, transcript retention, and closeout reviews: a durable audit trail that feeds memory, tasks, swarms, and knowledge surfaces without becoming canon."
 confidence: 0.91
 retrieval_class: "domain"
 export_class: "internal"
@@ -24,7 +24,7 @@ edges:
 created: "2026-05-31"
 ---
 
-# Session Ledger As A Root OS Layer
+# Session Ledger As A Root Layer Of The Brain
 
 ## Summary
 

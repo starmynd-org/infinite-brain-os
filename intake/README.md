@@ -1,6 +1,6 @@
-# Intake: The Root OS Intake Fabric
+# Intake: The Root Intake Fabric Of The Brain
 
-This folder is the root OS intake fabric. It is a root-level operating layer, not an
+This folder is the root intake fabric of the brain. It is a root-level operating layer, not an
 ordinary knowledge namespace. In the architecture it carries Profile H (Intake Fabric).
 Its job is to receive inbound items from many sources, preserve source context, record
 how each item was triaged and routed, and move high-signal items into a durable home in

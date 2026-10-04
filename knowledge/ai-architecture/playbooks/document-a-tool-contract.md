@@ -25,7 +25,7 @@ created: "2026-06-11"
 
 ## Purpose
 
-When a new tool enters the OS (external API, SaaS, or internal capability), this playbook
+When a new tool enters the brain (external API, SaaS, or internal capability), this playbook
 produces its tool-contract namespace so any cold-context agent can call the tool
 correctly. It extends the example playbook
 [[knowledge-tool-contract-example-playbook-build-tool-contract-from-public-docs]] with

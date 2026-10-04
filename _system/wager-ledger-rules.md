@@ -37,7 +37,7 @@ recorded as a lightweight log entry, often aggregated, with no four-signal score
 lifecycle. Only the residue (ambiguous, potentially novel, or potentially actionable) takes the
 **judgment lane** and gets the orientation scoring and the full lifecycle. The lane is stored on the
 observation as `lane` (deterministic or judgment). Scoring is what happens to items that survive the
-filter, not the first thing that happens to every item. This keeps the OS optimized for data handling
+filter, not the first thing that happens to every item. This keeps the brain optimized for data handling
 and routing as well as for OODA, and it is more Boyd-faithful: routine flows through implicit
 guidance, novelty through explicit orientation.
 

@@ -28,7 +28,7 @@ notes: "Short operator note."
 
 ## Summary
 
-One paragraph on who this party is, why the OS needs to track it, and which departments or
+One paragraph on who this party is, why the brain needs to track it, and which departments or
 surfaces materially depend on it.
 
 ## Type and scope

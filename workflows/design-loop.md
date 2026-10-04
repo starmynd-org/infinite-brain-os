@@ -34,7 +34,7 @@ an explicit design before implementation starts.
 
 - a team says “this should be autonomous” but the shape is still fuzzy
 - a promising workflow may deserve recurrence plus feedback
-- a business or personal OS needs a new improvement or standing loop
+- a business or personal brain needs a new improvement or standing loop
 
 ## Inputs
 

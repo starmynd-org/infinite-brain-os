@@ -4,7 +4,7 @@ aliases: ["secret-ref-stable-secret-id", "stable-secret-id"]
 type: "Doc"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "Stable secret reference entry for a runtime-bound credential used by this OS."
+summary: "Stable secret reference entry for a runtime-bound credential used by this brain."
 confidence: 0.9
 retrieval_class: "identity"
 export_class: "internal"

@@ -68,7 +68,7 @@ And two things complete:
 
 6. what the full documentation surface for the tool looks like
 7. what the full meaningful tool-call inventory is, beyond only the recommended shortlist
-8. how the tool fits into the wider OS and what it is allowed to own
+8. how the tool fits into the wider brain and what it is allowed to own
 9. what was actually verified versus only inferred from docs
 
 ## Required outputs
@@ -95,7 +95,7 @@ And two things complete:
    `-tool-contract` suffix when profile visibility helps.
 2. Apply [[skill-build-namespace]] for the structural base and registry posture.
 3. Write `canon/core-contract.md` with the global auth, safety, rate-limit, and error
-   contract plus the tool's system-fit statement: fit class, OS role, ownership boundary,
+   contract plus the tool's system-fit statement: fit class, role in the brain, ownership boundary,
    and exclusions.
 4. Write `operations/INDEX.md` before writing every detailed operation node. The router
    forces a shortlist and prevents the namespace from becoming a bag of unranked endpoints.
