@@ -4,7 +4,7 @@ aliases: ["knowledge-ai-architecture-canon-system-overview", "ai-architecture-sy
 type: "Knowledge"
 namespace: "ai-architecture"
 lifecycle_state: "research"
-summary: "The single read-this-first map of the whole Infinite Brain OS: the entity set, the AI shadow department assembly layer, the root intake, tool, and repo registries, the intake-operations to infinite-brain-ops stewardship loop, what each part is for, how they compose, and how the system is oriented and navigated."
+summary: "The single read-this-first map of the whole Infinite Brain: the entity set, the AI shadow department assembly layer, the root intake, tool, and repo registries, the intake-operations to infinite-brain-ops stewardship loop, what each part is for, how they compose, and how the system is oriented and navigated."
 confidence: 0.93
 retrieval_class: "identity"
 export_class: "internal"
@@ -96,7 +96,7 @@ folder so both a file-reading agent and Obsidian know what it is and where it li
 
 ## The entity set
 
-The OS has a fixed entity set plus a few root operating layers. Each canonical entity type
+The brain has a fixed entity set plus a few root operating layers. Each canonical entity type
 links to its own canon file with the full shape, frontmatter, and governing rules.
 
 Executable entities (canonical in `entities/`, mirrored to `.claude/` and `.codex/`):
@@ -200,7 +200,7 @@ The types are not a flat list. They form layers that hand off to each other:
 - The root `tools/` registry makes execution dependencies explicit so departments, agents,
   and workflows do not have to guess what systems exist. Each serious tool entry should
   also classify the tool's system fit so readers know whether it is architecture-shaping,
-  shared OS infrastructure, client delivery infrastructure, or department-local support.
+  shared infrastructure of the brain, client delivery infrastructure, or department-local support.
 - The root `secrets/` registry makes credential references explicit so tools, surfaces,
   workflows, and future namespace consumers do not invent parallel secret maps or inline
   provider-specific details everywhere.
@@ -222,7 +222,7 @@ explicitly but does not become a new entity.
 
 ## How the system is oriented and navigated
 
-Four disciplines orient every agent that reads the OS.
+Four disciplines orient every agent that reads the brain.
 
 1. **INDEX-and-canon-first load discipline.** An agent answering any namespace question
    loads the namespace `INDEX.md` (the retrieval router, not a folder list) and then its
@@ -239,7 +239,7 @@ Four disciplines orient every agent that reads the OS.
    swarm sprints) is a surface that reads the brain and may own session, queue, and draft
    state, but may never become the only durable home of approved knowledge or mutate canon
    without a visible promotion event. The contract is in [[surface-boundary]].
-   Tool-contract namespaces should restate that boundary in OS-specific terms for the
+   Tool-contract namespaces should restate that boundary in brain-specific terms for the
    surface they cover, including what the surface is and is not allowed to own.
 4. **The planning ladder.** All work hangs off one canonical ladder: `initiative`, then
    `project`, then `task`. Specialized execution layers (workflow, run, swarm sprint, wave)
@@ -274,7 +274,7 @@ the system traces not only "what came in" but "what did the brain become because
 ## Governing rules and doctrine
 
 This overview is the orientation layer over the canon spine. The compressed
-first-principles reasoning is [[core-doctrine]]. The operative contract for the whole OS
+first-principles reasoning is [[core-doctrine]]. The operative contract for the whole brain
 lives in `_system/` (registry, schemas, `validate.sh`); the reasoning for why the split
 exists is [[system-vs-doctrine-boundary]]. The eleven entity types and their routing are
 stated operatively in `CLAUDE.md` and `AGENTS.md`; this overview synthesizes them into one

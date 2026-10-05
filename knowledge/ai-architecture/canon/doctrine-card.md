@@ -171,7 +171,7 @@ secret references (never raw values), `repo-registry/` for cross-repo ownership,
   you need to select namespaces: it maps task classes to namespace load sequences.
 - Load the namespace `INDEX.md` (then its `canon/agent-load-order.md`) for domain work
   inside a chosen namespace; the namespace owns its internal load order.
-- Load [[system-overview]] when the question is what the whole OS is and how to navigate
+- Load [[system-overview]] when the question is what the whole brain is and how to navigate
   it; load the relevant `canon/entities/` file when building or choosing entity type X.
 - Load `_system/canon-layer-schema.md` and `_system/canon-changelog-rules.md` when
   authoring or revising canon; load `_system/swarm-sprint-rules.md` when scaffolding or

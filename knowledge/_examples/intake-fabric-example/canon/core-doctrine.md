@@ -4,7 +4,7 @@ aliases: ["knowledge-intake-fabric-example-canon-core-doctrine", "intake-fabric-
 type: "Knowledge"
 namespace: "intake-fabric-example"
 lifecycle_state: "research"
-summary: "Intake is a root OS layer that captures inbound items, preserves source context, and routes high-signal items into durable knowledge homes. The live fabric lives at repo-root intake/. This knowledge namespace holds only distilled doctrine about why it is structured the way it is."
+summary: "Intake is a root layer of the brain that captures inbound items, preserves source context, and routes high-signal items into durable knowledge homes. The live fabric lives at repo-root intake/. This knowledge namespace holds only distilled doctrine about why it is structured the way it is."
 confidence: 0.88
 retrieval_class: "identity"
 export_class: "internal"

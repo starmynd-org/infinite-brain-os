@@ -53,7 +53,7 @@ created: "2026-05-31"
 ## Read this first
 
 This is the canon for turning a messy human problem or a business workflow into a system
-shaped like the Infinite Brain OS. It is a usable operator procedure, not a theory. Run it
+shaped like the Infinite Brain. It is a usable operator procedure, not a theory. Run it
 when someone hands you a fuzzy goal ("we keep losing track of competitor pricing", "I want
 the brain to draft my weekly board update") and you need to decide what becomes knowledge,
 what becomes a workflow, what becomes an agent, where it lives, and what stops it from

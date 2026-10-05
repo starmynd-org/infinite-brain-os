@@ -25,9 +25,9 @@ first thing an agent reads before making any call. It states the tool's purpose,
 primary operations, the auth mechanism, the error contract, and the non-obvious
 constraints that apply across all operations.
 
-## System fit in the OS (example)
+## System fit in the brain (example)
 
-Every real tool-contract namespace should say how the tool fits into the wider OS, not
+Every real tool-contract namespace should say how the tool fits into the wider brain, not
 just how the upstream API works.
 
 - Fit class: `os-operational-tool` in this example

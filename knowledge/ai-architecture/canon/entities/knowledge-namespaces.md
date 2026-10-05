@@ -45,7 +45,7 @@ boundary larger than a single node, or when a legacy corpus needs structured mig
 not create a namespace when one standalone node is enough, when the source material is too
 fuzzy to define boundaries, or when the inbound material is unprocessed (route it through
 the root `intake/` fabric first). Do not build an Intake Fabric namespace under
-`knowledge/`; intake is a root OS layer.
+`knowledge/`; intake is a root layer of the brain.
 
 ## Required shape
 

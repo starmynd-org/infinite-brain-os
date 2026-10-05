@@ -112,7 +112,7 @@ department is trying to improve and how to judge whether it is working.
 
 ## 9. Cross-repo ownership should be explicit
 
-As the OS expands, many departments will depend on repos outside
+As the brain expands, many departments will depend on repos outside
 `infinite-brain-os`. Those repos should be tracked in a root client workspace and linked
 from the department index. That keeps repo ownership, digestion posture, and migration inputs
 visible instead of buried in chat history.

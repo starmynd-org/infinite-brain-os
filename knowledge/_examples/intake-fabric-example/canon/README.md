@@ -5,8 +5,8 @@ navigational. It is not a knowledge node and does not carry node frontmatter.
 
 ## What canon means here
 
-Canon for an intake-fabric namespace is thin by design. The intake fabric is a root OS
-layer at `intake/`: its operational structure, schemas, and routing rules live there. The
+Canon for an intake-fabric namespace is thin by design. The intake fabric is a root
+layer of the brain at `intake/`: its operational structure, schemas, and routing rules live there. The
 canon in this knowledge namespace holds only the compressed first-principles rationale for
 why intake is structured the way it is, what the three-layer split means, and what
 guarantees the split provides.

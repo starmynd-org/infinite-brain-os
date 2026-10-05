@@ -164,7 +164,7 @@ The same logic applies to software delivery. Cross-cutting GitHub, CI/CD, deploy
 environment, secrets, and observability capabilities usually belong in a shared platform
 department rather than being redefined independently by every domain department.
 
-The same logic also applies to repo sprawl. Once the OS spans many repos, those repos need an
+The same logic also applies to repo sprawl. Once the brain spans many repos, those repos need an
 explicit registry so departments can state which repos they own, consume, or plan to digest.
 Without that registry, cross-repo planning silently collapses back into human memory.
 
@@ -194,7 +194,7 @@ base is what lets one set of review rules, one validator, and one load-order dis
 work across every namespace. Starter and example namespaces may carry a reduced base and
 must say so in their `INDEX.md`.
 
-Namespace-first topology does not mean repo-blind topology. The OS may span several repos, so a
+Namespace-first topology does not mean repo-blind topology. The brain may span several repos, so a
 separate repo-registry layer is justified for cross-repo ownership, purpose, and digestion
 tracking.
 
@@ -282,9 +282,9 @@ migration receipts in `synthesis/`. Open disputes live in `synthesis/`, never in
 This namespace points its live questions to `synthesis/profile-comparison`,
 `synthesis/current-namespace-gap-map`, and `synthesis/x-research-lessons`.
 
-## 8. Intake as a root OS layer: the three-layer split
+## 8. Intake as a root layer of the brain: the three-layer split
 
-Intake is a root OS layer at `intake/`, not an ordinary knowledge namespace. It is the
+Intake is a root layer of the brain at `intake/`, not an ordinary knowledge namespace. It is the
 convergence point for inbound items from X, bookmarks, YouTube, web, repos, email, Slack,
 ideas, and AI-guided deep research, explained in [[intake-fabric-namespace]]. Its
 discipline is the **three-layer split**:
@@ -330,7 +330,7 @@ the raw log opens only on demand for audit or handoff recovery.
 ## 8.5. Tools are a first-class operating registry
 
 Execution dependencies should be explicit. The root `tools/` layer is the operating registry
-for tools the OS depends on: APIs, UI apps, data sources, automation runtimes, MCP servers,
+for tools the brain depends on: APIs, UI apps, data sources, automation runtimes, MCP servers,
 and export adapters. This registry is not a replacement for deeper tool documentation. It is
 the discoverability, ownership, and routing layer over those dependencies.
 
@@ -472,13 +472,13 @@ language.
 This node is the compressed spine. Three canon reads sit directly under it and should be
 loaded next depending on the question:
 
-- [[system-overview]]: the single read-this-first map of the whole OS. It names every
+- [[system-overview]]: the single read-this-first map of the whole brain. It names every
   entity type, shows how they compose, and states the four orienting disciplines (the
   INDEX-and-canon-first load order, the `_system`-versus-doctrine split, the surface
   boundary, the planning ladder). Read it when the question is "what is the system and how
   do I navigate it."
 - [[department-model]]: the compressed doctrine for AI shadow departments. Read it when the
-  question is "how does this OS become a real AI-first department rather than a set of
+  question is "how does this brain become a real AI-first department rather than a set of
   disconnected helpers."
 - The entity-type canon in `canon/entities/`: one file per type ([[skills]], [[agents]],
   [[commands]], [[rules]], [[workflows]], [[deterministic-workflows]], [[workflow-loops]],
@@ -488,7 +488,7 @@ loaded next depending on the question:
   govern it. Read the relevant file when the question is "how do I build or choose type X."
 - [[problem-to-architecture]]: the operator procedure for converting an unstructured
   problem or business workflow into an implementable, AI-architecture-shaped system. Read
-  it when the question is "how do I turn this messy goal into the OS."
+  it when the question is "how do I turn this messy goal into the brain."
 
 ## How these pieces compose
 

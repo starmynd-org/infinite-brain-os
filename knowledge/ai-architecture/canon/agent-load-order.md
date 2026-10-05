@@ -41,7 +41,7 @@ From there the `INDEX.md` query classes and the table below point you to the res
 
 ## Orientation reads
 
-When the question is "what is the whole system" or "how do I turn a problem into the OS,"
+When the question is "what is the whole system" or "how do I turn a problem into the brain,"
 load the orientation canon before the deeper graph:
 
 - **System overview**: load [[system-overview]] after [[core-doctrine]]. It is the single
@@ -58,16 +58,16 @@ load the orientation canon before the deeper graph:
 
 | Query class | Load after core-doctrine |
 |-------------|--------------------------|
-| System overview: what is the whole OS and how is it navigated | [[system-overview]] |
+| System overview: what is the whole brain and how is it navigated | [[system-overview]] |
 | Department architecture: how do I design an AI-first shadow department from a business function | [[department-model]], [[department-assembly-model]], [[ai-shadow-departments]], [[translate-business-function-into-ai-shadow-department]] |
 | Department charter design: what should a department optimize for and how should it measure success | [[department-model]], [[system-overview]], `_system/department-charter-rules.md` |
 | Department stewardship: how should intake-operations and infinite-brain-ops hand work to each other | [[department-model]], [[system-overview]], `workflows/intake-to-brain-ops-handoff.md`, `_system/department-assembly-rules.md` |
 | Shared platform department design: should GitHub and CI/CD be per-department or centralized | [[department-model]], [[system-overview]], [[translate-business-function-into-ai-shadow-department]], `_system/department-assembly-rules.md` |
-| Problem to architecture: how do I turn an unstructured problem or business workflow into the OS | [[problem-to-architecture]], [[system-overview]] |
+| Problem to architecture: how do I turn an unstructured problem or business workflow into the brain | [[problem-to-architecture]], [[system-overview]] |
 | Entity-type design: how do I build or choose entity type X | [[system-overview]], then the relevant file in `canon/entities/` ([[skills]], [[agents]], [[commands]], [[rules]], [[workflows]], [[deterministic-workflows]], [[workflow-loops]], [[knowledge-namespaces]], [[knowledge-nodes]], [[data-nodes]], [[memory-nodes]], [[output-nodes]], [[projects]], [[tools]], [[metrics]]) |
 | Control model: where does truth live, what owns runtime state, what is a surface | [[infinite-brain-control-model]], [[surface-boundary]], [[planning-to-execution-ladder]], [[deterministic-workflow-boundary]] |
 | Operating control additions: what the recent management-system analysis contributed and what to build around autonomy first | `autonomy-readiness-requirements`, `autonomy-architecture-gap-register`, `autonomy-operating-model`, `department-head-runtime`, `operator-priority-and-surfacing-model` |
-| Scorecard, cadence, and accountability: what operating loop the OS still needs above sessions and swarms | `autonomy-readiness-requirements`, `autonomy-architecture-gap-register`, `department-head-runtime`, `human-interaction-membrane`, `operator-priority-and-surfacing-model` |
+| Scorecard, cadence, and accountability: what operating loop the brain still needs above sessions and swarms | `autonomy-readiness-requirements`, `autonomy-architecture-gap-register`, `department-head-runtime`, `human-interaction-membrane`, `operator-priority-and-surfacing-model` |
 | Retrieval and canon design: how is the graph read, what is canon, what is synthesis | [[retrieval-over-raw-memory]], [[canon-layer]], [[what-canon-means]], [[internal-index-vs-public-llm-index]] |
 | Runtime versus canon boundary: what stays in git, what stays in the app | [[surface-boundary]], [[intake-fabric-namespace]], [[deterministic-workflow-boundary]] |
 | Session runtime and transcript capture: how chats are registered, logged, and closed out | [[session-ledger-root-layer]], [[open-and-close-ai-session]], [[session-transcript-posture]], [[surface-boundary]] |
